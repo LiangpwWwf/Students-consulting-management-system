@@ -184,7 +184,7 @@ public class MyTopTabView extends View {
                 animationSet.setFillBefore(true);
                 animationSet.setFillAfter(true);
                 animationSet.setDuration(300);
-
+                mHorizontalScrollView.scrollTo((int) rb.getLeft() - (int) getResources().getDimension(R.dimen.rdo2), 0);
                 mImageView.startAnimation(animationSet);//开始上面蓝色横条图片的动画切换
 
             }

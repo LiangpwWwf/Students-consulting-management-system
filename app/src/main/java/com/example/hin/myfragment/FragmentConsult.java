@@ -23,6 +23,7 @@ public class FragmentConsult extends Fragment {
     private View view;
     private ImageView suosou;
     private MyTopTabView myTopTabView;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,9 +41,7 @@ public class FragmentConsult extends Fragment {
                 startActivity(intent);
             }
         });
-        if(myTopTabView==null){
-            myTopTabView=new MyTopTabView(getContext());
-        }
+        myTopTabView = new MyTopTabView(getContext());
         myTopTabView.init(savedInstanceState, view, 1);
         return view;
     }

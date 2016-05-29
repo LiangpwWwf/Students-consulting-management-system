@@ -9,7 +9,7 @@
             <!-- 边框颜色 -->
             <solid android:color="#FFFCFCFC" />
             <!-- 填充色 -->
-            <corners android:radius="4dp" />
+            <corners android:radius="0dp" />
         </shape>
     </item>
 
