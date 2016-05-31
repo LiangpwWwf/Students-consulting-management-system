@@ -3,29 +3,69 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
+    android:background="@drawable/editext_bg"
     android:paddingLeft="10dp"
     android:paddingRight="10dp">
 
     <ImageView
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_marginRight="10dp"
+        android:id="@+id/iv_head"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_margin="10dp"
+        android:padding="3dp"
         android:src="@drawable/teacher" />
 
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp">
 
-        <TextView
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="数学分析Cauchy准则怎么证明？" />
+            android:orientation="horizontal">
 
-        <TextView
-            android:layout_width="wrap_content"
+            <TextView
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="专家姓名："
+                android:textColor="#282929"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/tv_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="老黄"
+                android:textColor="#777878"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="2015年12月10日 " />
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="研究领域："
+                android:textColor="#282929"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/tv_field"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="数学"
+                android:textColor="#777878"
+                android:textSize="12sp" />
+        </LinearLayout>
     </LinearLayout>
+
+
 </LinearLayout>

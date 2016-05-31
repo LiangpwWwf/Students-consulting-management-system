@@ -21,7 +21,7 @@ public class FragmentConsult extends Fragment {
 
 
     private View view;
-    private ImageView suosou;
+    private ImageView search;
     private MyTopTabView myTopTabView;
 
     @Override
@@ -33,12 +33,12 @@ public class FragmentConsult extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = LayoutInflater.from(getActivity()).inflate(R.layout.myfragment_topcontent, null);
-        suosou = (ImageView) view.findViewById(R.id.sousuo);
-        suosou.setOnClickListener(new View.OnClickListener() {
+        search = (ImageView) view.findViewById(R.id.iv_search);
+        search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), SearchActivity.class);
-                startActivity(intent);
+                startActivityForResult(intent,0);
             }
         });
         myTopTabView = new MyTopTabView(getContext());
@@ -49,7 +49,7 @@ public class FragmentConsult extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-        myTopTabView.initImage(LayoutInflater.from(getActivity()).inflate(R.layout.myfragment_topcontent, null));
+      //  myTopTabView.initImage(LayoutInflater.from(getActivity()).inflate(R.layout.myfragment_topcontent, null));
     }
 
     @Override

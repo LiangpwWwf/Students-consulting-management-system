@@ -18,7 +18,7 @@ import com.example.hin.system.SearchActivity;
 public class FragmentMy extends Fragment {
 
     private View view;
-    private ImageView suosou;
+    private ImageView iv_search;
     private MyTopTabView myTopTabView;
 
     @Override
@@ -30,12 +30,12 @@ public class FragmentMy extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = LayoutInflater.from(getActivity()).inflate(R.layout.myfragment_my, null);
-        suosou = (ImageView) view.findViewById(R.id.sousuo);
-        suosou.setOnClickListener(new View.OnClickListener() {
+        iv_search = (ImageView) view.findViewById(R.id.iv_search);
+        iv_search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), SearchActivity.class);
-                startActivity(intent);
+                startActivityForResult(intent,0);
             }
         });
         return view;

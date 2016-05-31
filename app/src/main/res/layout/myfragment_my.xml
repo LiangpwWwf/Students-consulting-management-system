@@ -2,13 +2,14 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#CCCCFF"
+    android:background="#ecedf1"
     android:orientation="vertical">
 
 
-    <include layout="@layout/consult_title" />
+    <include layout="@layout/title" />
 
     <LinearLayout
+        android:layout_marginTop="15dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/editext_bg"
@@ -19,12 +20,13 @@
             android:layout_height="80dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:padding="10dp"
-            android:src="@drawable/touxiang" />
+            android:padding="15dp"
+            android:src="@drawable/course_con" />
 
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
             android:layout_weight="1">
 
             <LinearLayout
@@ -38,7 +40,7 @@
                     android:layout_gravity="top"
                     android:padding="3dp"
                     android:text="黄小婷"
-                    android:textSize="30sp" />
+                    android:textSize="17sp" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -46,7 +48,7 @@
                     android:gravity="bottom"
                     android:padding="3dp"
                     android:text="123123123"
-                    android:textSize="20sp" />
+                    android:textSize="10sp" />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
@@ -55,7 +57,7 @@
 
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="15dp"
         android:background="@drawable/editext_bg"
         android:gravity="center_vertical">
 
@@ -65,13 +67,13 @@
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:padding="10dp"
-            android:src="@drawable/zixun" />
+            android:src="@drawable/profile_consult" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="我的咨询"
-            android:textSize="25sp" />
+            android:textSize="15sp" />
     </LinearLayout>
 
     <LinearLayout
@@ -87,20 +89,20 @@
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:padding="10dp"
-            android:src="@drawable/caogaoxiang" />
+            android:src="@drawable/profile_drafts" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="草稿箱"
-            android:textSize="25sp" />
+            android:textSize="15sp" />
     </LinearLayout>
 
     <LinearLayout
 
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="15dp"
         android:background="@drawable/editext_bg"
         android:gravity="center_vertical">
 
@@ -110,13 +112,13 @@
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:padding="10dp"
-            android:src="@drawable/setting" />
+            android:src="@drawable/profile_collect" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="我的收藏"
-            android:textSize="25sp" />
+            android:textSize="15sp" />
     </LinearLayout>
 
     <LinearLayout
@@ -132,13 +134,13 @@
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
             android:padding="10dp"
-            android:src="@drawable/sezhi" />
+            android:src="@drawable/profile_setting" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="设置"
-            android:textSize="25sp" />
+            android:textSize="15sp" />
     </LinearLayout>
 
 

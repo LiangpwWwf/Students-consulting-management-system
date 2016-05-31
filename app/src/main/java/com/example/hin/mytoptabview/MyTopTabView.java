@@ -126,7 +126,7 @@ public class MyTopTabView extends View {
             radio.setLayoutParams(l);
             radio.setGravity(Gravity.CENTER);
             radio.setPadding(20, 15, 20, 15);
-            //radio.setPadding(left, top, right, bottom)
+            //radio_selector_teacher.setPadding(left, top, right, bottom)
             radio.setId(_id + i);
             radio.setText(map.get("title") + "");
             radio.setTextColor(Color.WHITE);
@@ -146,7 +146,7 @@ public class MyTopTabView extends View {
                 int radioButtonId = group.getCheckedRadioButtonId();
                 //根据ID获取RadioButton的实例
                 RadioButton rb = (RadioButton) view.findViewById(radioButtonId);
-              //  Map<String, Object> selectMap = (Map<String, Object>) rb.getTag();
+                //  Map<String, Object> selectMap = (Map<String, Object>) rb.getTag();
 
                 AnimationSet animationSet = new AnimationSet(true);
                 TranslateAnimation translateAnimation;
@@ -160,6 +160,7 @@ public class MyTopTabView extends View {
                 mViewPager.setCurrentItem(radioButtonId - _id);//让下方ViewPager跟随上面的HorizontalScrollView切换
                 mCurrentCheckedRadioLeft = rb.getLeft();//更新当前蓝色横条距离左边的距离
                 Log.d("mCurrent", String.valueOf(mCurrentCheckedRadioLeft));
+
                 mHorizontalScrollView.smoothScrollTo((int) mCurrentCheckedRadioLeft - (int) getResources().getDimension(R.dimen.rdo2), 0);
                 mImageView.setLayoutParams(new LinearLayout.LayoutParams(rb.getRight() - rb.getLeft(), 4));
 
@@ -173,8 +174,8 @@ public class MyTopTabView extends View {
         int radioButtonId = myRadioGroup.getCheckedRadioButtonId();
         Log.d("getCheckedRadioButtonId", String.valueOf(radioButtonId));
         rb = (RadioButton) view.findViewById(radioButtonId);
-        rb.post(new Runnable(){
-            public void run(){
+        rb.post(new Runnable() {
+            public void run() {
                 Log.d("TAG", rb.getLeft() + "," + rb.getRight());
                 mImageView.setLayoutParams(new LinearLayout.LayoutParams(rb.getRight() - rb.getLeft(), 4));
                 AnimationSet animationSet = new AnimationSet(true);
@@ -184,8 +185,9 @@ public class MyTopTabView extends View {
                 animationSet.setFillBefore(true);
                 animationSet.setFillAfter(true);
                 animationSet.setDuration(300);
-                mHorizontalScrollView.scrollTo((int) rb.getLeft() - (int) getResources().getDimension(R.dimen.rdo2), 0);
                 mImageView.startAnimation(animationSet);//开始上面蓝色横条图片的动画切换
+                mHorizontalScrollView.scrollTo((int) rb.getLeft() - (int) getResources().getDimension(R.dimen.rdo2), 0);
+
 
             }
         });

@@ -9,7 +9,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true">
 
-        <include layout="@layout/consult_title" />
+        <include layout="@layout/title" />
     </LinearLayout>
 
     <LinearLayout
@@ -18,7 +18,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/consult_title">
 
-        <include layout="@layout/consult_classify" />
+        <include layout="@layout/classify" />
     </LinearLayout>
 
     <LinearLayout
@@ -27,7 +27,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/consult_classify">
 
-        <include layout="@layout/experts_common_question" />
+        <include layout="@layout/common_question" />
     </LinearLayout>
 
 </RelativeLayout>

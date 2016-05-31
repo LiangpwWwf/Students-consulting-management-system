@@ -2,43 +2,76 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-   >
+    android:orientation="vertical">
+
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:background="#CCCCFF"
+        android:layout_height="50dp"
+        android:background="#33b5e5"
         android:gravity="center_vertical"
         android:paddingLeft="10dp"
         android:paddingRight="10dp">
 
         <ImageView
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:src="@drawable/sousuo"/>
+            android:id="@+id/iv_back"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:padding="5dp"
+            android:src="@drawable/back" />
+
         <EditText
+            android:hint="输入你想搜索的内容"
             android:layout_width="0dp"
             android:layout_height="30dp"
-            android:layout_weight="1"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:background="#ffffff"/>
+            android:textSize="15sp"
+            android:layout_weight="1"
+            android:background="#ffffff" />
+
+        <ImageView
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:padding="5dp"
+            android:src="@drawable/search" />
+
     </LinearLayout>
-    <LinearLayout
+
+    <RadioGroup
+        android:id="@+id/rg_class"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp">
-        <Button
+        android:orientation="horizontal"
+        android:layout_margin="10dp">
+
+        <RadioButton
+            android:id="@+id/rtbn_topic"
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:text="话题"/>
-        <Button
+            android:layout_weight="1"
+            android:background="@drawable/radio_selector_topic_expert"
+            android:button="@null"
+            android:gravity="center_horizontal"
+            android:text="话题"
+            android:textColor="@drawable/radio_selector_tv_color"
+            android:padding="5dp"
+            android:checked="true"
+            android:layout_marginRight="3dp"
+            android:textSize="20sp" />
+
+        <RadioButton
+            android:id="@+id/rtbn_expert"
             android:layout_width="0dp"
-            android:layout_weight="1"
             android:layout_height="wrap_content"
-            android:text="专家"/>
-    </LinearLayout>
+            android:layout_weight="1"
+            android:background="@drawable/radio_selector_topic_expert"
+            android:button="@null"
+            android:gravity="center_horizontal"
+            android:textColor="@drawable/radio_selector_tv_color"
+            android:text="专家"
+            android:layout_marginLeft="3dp"
+            android:padding="5dp"
+            android:textSize="20sp" />
+    </RadioGroup>
 
 </LinearLayout>
