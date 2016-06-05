@@ -1,8 +1,6 @@
 package com.example.hin.system;
 
-import android.app.Activity;
-
-import com.example.hin.myadapter.MyPagerAdapter;
+import com.example.hin.finshActivity.CloseActivityClass;
 import com.example.hin.myfragment.FragmentConsult;
 import com.example.hin.myfragment.FragmentExperts;
 import com.example.hin.myfragment.FragmentMy;
@@ -10,9 +8,9 @@ import com.example.hin.myfragment.FragmentMy;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
-import android.util.Log;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 
 /**
  * Created by Hin on 2016/5/16.
@@ -20,18 +18,19 @@ import android.widget.RadioGroup;
 public class MainActivity extends FragmentActivity {
 
 
-
     private RadioGroup myTabRg;
     private FragmentConsult fragmentConsult;
     private FragmentExperts fragmentExperts;
     private FragmentMy fragmentMy;
-    private RadioButton expertDatabase,consult,my;
+    private RadioButton expertDatabase, consult, my;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        fragmentConsult =new FragmentConsult();
+        //用于退出程序
+        CloseActivityClass.activityList.add(this);
+        fragmentConsult = new FragmentConsult();
         getSupportFragmentManager().beginTransaction().replace(R.id.main_content, fragmentConsult).commit();
         myTabRg = (RadioGroup) findViewById(R.id.tab_menu);
         myTabRg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -39,16 +38,16 @@ public class MainActivity extends FragmentActivity {
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 switch (checkedId) {
                     case R.id.expertDatabase:
-                            fragmentExperts =new FragmentExperts();
+                        fragmentExperts = new FragmentExperts();
                         getSupportFragmentManager().beginTransaction().replace(R.id.main_content, fragmentExperts)
                                 .commit();
                         break;
                     case R.id.consult:
-                        fragmentConsult =new FragmentConsult();
+                        fragmentConsult = new FragmentConsult();
                         getSupportFragmentManager().beginTransaction().replace(R.id.main_content, fragmentConsult).commit();
                         break;
                     case R.id.my:
-                            fragmentMy =new FragmentMy();
+                        fragmentMy = new FragmentMy();
                         getSupportFragmentManager().beginTransaction().replace(R.id.main_content, fragmentMy).commit();
                         break;
                     default:
@@ -57,12 +56,14 @@ public class MainActivity extends FragmentActivity {
             }
         });
 
-        expertDatabase=(RadioButton)findViewById(R.id.expertDatabase);
-        consult=(RadioButton)findViewById(R.id.consult);
-        my=(RadioButton)findViewById(R.id.my);
+        expertDatabase = (RadioButton) findViewById(R.id.expertDatabase);
+        consult = (RadioButton) findViewById(R.id.consult);
+        my = (RadioButton) findViewById(R.id.my);
         setDrawableSize(expertDatabase);
         setDrawableSize(consult);
         setDrawableSize(my);
+
+
 
 
     }

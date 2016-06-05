@@ -3,9 +3,12 @@ package com.example.hin.system;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.example.hin.finshActivity.CloseActivityClass;
 import com.example.hin.myadapter.ConsultCommonQuestionAdapter;
 import com.example.hin.myadapter.ExpertCommonQuestionAdapter;
 
@@ -26,7 +29,10 @@ public class ExpertsCommonQuestionActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.common_question);
+        //用于退出程序
+        CloseActivityClass.activityList.add(this);
         iniView();
+        iniListener();
 
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
@@ -38,6 +44,16 @@ public class ExpertsCommonQuestionActivity extends Activity {
 
     public void iniView() {
         lv_commomquestion = (ListView) findViewById(R.id.lv_commomquestion);
+
+    }
+    public void iniListener(){
+        lv_commomquestion.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(ExpertsCommonQuestionActivity.this, ExpertsActivity.class);
+                startActivityForResult(intent, 0);
+            }
+        });
 
     }
 

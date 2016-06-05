@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#ecedf1"
@@ -9,19 +10,22 @@
     <include layout="@layout/title" />
 
     <LinearLayout
-        android:layout_marginTop="15dp"
+        android:id="@+id/ll_people_message"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/editext_bg"
+        android:layout_marginTop="15dp"
+        android:background="@drawable/item_selector_bg"
         android:orientation="horizontal">
 
-        <ImageView
-            android:layout_width="80dp"
-            android:layout_height="80dp"
+        <com.example.hin.circleImageView.CircleImageView
+            android:layout_width="70dp"
+            android:layout_height="70dp"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="10dp"
-            android:padding="15dp"
-            android:src="@drawable/course_con" />
+            android:layout_margin="10dp"
+            android:src="@drawable/teacher"
+            app:border_color="#ffffff"
+            app:border_width="2dp" ></com.example.hin.circleImageView.CircleImageView>
 
         <LinearLayout
             android:layout_width="0dp"
@@ -32,21 +36,22 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
                 android:orientation="vertical">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="top"
-                    android:padding="3dp"
+                    android:padding="5dp"
                     android:text="黄小婷"
                     android:textSize="17sp" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="bottom"
-                    android:padding="3dp"
+                    android:layout_gravity="bottom"
+                    android:padding="5dp"
                     android:text="123123123"
                     android:textSize="10sp" />
             </LinearLayout>
@@ -55,10 +60,11 @@
 
     <LinearLayout
 
+        android:id="@+id/ll_myconsult"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
-        android:background="@drawable/editext_bg"
+        android:background="@drawable/item_selector_bg"
         android:gravity="center_vertical">
 
         <ImageView
@@ -78,9 +84,10 @@
 
     <LinearLayout
 
+        android:id="@+id/ll_drafts"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/editext_bg"
+        android:background="@drawable/item_selector_bg"
         android:gravity="center_vertical">
 
         <ImageView
@@ -100,10 +107,11 @@
 
     <LinearLayout
 
+        android:id="@+id/ll_collect"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
-        android:background="@drawable/editext_bg"
+        android:background="@drawable/item_selector_bg"
         android:gravity="center_vertical">
 
         <ImageView
@@ -123,9 +131,10 @@
 
     <LinearLayout
 
+        android:id="@+id/ll_set"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/editext_bg"
+        android:background="@drawable/item_selector_bg"
         android:gravity="center_vertical">
 
         <ImageView

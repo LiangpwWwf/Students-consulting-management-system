@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ListView;
 
+import com.example.hin.finshActivity.CloseActivityClass;
 import com.example.hin.myadapter.ConsultCommonQuestionAdapter;
 
 import java.util.ArrayList;
@@ -28,6 +29,8 @@ public class ConsultCommonQuestionActivity extends Activity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.common_question);
+        //用于退出程序
+        CloseActivityClass.activityList.add(this);
 
         iniView();
 

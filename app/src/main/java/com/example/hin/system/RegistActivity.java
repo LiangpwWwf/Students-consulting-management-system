@@ -12,6 +12,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
 
+import com.example.hin.finshActivity.CloseActivityClass;
+
 public class RegistActivity extends Activity {
 
     private Button Regist;
@@ -19,6 +21,8 @@ public class RegistActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_regist);
+        //用于退出程序
+        CloseActivityClass.activityList.add(this);
         Regist=(Button)findViewById(R.id.Regist);
         Regist.setOnClickListener(new View.OnClickListener() {
             @Override

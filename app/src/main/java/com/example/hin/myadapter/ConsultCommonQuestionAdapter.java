@@ -67,7 +67,7 @@ public class ConsultCommonQuestionAdapter extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
         //设置视图
-        holder.iv_head.setBackgroundResource(R.drawable.teacher);
+        holder.iv_head.setImageResource(R.drawable.head);
         holder.tv_title.setText(mData.get(position).get("tv_title").toString());
         holder.tv_date.setText(mData.get(position).get("tv_date").toString());
 

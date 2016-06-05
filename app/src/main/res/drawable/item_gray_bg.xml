@@ -7,7 +7,7 @@
                 android:width="1px"
                 android:color="#E0E0E0" />
             <!-- 边框颜色 -->
-            <solid android:color="#FFFCFC" />
+            <solid android:color="#c5c7c5" />
             <!-- 填充色 -->
             <corners android:radius="0dp" />
         </shape>

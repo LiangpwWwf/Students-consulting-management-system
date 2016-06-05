@@ -64,7 +64,7 @@ import java.util.HashMap;
             holder=(ViewHolder)convertView.getTag();
         }
         //设置视图
-        holder.iv_head.setBackgroundResource(R.drawable.teacher);
+        holder.iv_head.setImageResource(R.drawable.head);
         holder.tv_name.setText(mData.get(position).get("tv_name").toString());
         holder.tv_field.setText(mData.get(position).get("tv_field").toString());
 
