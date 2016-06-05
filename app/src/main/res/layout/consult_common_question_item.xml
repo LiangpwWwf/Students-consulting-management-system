@@ -5,7 +5,8 @@
     android:gravity="center"
     android:background="@drawable/editext_bg"
     android:paddingLeft="10dp"
-    android:paddingRight="10dp">
+    android:paddingRight="10dp"
+    android:id="@+id/item_question">
 
     <ImageView
         android:id="@+id/iv_head"

@@ -152,7 +152,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="标题"
+                    android:text="咨询内容"
                     android:layout_marginTop="8dp"
                     android:textSize="20dp"
                     android:textColor="#000"/>
