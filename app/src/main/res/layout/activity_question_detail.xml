@@ -27,6 +27,7 @@
     </RelativeLayout>
 
     <ScrollView
+        android:id="@+id/scroll_detail"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#fff"
@@ -260,7 +261,7 @@
                 android:layout_height="16dp"
                 android:background="#cfcfcf" />
 
-            <ListView
+            <com.example.hin.ui.widget.ListViewForScrollView
                 android:id="@+id/lv_comment"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />
