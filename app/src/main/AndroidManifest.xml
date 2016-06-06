@@ -47,6 +47,10 @@
         <activity
             android:name=".SetActivity"
             android:theme="@style/AppTheme.NoActionBar"></activity>
+
+        <activity
+            android:name="com.example.hin.ui.activity.ConsultActivity"
+            android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>
