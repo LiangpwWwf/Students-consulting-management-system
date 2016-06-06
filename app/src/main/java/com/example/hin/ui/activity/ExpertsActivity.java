@@ -2,6 +2,7 @@ package com.example.hin.ui.activity;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -16,7 +17,7 @@ public class ExpertsActivity extends Activity implements View.OnClickListener {
 
     private ImageView iv_back;
     private RelativeLayout rl_achievement;
-    private TextView tv_achievement;
+    private TextView tv_achievement,tv_consult;
     private Button Regist;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,12 +34,14 @@ public class ExpertsActivity extends Activity implements View.OnClickListener {
         iv_back = (ImageView) findViewById(R.id.iv_back);
         rl_achievement=(RelativeLayout)findViewById(R.id.rl_achievement);
         tv_achievement=(TextView)findViewById(R.id.tv_achievement);
+        tv_consult=(TextView)findViewById(R.id.tv_consult);
 
     }
     //监听事件
     public void iniListener() {
 
         iv_back.setOnClickListener(this);
+        tv_consult.setOnClickListener(this);
         rl_achievement.setOnClickListener(this);
     }
 
@@ -53,6 +56,8 @@ public class ExpertsActivity extends Activity implements View.OnClickListener {
                         new String[] { "Item1", "Item2","Item1", "Item2" }, null).setNegativeButton(
                         "确定", null).show();
                 break;
+            case R.id.tv_consult:
+                startActivityForResult(new Intent(ExpertsActivity.this,ConsultActivity.class),0);
             default:
                 break;
         }
