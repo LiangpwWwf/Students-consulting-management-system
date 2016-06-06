@@ -1,7 +1,6 @@
-package com.example.hin.system;
+package com.example.hin.ui.activity;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -13,6 +12,7 @@ import android.widget.RadioGroup;
 import com.example.hin.finshActivity.CloseActivityClass;
 import com.example.hin.myadapter.ConsultCommonQuestionAdapter;
 import com.example.hin.myadapter.ExpertCommonQuestionAdapter;
+import com.example.hin.system.R;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -27,10 +27,9 @@ public class MyconsultActivity extends Activity implements View.OnClickListener 
     private RadioButton rbtn_consult, rbtn_reply;
     private ListView lv_content;
 
-    private ArrayList<HashMap<String, Object>> topicList, expertList;
-    private HashMap<String, Object> topicQuestion, expertQuestion;
-    private ConsultCommonQuestionAdapter consultCommonQuestionAdapter;
-    private ExpertCommonQuestionAdapter expertCommonQuestionAdapter;
+    private ArrayList<HashMap<String, Object>> consultingList, replyList;
+    private HashMap<String, Object> consultingQuestion, replyQuestion;
+    private ConsultCommonQuestionAdapter consultCommonQuestionAdapter, replyCommonQuestionAdapter;
 
 
     @Override
@@ -49,21 +48,21 @@ public class MyconsultActivity extends Activity implements View.OnClickListener 
     //初始化数据，主要是adapter数据的初始化
     public void init() {
 
-        topicList = new ArrayList<HashMap<String, Object>>();
-        topicQuestion = new HashMap<String, Object>();
-        expertList = new ArrayList<HashMap<String, Object>>();
-        expertQuestion = new HashMap<String, Object>();
+        consultingList = new ArrayList<HashMap<String, Object>>();
+        consultingQuestion = new HashMap<String, Object>();
+        replyList = new ArrayList<HashMap<String, Object>>();
+        replyQuestion = new HashMap<String, Object>();
 
-        topicQuestion.put("tv_title", "数学分析Cauchy准则怎么证明？");
-        topicQuestion.put("tv_date", "2015年12月10日");
-        topicList.add(topicQuestion);
+        consultingQuestion.put("tv_title", "数学分析Cauchy准则怎么证明？");
+        consultingQuestion.put("tv_date", "2015年12月10日");
+        consultingList.add(consultingQuestion);
 
-        expertQuestion.put("tv_name", "小纯");
-        expertQuestion.put("tv_field", "数学");
-        expertList.add(expertQuestion);
+        replyQuestion.put("tv_title", "你猜我想问什么");
+        replyQuestion.put("tv_date", "2015年12月10日");
+        replyList.add(replyQuestion);
 
-        consultCommonQuestionAdapter = new ConsultCommonQuestionAdapter(MyconsultActivity.this, topicList);
-        expertCommonQuestionAdapter = new ExpertCommonQuestionAdapter(MyconsultActivity.this, expertList);
+        consultCommonQuestionAdapter = new ConsultCommonQuestionAdapter(MyconsultActivity.this, consultingList);
+        replyCommonQuestionAdapter = new ConsultCommonQuestionAdapter(MyconsultActivity.this, replyList);
 
         lv_content.setAdapter(consultCommonQuestionAdapter);
     }
@@ -89,22 +88,10 @@ public class MyconsultActivity extends Activity implements View.OnClickListener 
                         lv_content.setAdapter(consultCommonQuestionAdapter);
                         break;
                     case R.id.rbtn_reply:
-                        lv_content.setAdapter(expertCommonQuestionAdapter);
+                        lv_content.setAdapter(replyCommonQuestionAdapter);
                         break;
                     default:
                         break;
-                }
-            }
-        });
-        lv_content.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                int rbtn_check_id = rg_class.getCheckedRadioButtonId();
-                if (rbtn_check_id == R.id.rtbn_expert) {
-
-                }
-                else {
-
                 }
             }
         });

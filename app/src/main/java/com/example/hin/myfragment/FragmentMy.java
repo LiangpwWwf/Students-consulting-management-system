@@ -1,7 +1,5 @@
 package com.example.hin.myfragment;
 
-import android.app.Activity;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -11,13 +9,11 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
-import com.example.hin.mytoptabview.MyTopTabView;
-import com.example.hin.system.DraftsCollectActivity;
-import com.example.hin.system.MyconsultActivity;
-import com.example.hin.system.MymessageActivity;
+import com.example.hin.ui.activity.DraftsCollectActivity;
+import com.example.hin.ui.activity.MyconsultActivity;
+import com.example.hin.ui.activity.MymessageActivity;
 import com.example.hin.system.R;
-import com.example.hin.system.SearchActivity;
-import com.example.hin.system.SetActivity;
+import com.example.hin.ui.activity.SetActivity;
 
 /**
  * Created by Hin on 2016/5/25.
@@ -45,7 +41,6 @@ public class FragmentMy extends Fragment implements View.OnClickListener {
 
     public void iniView() {
         view = LayoutInflater.from(getActivity()).inflate(R.layout.myfragment_my, null);
-        iv_search = (ImageView) view.findViewById(R.id.iv_search);
         ll_people_message=(LinearLayout)view.findViewById(R.id.ll_people_message);
         ll_myconsult=(LinearLayout)view.findViewById(R.id.ll_myconsult);
         ll_drafts=(LinearLayout)view.findViewById(R.id.ll_drafts);
@@ -54,7 +49,7 @@ public class FragmentMy extends Fragment implements View.OnClickListener {
     }
 
     public void iniListener() {
-        iv_search.setOnClickListener(this);
+
         ll_people_message.setOnClickListener(this);
         ll_myconsult.setOnClickListener(this);
         ll_drafts.setOnClickListener(this);
@@ -66,10 +61,6 @@ public class FragmentMy extends Fragment implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.iv_search:
-                Intent Searchintent = new Intent(getActivity(), SearchActivity.class);
-                startActivityForResult(Searchintent, 0);
-                break;
             case R.id.ll_people_message:
                 Intent Mymessageintent = new Intent(getActivity(), MymessageActivity.class);
                 startActivityForResult(Mymessageintent, 0);

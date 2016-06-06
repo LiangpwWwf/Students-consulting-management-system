@@ -8,9 +8,10 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:gravity="center_vertical"
-        android:background="#1484cf">
+        android:background="#33b5e5">
 
         <ImageView
+            android:id="@+id/iv_back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@mipmap/btn_back"
@@ -152,7 +153,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="标题"
+                    android:text="咨询内容"
                     android:layout_marginTop="8dp"
                     android:textSize="20dp"
                     android:textColor="#000"/>

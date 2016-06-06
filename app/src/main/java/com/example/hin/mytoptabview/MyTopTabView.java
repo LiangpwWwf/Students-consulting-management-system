@@ -11,7 +11,6 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewTreeObserver;
 import android.view.animation.AnimationSet;
 import android.view.animation.TranslateAnimation;
 import android.widget.HorizontalScrollView;
@@ -22,8 +21,8 @@ import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.example.hin.myadapter.MyPagerAdapter;
-import com.example.hin.system.ExpertsCommonQuestionActivity;
-import com.example.hin.system.ConsultCommonQuestionActivity;
+import com.example.hin.ui.activity.ExpertsCommonQuestionActivity;
+import com.example.hin.ui.activity.ConsultCommonQuestionActivity;
 import com.example.hin.system.R;
 
 import java.util.ArrayList;

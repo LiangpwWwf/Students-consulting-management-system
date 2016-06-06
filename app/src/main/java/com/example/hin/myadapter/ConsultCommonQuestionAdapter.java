@@ -5,6 +5,7 @@ package com.example.hin.myadapter;
  */
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Parcelable;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -16,6 +17,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.hin.system.R;
+import com.example.hin.ui.activity.QuestionDetailActivity;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -26,11 +28,13 @@ import java.util.List;
  */
 public class ConsultCommonQuestionAdapter extends BaseAdapter {
 
+    private Context context;
     private ArrayList<HashMap<String, Object>> mData;
     private LayoutInflater mInflater;
 
 
     public ConsultCommonQuestionAdapter(Context context, ArrayList<HashMap<String, Object>> data) {
+        this.context=context;
         this.mData = data;
         mInflater = LayoutInflater.from(context);
     }
@@ -58,6 +62,12 @@ public class ConsultCommonQuestionAdapter extends BaseAdapter {
         if (convertView == null) {
             holder = new ViewHolder();
             convertView = mInflater.inflate(R.layout.consult_common_question_item, null);
+            convertView.findViewById(R.id.item_question).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    context.startActivity(new Intent(context, QuestionDetailActivity.class));
+                }
+            });
             holder.iv_head = (ImageView) convertView.findViewById(R.id.iv_head);
             holder.tv_title = (TextView) convertView.findViewById(R.id.tv_title);
             holder.tv_date = (TextView) convertView.findViewById(R.id.tv_date);

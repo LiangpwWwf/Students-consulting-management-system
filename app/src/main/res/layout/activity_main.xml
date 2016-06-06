@@ -4,7 +4,14 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <LinearLayout
+        android:id="@+id/consult_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true">
 
+        <include layout="@layout/title" />
+    </LinearLayout>
     <FrameLayout
         android:id="@+id/main_content"
         android:layout_width="match_parent"

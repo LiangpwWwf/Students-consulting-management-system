@@ -1,20 +1,14 @@
-package com.example.hin.system;
+package com.example.hin.ui.activity;
 
 import android.app.Activity;
-import android.app.ActivityManager;
 import android.app.AlertDialog;
-import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListView;
-import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.SlidingDrawer;
@@ -22,6 +16,7 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 
 import com.example.hin.finshActivity.CloseActivityClass;
+import com.example.hin.system.R;
 
 /**
  * Created by Hin on 2016/6/1.

@@ -11,7 +11,7 @@
         android:theme="@style/AppTheme">
 
         <activity
-            android:name=".RegistActivity"
+            android:name="com.example.hin.ui.activity.RegistActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -20,37 +20,43 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".MainActivity"
+            android:name="com.example.hin.ui.activity.MainActivity"
             android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
-            android:name=".SearchActivity"
+            android:name="com.example.hin.ui.activity.SearchActivity"
             android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
-            android:name=".ExpertsCommonQuestionActivity"
+            android:name="com.example.hin.ui.activity.ExpertsCommonQuestionActivity"
             android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
-            android:name=".ConsultCommonQuestionActivity"
+            android:name="com.example.hin.ui.activity.ConsultCommonQuestionActivity"
+
             android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
-            android:name=".ExpertsActivity"
+            android:name="com.example.hin.ui.activity.ExpertsActivity"
             android:theme="@style/AppTheme.NoActionBar"></activity>
 
         <activity
-            android:name=".MymessageActivity"
+            android:name="com.example.hin.ui.activity.MymessageActivity"
             android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
-            android:name=".MyconsultActivity"
+            android:name="com.example.hin.ui.activity.MyconsultActivity"
             android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
-            android:name=".DraftsCollectActivity"
+            android:name="com.example.hin.ui.activity.DraftsCollectActivity"
             android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity
-            android:name=".SetActivity"
+            android:name="com.example.hin.ui.activity.SetActivity"
             android:theme="@style/AppTheme.NoActionBar"></activity>
 
         <activity
             android:name="com.example.hin.ui.activity.ConsultActivity"
             android:screenOrientation="portrait"></activity>
+
+        <activity
+            android:name="com.example.hin.ui.activity.QuestionDetailActivity"
+            android:screenOrientation="portrait" ></activity>
+
     </application>
 
 </manifest>

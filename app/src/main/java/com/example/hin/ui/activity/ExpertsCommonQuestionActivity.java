@@ -1,4 +1,4 @@
-package com.example.hin.system;
+package com.example.hin.ui.activity;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -6,11 +6,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import com.example.hin.finshActivity.CloseActivityClass;
-import com.example.hin.myadapter.ConsultCommonQuestionAdapter;
 import com.example.hin.myadapter.ExpertCommonQuestionAdapter;
+import com.example.hin.system.R;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -47,13 +46,6 @@ public class ExpertsCommonQuestionActivity extends Activity {
 
     }
     public void iniListener(){
-        lv_commomquestion.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(ExpertsCommonQuestionActivity.this, ExpertsActivity.class);
-                startActivityForResult(intent, 0);
-            }
-        });
 
     }
 

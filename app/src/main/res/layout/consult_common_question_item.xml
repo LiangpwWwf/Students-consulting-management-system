@@ -6,7 +6,8 @@
     android:background="@drawable/editext_bg"
     android:gravity="center"
     android:paddingLeft="10dp"
-    android:paddingRight="10dp">
+    android:paddingRight="10dp"
+    android:id="@+id/item_question">
 
     <com.example.hin.circleImageView.CircleImageView
         android:id="@+id/iv_head"

@@ -6,9 +6,6 @@
     android:background="#ecedf1"
     android:orientation="vertical">
 
-
-    <include layout="@layout/title" />
-
     <LinearLayout
         android:id="@+id/ll_people_message"
         android:layout_width="match_parent"

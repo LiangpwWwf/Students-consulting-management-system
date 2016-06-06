@@ -3,20 +3,11 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <LinearLayout
-        android:id="@+id/consult_title"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true">
-
-        <include layout="@layout/title" />
-    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/consult_classify"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/consult_title">
+        android:layout_height="wrap_content">
 
         <include layout="@layout/classify" />
     </LinearLayout>

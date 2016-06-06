@@ -1,7 +1,6 @@
 package com.example.hin.ui.activity;
 
 import android.app.Activity;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
@@ -9,21 +8,18 @@ import android.widget.ImageView;
 import com.example.hin.system.R;
 
 /**
- * Created by WWF on 2016/6/4.
+ * Created by WWF on 2016/6/5.
  */
-public class ConsultActivity extends Activity implements View.OnClickListener {
-
+public class QuestionDetailActivity extends Activity implements View.OnClickListener{
     private ImageView iv_back;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_consult);
-
+        setContentView(R.layout.activity_question_detail);
         iniView();
         iniListener();
     }
-
     public void iniView() {
         iv_back = (ImageView) findViewById(R.id.iv_back);
     }

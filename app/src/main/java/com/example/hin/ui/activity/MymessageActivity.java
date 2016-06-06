@@ -1,4 +1,4 @@
-package com.example.hin.system;
+package com.example.hin.ui.activity;
 
 import android.app.Activity;
 import android.content.DialogInterface;
@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.example.hin.finshActivity.CloseActivityClass;
+import com.example.hin.system.R;
 
 /**
  * Created by Hin on 2016/6/1.

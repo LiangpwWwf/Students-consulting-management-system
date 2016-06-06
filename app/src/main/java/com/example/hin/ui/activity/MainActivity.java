@@ -1,21 +1,24 @@
-package com.example.hin.system;
+package com.example.hin.ui.activity;
 
 import com.example.hin.finshActivity.CloseActivityClass;
 import com.example.hin.myfragment.FragmentConsult;
 import com.example.hin.myfragment.FragmentExperts;
 import com.example.hin.myfragment.FragmentMy;
+import com.example.hin.system.R;
 
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
-import android.widget.Toast;
 
 /**
  * Created by Hin on 2016/5/16.
  */
-public class MainActivity extends FragmentActivity {
+public class MainActivity extends FragmentActivity implements View.OnClickListener {
 
 
     private RadioGroup myTabRg;
@@ -23,6 +26,7 @@ public class MainActivity extends FragmentActivity {
     private FragmentExperts fragmentExperts;
     private FragmentMy fragmentMy;
     private RadioButton expertDatabase, consult, my;
+    private ImageView search, jiahao;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +34,11 @@ public class MainActivity extends FragmentActivity {
         setContentView(R.layout.activity_main);
         //用于退出程序
         CloseActivityClass.activityList.add(this);
+
+        iniView();
+        iniListener();
+
+
         fragmentConsult = new FragmentConsult();
         getSupportFragmentManager().beginTransaction().replace(R.id.main_content, fragmentConsult).commit();
         myTabRg = (RadioGroup) findViewById(R.id.tab_menu);
@@ -64,8 +73,17 @@ public class MainActivity extends FragmentActivity {
         setDrawableSize(my);
 
 
+    }
 
+    public void iniView() {
+        search = (ImageView) findViewById(R.id.iv_search);
+        jiahao = (ImageView) findViewById(R.id.jiahao);
 
+    }
+
+    public void iniListener() {
+        search.setOnClickListener(this);
+        jiahao.setOnClickListener(this);
     }
 
     //该方法设置底部Tab图片的大小
@@ -77,4 +95,19 @@ public class MainActivity extends FragmentActivity {
         v.setCompoundDrawables(null, drawable[1], null, null);
     }
 
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.iv_search:
+                Intent intent = new Intent(MainActivity.this, SearchActivity.class);
+                startActivityForResult(intent, 0);
+                break;
+            case R.id.jiahao:
+                startActivityForResult(new Intent(MainActivity.this, ConsultActivity.class), 0);
+                break;
+            default:
+                break;
+        }
+    }
 }

@@ -1,4 +1,4 @@
-package com.example.hin.system;
+package com.example.hin.ui.activity;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -10,6 +10,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.hin.finshActivity.CloseActivityClass;
+import com.example.hin.system.R;
 
 public class ExpertsActivity extends Activity implements View.OnClickListener {
 

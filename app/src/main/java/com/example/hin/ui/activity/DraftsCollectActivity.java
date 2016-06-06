@@ -1,4 +1,4 @@
-package com.example.hin.system;
+package com.example.hin.ui.activity;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.example.hin.finshActivity.CloseActivityClass;
 import com.example.hin.myadapter.ConsultCommonQuestionAdapter;
 import com.example.hin.myadapter.ExpertCommonQuestionAdapter;
+import com.example.hin.system.R;
 
 import java.util.ArrayList;
 import java.util.HashMap;
