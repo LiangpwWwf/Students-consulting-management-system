@@ -264,7 +264,9 @@
             <com.example.hin.ui.widget.ListViewForScrollView
                 android:id="@+id/lv_comment"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                android:dividerHeight="1px"
+                android:divider="#cfcfcf"/>
         </LinearLayout>
     </ScrollView>
 

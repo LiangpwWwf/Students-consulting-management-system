@@ -7,8 +7,11 @@ import android.widget.ArrayAdapter;
 import android.widget.ScrollView;
 import android.widget.ImageView;
 
+import com.example.hin.adapter.CommentListAdapter;
 import com.example.hin.system.R;
 import com.example.hin.ui.widget.ListViewForScrollView;
+
+import java.util.ArrayList;
 
 /**
  * Created by WWF on 2016/6/5.
@@ -27,11 +30,18 @@ public class QuestionDetailActivity extends Activity implements View.OnClickList
 
     private void initView() {
         scrollView= (ScrollView) findViewById(R.id.scroll_detail);
-        scrollView.smoothScrollTo(0,0);
+        scrollView.smoothScrollTo(0, 0);
         findViewById(R.id.iv_back).setOnClickListener(this);
         lvComment= (ListViewForScrollView) findViewById(R.id.lv_comment);
-        ArrayAdapter<String> adapter=new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1,new String[]{"one","two","three",
-                "four","five","six","seven","eight","nine","ten"});
+        ArrayList<String> list = new ArrayList<String>();
+        list.add("某用户");
+        list.add("小刘");
+        list.add("小张");
+        list.add("小关");
+        list.add("小马");
+        list.add("小黄");
+        list.add("小徐");
+        CommentListAdapter adapter=new CommentListAdapter(this,list);
         lvComment.setAdapter(adapter);
     }
 

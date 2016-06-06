@@ -19,27 +19,27 @@
 
         <ImageView
             android:id="@+id/iv_mail"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:src="@mipmap/mail"
             android:layout_alignParentRight="true"
             android:layout_marginRight="15dp"/>
 
         <ImageView
             android:id="@+id/iv_edit"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:src="@mipmap/edit"
             android:layout_toLeftOf="@+id/iv_mail"
-            android:layout_marginRight="15dp"/>
+            android:layout_marginRight="20dp"/>
 
         <ImageView
             android:id="@+id/iv_camera"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             android:src="@mipmap/camera"
             android:layout_toLeftOf="@+id/iv_edit"
-            android:layout_marginRight="15dp"/>
+            android:layout_marginRight="20dp"/>
     </RelativeLayout>
 
     <View
@@ -96,11 +96,12 @@
                     android:text="类别"
                     android:textSize="20dp"
                     android:textColor="#000"/>
-                <Spinner
+                <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:layout_marginLeft="10dp"/>
+                    android:layout_marginLeft="10dp"
+                    android:drawableRight="@mipmap/arrow_down"/>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -109,12 +110,13 @@
                     android:layout_marginLeft="30dp"
                     android:textSize="20dp"
                     android:textColor="#000"/>
-                <Spinner
+                <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"/>
+                    android:layout_marginRight="10dp"
+                    android:drawableRight="@mipmap/arrow_down"/>
             </LinearLayout>
             <View
                 android:layout_width="match_parent"
@@ -132,10 +134,12 @@
                 android:text="专家"
                 android:textSize="20dp"
                 android:textColor="#000"/>
-            <Spinner
-                android:layout_width="116dp"
+            <TextView
+                android:id="@+id/tv_expert"
+                android:layout_width="106dp"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"/>
+                android:layout_marginLeft="10dp"
+                android:drawableRight="@mipmap/arrow_down"/>
             </LinearLayout>
             <View
                 android:layout_width="match_parent"
@@ -221,16 +225,19 @@
                     android:textSize="20dp"
                     android:textColor="#000"/>
                 <ImageView
+                    android:id="@+id/iv_star_one"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@mipmap/star"
                     android:layout_marginLeft="10dp"/>
                 <ImageView
+                    android:id="@+id/iv_star_two"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@mipmap/star"
                     android:layout_marginLeft="5dp"/>
                 <ImageView
+                    android:id="@+id/iv_star_three"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@mipmap/star"
@@ -250,7 +257,10 @@
                     android:text="面谈"
                     android:textSize="20dp"
                     android:textColor="#000"/>
-                <ImageView
+                <CheckBox
+                    android:id="@+id/cb_chat"
+                    android:button="@null"
+                    android:background="@drawable/selector_chat_icon"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:src="@mipmap/talk_off"
