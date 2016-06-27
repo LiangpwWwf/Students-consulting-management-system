@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.ImageView;
@@ -25,7 +26,7 @@ public class SetActivity extends Activity implements View.OnClickListener {
     private ImageView iv_back, iv_close;
     private SlidingDrawer sd_content;
     private TextView tv_new, tv_model, tv_textsize, tv_help, tv_exit, tv_introduce, tv_exit_confirm, tv_exit_cancel, tv_starttime, tv_endtime;
-    private LinearLayout ll_item, ll_new_warn, ll_model, ll_help, ll_feedback, ll_exit;
+    private LinearLayout ll_item, ll_new_warn, ll_model, ll_help, ll_feedback, ll_exit,ll_settitle;
     private RadioGroup rg_class;
     private RelativeLayout rl_start_time, rl_end_time;
     private View ll_selecttime;
@@ -52,6 +53,7 @@ public class SetActivity extends Activity implements View.OnClickListener {
         tv_textsize = (TextView) findViewById(R.id.tv_textsize);
         tv_help = (TextView) findViewById(R.id.tv_help);
         tv_exit = (TextView) findViewById(R.id.tv_exit);
+        ll_settitle=(LinearLayout)findViewById(R.id.ll_settitle);
         ll_item = (LinearLayout) findViewById(R.id.ll_item);
         iv_close = (ImageView) findViewById(R.id.iv_close);
         ll_new_warn = (LinearLayout) findViewById(R.id.ll_new_warn);
@@ -90,6 +92,7 @@ public class SetActivity extends Activity implements View.OnClickListener {
         sd_content.setOnDrawerCloseListener(new SlidingDrawer.OnDrawerCloseListener() {
             @Override
             public void onDrawerClosed() {
+                ll_settitle.setVisibility(View.VISIBLE);
                 ll_item.setVisibility(View.VISIBLE);
                 sd_content.setVisibility(View.GONE);
                 ll_new_warn.setVisibility(View.GONE);
@@ -132,24 +135,28 @@ public class SetActivity extends Activity implements View.OnClickListener {
                 finish();
                 break;
             case R.id.tv_new:
+                ll_settitle.setVisibility(View.GONE);
                 ll_item.setVisibility(View.GONE);
                 sd_content.setVisibility(View.VISIBLE);
                 sd_content.open();
                 ll_new_warn.setVisibility(View.VISIBLE);
                 break;
             case R.id.tv_model:
+                ll_settitle.setVisibility(View.GONE);
                 ll_item.setVisibility(View.GONE);
                 sd_content.setVisibility(View.VISIBLE);
                 sd_content.open();
                 ll_model.setVisibility(View.VISIBLE);
                 break;
             case R.id.tv_help:
+                ll_settitle.setVisibility(View.GONE);
                 ll_item.setVisibility(View.GONE);
                 sd_content.setVisibility(View.VISIBLE);
                 sd_content.open();
                 ll_help.setVisibility(View.VISIBLE);
                 break;
             case R.id.tv_exit:
+                ll_settitle.setVisibility(View.GONE);
                 ll_item.setVisibility(View.GONE);
                 sd_content.setVisibility(View.VISIBLE);
                 sd_content.open();
@@ -201,6 +208,19 @@ public class SetActivity extends Activity implements View.OnClickListener {
                 break;
             default:
                 break;
+        }
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if(sd_content.isOpened())
+        {
+            ll_settitle.setVisibility(View.VISIBLE);
+            sd_content.close();
+            return true;
+        }
+        else {
+            return super.onKeyDown(keyCode, event);
         }
     }
 
