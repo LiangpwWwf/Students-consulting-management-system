@@ -1,19 +1,16 @@
 package com.example.hin.ui.activity;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
-import com.example.hin.finshActivity.CloseActivityClass;
 import com.example.hin.myadapter.ConsultCommonQuestionAdapter;
 import com.example.hin.myadapter.ExpertCommonQuestionAdapter;
 import com.example.hin.system.R;
@@ -45,7 +42,7 @@ public class SearchActivity extends Activity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
         //用于退出程序
-        CloseActivityClass.activityList.add(this);
+        CloseActivity.activityList.add(this);
         iniView();
         iniListener();
         init();
@@ -73,9 +70,9 @@ public class SearchActivity extends Activity implements View.OnClickListener {
             expertList.add(expertQuestion);
         }
 
-
+/*
         consultCommonQuestionAdapter = new ConsultCommonQuestionAdapter(SearchActivity.this, topicList);
-        expertCommonQuestionAdapter = new ExpertCommonQuestionAdapter(SearchActivity.this, expertList);
+        expertCommonQuestionAdapter = new ExpertCommonQuestionAdapter(SearchActivity.this, expertList);*/
 
         lv_content.setAdapter(consultCommonQuestionAdapter);
     }
@@ -139,8 +136,8 @@ public class SearchActivity extends Activity implements View.OnClickListener {
                                 List.add(item);
                             }
                         }
-                        ConsultCommonQuestionAdapter adapter = new ConsultCommonQuestionAdapter(SearchActivity.this, List);
-                        lv_content.setAdapter(adapter);
+                     /*   ConsultCommonQuestionAdapter adapter = new ConsultCommonQuestionAdapter(SearchActivity.this, List);*/
+                   /*     lv_content.setAdapter(adapter);*/
                         break;
                     case R.id.rtbn_expert:
                         String expert_content = s.toString();

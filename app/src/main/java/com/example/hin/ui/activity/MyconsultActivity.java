@@ -3,15 +3,12 @@ package com.example.hin.ui.activity;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
-import com.example.hin.finshActivity.CloseActivityClass;
 import com.example.hin.myadapter.ConsultCommonQuestionAdapter;
-import com.example.hin.myadapter.ExpertCommonQuestionAdapter;
 import com.example.hin.system.R;
 
 import java.util.ArrayList;
@@ -37,7 +34,7 @@ public class MyconsultActivity extends Activity implements View.OnClickListener 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_myconsult);
         //用于退出程序
-        CloseActivityClass.activityList.add(this);
+        CloseActivity.activityList.add(this);
         iniView();
         iniListener();
         init();
@@ -61,9 +58,9 @@ public class MyconsultActivity extends Activity implements View.OnClickListener 
         replyQuestion.put("tv_date", "2015年12月10日");
         replyList.add(replyQuestion);
 
-        consultCommonQuestionAdapter = new ConsultCommonQuestionAdapter(MyconsultActivity.this, consultingList);
+      /*  consultCommonQuestionAdapter = new ConsultCommonQuestionAdapter(MyconsultActivity.this, consultingList);
         replyCommonQuestionAdapter = new ConsultCommonQuestionAdapter(MyconsultActivity.this, replyList);
-
+*/
         lv_content.setAdapter(consultCommonQuestionAdapter);
     }
 

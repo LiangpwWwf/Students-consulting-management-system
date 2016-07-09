@@ -2,7 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="10dp">
+    android:padding="5dp"
+    android:paddingBottom="5dp">
 
     <com.example.hin.ui.widget.CircleImageView
         android:id="@+id/civ_head"
@@ -45,19 +46,15 @@
     </LinearLayout>
 
     <TextView
-        android:layout_width="wrap_content"
+        android:id="@+id/tv_comment_text"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/layout_top"
         android:layout_toRightOf="@+id/civ_head"
         android:layout_marginLeft="10dp"
         android:text="这道题好简单啊!"
         android:layout_marginTop="3dp"
+        android:layout_marginRight="40dp"
         android:textSize="13dp"/>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#cfcfcf"
-        android:layout_alignParentBottom="true"/>
 
 </RelativeLayout>

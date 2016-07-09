@@ -3,11 +3,8 @@ package com.example.hin.ui.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ListView;
 
-import com.example.hin.finshActivity.CloseActivityClass;
 import com.example.hin.myadapter.ExpertCommonQuestionAdapter;
 import com.example.hin.system.R;
 
@@ -29,7 +26,7 @@ public class ExpertsCommonQuestionActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.common_question);
         //用于退出程序
-        CloseActivityClass.activityList.add(this);
+        CloseActivity.activityList.add(this);
         iniView();
         iniListener();
 

@@ -47,19 +47,18 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="标题"
-                    android:textColor="#000"
-                    android:textSize="20dp" />
+                    style="@style/TextStyle"
+                    android:text="标题" />
 
                 <TextView
+                    android:id="@+id/tv_title"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:layout_weight="1"
                     android:background="#fff"
                     android:singleLine="true"
+                    android:text="数学分析Cauchy准则怎么证明?"
                     android:textSize="15dp" />
             </LinearLayout>
 
@@ -77,37 +76,35 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="类别"
-                    android:textColor="#000"
-                    android:textSize="20dp" />
+                    style="@style/TextStyle"
+                    android:text="类别" />
 
                 <TextView
+                    android:id="@+id/tv_kind"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:layout_weight="1"
                     android:background="#fff"
                     android:singleLine="true"
-                    android:textSize="15dp" />
+                    android:textSize="15dp"
+                    android:text="课程答疑"/>
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    style="@style/TextStyle"
                     android:layout_marginLeft="30dp"
-                    android:text="话题"
-                    android:textColor="#000"
-                    android:textSize="20dp" />
+                    android:text="话题" />
 
                 <TextView
+                    android:id="@+id/tv_topic"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:layout_weight="1"
                     android:background="#fff"
                     android:singleLine="true"
-                    android:textSize="15dp" />
+                    android:textSize="15dp"
+                    android:text="分析学"/>
             </LinearLayout>
 
             <View
@@ -124,17 +121,18 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="咨询内容"
-                    android:textColor="#000"
-                    android:textSize="20dp" />
+                    style="@style/TextStyle"
+                    android:text="咨询内容" />
 
                 <TextView
+                    android:id="@+id/tv_content"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="#fff"
-                    android:textSize="15dp" />
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="10dp"
+                    android:textSize="15dp"
+                    android:text="        在课本的证明中，哈哈哈哈哈哈哈哈哈啊哈哈哈哈哈哈哈哈哈哈啊哈哈哈哈哈哈很好的奋斗哈哈哈哈哈哈。(图在附件)"/>
             </LinearLayout>
 
             <View
@@ -151,11 +149,8 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="附件"
-                    android:textColor="#000"
-                    android:textSize="20dp" />
+                    style="@style/TextStyle"
+                    android:text="附件" />
 
                 <TextView
                     android:layout_width="0dp"
@@ -186,18 +181,21 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="专家回复"
-                    android:textColor="#000"
-                    android:textSize="20dp" />
+                    style="@style/TextStyle"
+                    android:text="专家回复" />
 
                 <TextView
+                    android:id="@+id/tv_reply"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:background="#fff"
-                    android:textSize="15dp" />
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="10dp"
+                    android:maxLines="5"
+                    android:textSize="15dp"
+                    android:text="        同学你好，哈哈哈哈哈啊哈哈哈哈哈哈哈哈哈哈哈哈哈啊哈哈哈哈哈哈哈哈哈哈哈哈啊哈哈哈！
+"/>
             </LinearLayout>
 
             <LinearLayout
@@ -219,6 +217,7 @@
                         android:layout_height="wrap_content"
                         android:drawableLeft="@mipmap/coment"
                         android:padding="5dp"
+                        android:drawablePadding="3dp"
                         android:text="评论" />
                 </RelativeLayout>
 
@@ -236,6 +235,7 @@
                         android:drawableLeft="@mipmap/zan"
                         android:gravity="center"
                         android:padding="5dp"
+                        android:drawablePadding="3dp"
                         android:text="点赞" />
                 </RelativeLayout>
 
@@ -252,6 +252,7 @@
                         android:drawableLeft="@mipmap/collection"
                         android:gravity="center"
                         android:padding="5dp"
+                        android:drawablePadding="3dp"
                         android:text="收藏" />
                 </RelativeLayout>
             </LinearLayout>
@@ -264,7 +265,9 @@
             <com.example.hin.ui.widget.ListViewForScrollView
                 android:id="@+id/lv_comment"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" />
+                android:layout_height="match_parent"
+                android:dividerHeight="1px"
+                android:divider="#cfcfcf"/>
         </LinearLayout>
     </ScrollView>
 

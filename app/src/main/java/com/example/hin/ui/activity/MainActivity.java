@@ -1,6 +1,5 @@
 package com.example.hin.ui.activity;
 
-import com.example.hin.finshActivity.CloseActivityClass;
 import com.example.hin.myfragment.FragmentConsult;
 import com.example.hin.myfragment.FragmentExperts;
 import com.example.hin.myfragment.FragmentMy;
@@ -33,7 +32,7 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         //用于退出程序
-        CloseActivityClass.activityList.add(this);
+        CloseActivity.activityList.add(this);
 
         iniView();
         iniListener();

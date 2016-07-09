@@ -1,4 +1,4 @@
-package com.example.hin.finshActivity;
+package com.example.hin.ui.activity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,7 +8,7 @@ import android.app.ActivityManager;
 import android.content.Context;
 import android.util.Log;
 
-public class CloseActivityClass {
+public class CloseActivity {
 
 
     public static List<Activity> activityList = new ArrayList<Activity>();

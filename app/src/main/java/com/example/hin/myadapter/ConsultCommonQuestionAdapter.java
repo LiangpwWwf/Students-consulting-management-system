@@ -6,6 +6,7 @@ package com.example.hin.myadapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -16,6 +17,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.hin.entity.Post;
 import com.example.hin.system.R;
 import com.example.hin.ui.activity.QuestionDetailActivity;
 
@@ -29,11 +31,11 @@ import java.util.List;
 public class ConsultCommonQuestionAdapter extends BaseAdapter {
 
     private Context context;
-    private ArrayList<HashMap<String, Object>> mData;
+    private List<Post> mData;
     private LayoutInflater mInflater;
 
 
-    public ConsultCommonQuestionAdapter(Context context, ArrayList<HashMap<String, Object>> data) {
+    public ConsultCommonQuestionAdapter(Context context,List<Post> data) {
         this.context=context;
         this.mData = data;
         mInflater = LayoutInflater.from(context);
@@ -55,7 +57,7 @@ public class ConsultCommonQuestionAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(final int position, View convertView, ViewGroup parent) {
 
         ViewHolder holder = null;
         //判断是否缓存
@@ -65,7 +67,11 @@ public class ConsultCommonQuestionAdapter extends BaseAdapter {
             convertView.findViewById(R.id.item_question).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    context.startActivity(new Intent(context, QuestionDetailActivity.class));
+                    Bundle bundle=new Bundle();
+                    bundle.putSerializable("postObject", mData.get(position));
+                    Intent intent=new Intent(context, QuestionDetailActivity.class);
+                    intent.putExtras(bundle);
+                    context.startActivity(intent);
                 }
             });
             holder.iv_head = (ImageView) convertView.findViewById(R.id.iv_head);
@@ -78,8 +84,8 @@ public class ConsultCommonQuestionAdapter extends BaseAdapter {
         }
         //设置视图
         holder.iv_head.setImageResource(R.drawable.head);
-        holder.tv_title.setText(mData.get(position).get("tv_title").toString());
-        holder.tv_date.setText(mData.get(position).get("tv_date").toString());
+        holder.tv_title.setText(mData.get(position).getTitle());
+        holder.tv_date.setText(mData.get(position).getCreatedAt());
 
         return convertView;
     }

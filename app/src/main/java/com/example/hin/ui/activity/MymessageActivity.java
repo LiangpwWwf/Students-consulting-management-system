@@ -1,12 +1,10 @@
 package com.example.hin.ui.activity;
 
 import android.app.Activity;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 
-import com.example.hin.finshActivity.CloseActivityClass;
 import com.example.hin.system.R;
 
 /**
@@ -19,7 +17,7 @@ public class MymessageActivity extends Activity implements View.OnClickListener 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_message);
         //用于退出程序
-        CloseActivityClass.activityList.add(this);
+        CloseActivity.activityList.add(this);
 
         iniView();
         iniListener();

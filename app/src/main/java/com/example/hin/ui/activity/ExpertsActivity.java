@@ -10,7 +10,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.example.hin.finshActivity.CloseActivityClass;
+import com.example.hin.Consts.LocalStringConst;
 import com.example.hin.system.R;
 
 public class ExpertsActivity extends Activity implements View.OnClickListener {
@@ -24,7 +24,7 @@ public class ExpertsActivity extends Activity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_experts_introduce);
         //用于退出程序
-        CloseActivityClass.activityList.add(this);
+        CloseActivity.activityList.add(this);
 
         iniView();
         iniListener();
@@ -57,7 +57,8 @@ public class ExpertsActivity extends Activity implements View.OnClickListener {
                         "确定", null).show();
                 break;
             case R.id.tv_consult:
-                startActivityForResult(new Intent(ExpertsActivity.this,ConsultActivity.class),0);
+                setResult(RESULT_OK,new Intent().putExtra(LocalStringConst.INTENT_EXPERT_ID,1));
+                finish();
             default:
                 break;
         }

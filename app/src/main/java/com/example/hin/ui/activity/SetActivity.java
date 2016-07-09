@@ -16,7 +16,6 @@ import android.widget.SlidingDrawer;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
-import com.example.hin.finshActivity.CloseActivityClass;
 import com.example.hin.system.R;
 
 /**
@@ -39,7 +38,7 @@ public class SetActivity extends Activity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_set);
         //用于退出程序
-        CloseActivityClass.activityList.add(this);
+        CloseActivity.activityList.add(this);
         iniView();
         iniListener();
     }
@@ -168,7 +167,7 @@ public class SetActivity extends Activity implements View.OnClickListener {
                 sd_content.close();
                 break;
             case R.id.tv_exit_confirm:
-                CloseActivityClass.exitClient(SetActivity.this);
+                CloseActivity.exitClient(SetActivity.this);
                 break;
             case R.id.rl_start_time:
                 ll_selecttime = getLayoutInflater().inflate(R.layout.set_model_time, null);
