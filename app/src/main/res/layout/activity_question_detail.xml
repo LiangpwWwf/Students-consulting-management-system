@@ -24,12 +24,36 @@
             android:layout_centerVertical="true"
             android:paddingLeft="15dp"
             android:src="@mipmap/btn_back" />
+
+        <FrameLayout
+            android:id="@+id/fl_comment_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingRight="15dp"
+                android:src="@mipmap/coment" />
+
+            <TextView
+                android:id="@+id/tv_comment_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="20dp"
+                android:textSize="10sp"
+                android:textColor="#ef0606" />
+        </FrameLayout>
+
     </RelativeLayout>
 
     <ScrollView
         android:id="@+id/scroll_detail"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         android:background="#fff"
         android:scrollbars="none">
 
@@ -87,8 +111,8 @@
                     android:layout_weight="1"
                     android:background="#fff"
                     android:singleLine="true"
-                    android:textSize="15dp"
-                    android:text="课程答疑"/>
+                    android:text="课程答疑"
+                    android:textSize="15dp" />
 
                 <TextView
                     style="@style/TextStyle"
@@ -103,8 +127,8 @@
                     android:layout_weight="1"
                     android:background="#fff"
                     android:singleLine="true"
-                    android:textSize="15dp"
-                    android:text="分析学"/>
+                    android:text="分析学"
+                    android:textSize="15dp" />
             </LinearLayout>
 
             <View
@@ -128,11 +152,11 @@
                     android:id="@+id/tv_content"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="#fff"
-                    android:layout_marginTop="5dp"
                     android:layout_marginBottom="10dp"
-                    android:textSize="15dp"
-                    android:text="        在课本的证明中，哈哈哈哈哈哈哈哈哈啊哈哈哈哈哈哈哈哈哈哈啊哈哈哈哈哈哈很好的奋斗哈哈哈哈哈哈。(图在附件)"/>
+                    android:layout_marginTop="5dp"
+                    android:background="#fff"
+                    android:text="        在课本的证明中，哈哈哈哈哈哈哈哈哈啊哈哈哈哈哈哈哈哈哈哈啊哈哈哈哈哈哈很好的奋斗哈哈哈哈哈哈。(图在附件)"
+                    android:textSize="15dp" />
             </LinearLayout>
 
             <View
@@ -188,74 +212,16 @@
                     android:id="@+id/tv_reply"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="5dp"
                     android:layout_weight="1"
                     android:background="#fff"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginBottom="10dp"
                     android:maxLines="5"
-                    android:textSize="15dp"
                     android:text="        同学你好，哈哈哈哈哈啊哈哈哈哈哈哈哈哈哈哈哈哈哈啊哈哈哈哈哈哈哈哈哈哈哈哈啊哈哈哈！
-"/>
+"
+                    android:textSize="15dp" />
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="40dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
-
-                <RelativeLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="center">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:drawableLeft="@mipmap/coment"
-                        android:padding="5dp"
-                        android:drawablePadding="3dp"
-                        android:text="评论" />
-                </RelativeLayout>
-
-
-                <RelativeLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:layout_weight="1"
-                    android:gravity="center">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:drawableLeft="@mipmap/zan"
-                        android:gravity="center"
-                        android:padding="5dp"
-                        android:drawablePadding="3dp"
-                        android:text="点赞" />
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:layout_weight="1"
-                    android:gravity="center">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:drawableLeft="@mipmap/collection"
-                        android:gravity="center"
-                        android:padding="5dp"
-                        android:drawablePadding="3dp"
-                        android:text="收藏" />
-                </RelativeLayout>
-            </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
@@ -266,9 +232,106 @@
                 android:id="@+id/lv_comment"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:dividerHeight="1px"
-                android:divider="#cfcfcf"/>
+                android:divider="#cfcfcf"
+                android:dividerHeight="1px" />
         </LinearLayout>
     </ScrollView>
+
+    <LinearLayout
+        android:id="@+id/ll_boomlinear"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/tv_comment"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@mipmap/coment"
+                android:drawablePadding="3dp"
+                android:padding="5dp"
+                android:text="评论" />
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_weight="1"
+            android:gravity="center">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@mipmap/zan"
+                android:drawablePadding="3dp"
+                android:gravity="center"
+                android:padding="5dp"
+                android:text="点赞" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_weight="1"
+            android:gravity="center">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@mipmap/collection"
+                android:drawablePadding="3dp"
+                android:gravity="center"
+                android:padding="5dp"
+                android:text="收藏" />
+        </RelativeLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/commentLinear"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#CCCCCC"
+        android:orientation="horizontal"
+        android:visibility="gone">
+        <!-- 输入框 -->
+        <EditText
+            android:id="@+id/commentEdit"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_weight="1"
+            android:background="#FFFFFF"
+            android:gravity="left"
+            android:inputType="textMultiLine"
+            android:maxLength="100"
+            android:maxLines="6"
+            android:minHeight="40dp" />
+        <!-- 留言按钮 -->
+        <Button
+            android:id="@+id/commentButton"
+            android:layout_width="50dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginRight="10dp"
+            android:background="#FFFFFF"
+            android:text="留言"
+            android:textColor="#000000" />
+    </LinearLayout>
 
 </LinearLayout>

@@ -24,7 +24,7 @@ public class Post extends BmobObject implements Serializable {
     private boolean interview;//面谈
     private boolean open;//问题公开
     private boolean anonymity;//匿名
-    private int kind;
+    private String kind;
     private int love;
     private int hate;
     private int share;
@@ -32,7 +32,8 @@ public class Post extends BmobObject implements Serializable {
     private boolean isPass;
     private boolean myFav;//收藏
     private boolean myLove;//赞
-    private BmobRelation relation;
+    private int commentCount = 0;//评论数
+    private BmobRelation like;
 
 
     public int getExigency() {
@@ -64,6 +65,8 @@ public class Post extends BmobObject implements Serializable {
     }
 
     public void setAnonymity(boolean anonymity) {
+        this.anonymity = anonymity;
+
     }
 
     public String getTitle() {
@@ -98,20 +101,20 @@ public class Post extends BmobObject implements Serializable {
         this.expert = expert;
     }
 
-    public int getKind() {
+    public String getKind() {
         return kind;
     }
 
-    public void setKind(int kind) {
+    public void setKind(String kind) {
         this.kind = kind;
     }
 
-    public BmobRelation getRelation() {
-        return relation;
+    public BmobRelation getLike() {
+        return like;
     }
 
-    public void setRelation(BmobRelation relation) {
-        this.relation = relation;
+    public void setLike(BmobRelation like) {
+        this.like = like;
     }
 
     public User getAuthor() {
@@ -194,13 +197,21 @@ public class Post extends BmobObject implements Serializable {
         this.myLove = myLove;
     }
 
+    public void setCommentCount(int commentCount) {
+        this.commentCount = commentCount;
+    }
+
+    public int getCommentCount() {
+        return commentCount;
+    }
+
     @Override
     public String toString() {
         return "Post [author=" + author + ", content=" + content
                 + ", Contentfigureurl=" + Contentfigureurl + ", love=" + love
                 + ", hate=" + hate + ", share=" + share + ", comment="
                 + comment + ", isPass=" + isPass + ", myFav=" + myFav
-                + ", myLove=" + myLove + ", relation=" + relation + "]";
+                + ", myLove=" + myLove + ",like=" + like + "]";
     }
 
 }

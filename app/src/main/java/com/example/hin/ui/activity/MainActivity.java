@@ -1,8 +1,8 @@
 package com.example.hin.ui.activity;
 
-import com.example.hin.myfragment.FragmentConsult;
-import com.example.hin.myfragment.FragmentExperts;
-import com.example.hin.myfragment.FragmentMy;
+import com.example.hin.fragment.FragmentConsult;
+import com.example.hin.fragment.FragmentExperts;
+import com.example.hin.fragment.FragmentMy;
 import com.example.hin.system.R;
 
 import android.content.Intent;

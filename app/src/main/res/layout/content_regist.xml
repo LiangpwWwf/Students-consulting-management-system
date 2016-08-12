@@ -19,6 +19,7 @@
     </LinearLayout>
 
     <EditText
+        android:id="@+id/et_account"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_marginTop="10dp"
@@ -28,6 +29,7 @@
         android:textSize="15sp" />
 
     <EditText
+        android:id="@+id/et_password"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:background="@drawable/editext_bg"
@@ -38,7 +40,7 @@
 
 
     <Button
-        android:id="@+id/Regist"
+        android:id="@+id/bt_regist"
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_gravity="center_horizontal"

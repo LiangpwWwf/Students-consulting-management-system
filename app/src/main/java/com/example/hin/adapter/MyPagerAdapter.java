@@ -1,4 +1,4 @@
-package com.example.hin.myadapter;
+package com.example.hin.adapter;
 
 /**
  * Created by Hin on 2016/5/25.

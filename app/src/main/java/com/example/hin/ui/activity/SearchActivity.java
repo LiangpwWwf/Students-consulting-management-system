@@ -11,8 +11,8 @@ import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
-import com.example.hin.myadapter.ConsultCommonQuestionAdapter;
-import com.example.hin.myadapter.ExpertCommonQuestionAdapter;
+import com.example.hin.adapter.ConsultCommonQuestionAdapter;
+import com.example.hin.adapter.ExpertCommonQuestionAdapter;
 import com.example.hin.system.R;
 
 import java.util.ArrayList;
@@ -150,8 +150,8 @@ public class SearchActivity extends Activity implements View.OnClickListener {
                                 List_expert.add(item);
                             }
                         }
-                        ExpertCommonQuestionAdapter adapter_expert = new ExpertCommonQuestionAdapter(SearchActivity.this, List_expert);
-                        lv_content.setAdapter(adapter_expert);
+                  /*      ExpertCommonQuestionAdapter adapter_expert = new ExpertCommonQuestionAdapter(SearchActivity.this, List_expert);
+                        lv_content.setAdapter(adapter_expert);*/
                         break;
                 }
             }

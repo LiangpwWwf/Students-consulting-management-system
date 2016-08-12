@@ -8,7 +8,7 @@ import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
-import com.example.hin.myadapter.ConsultCommonQuestionAdapter;
+import com.example.hin.adapter.ConsultCommonQuestionAdapter;
 import com.example.hin.system.R;
 
 import java.util.ArrayList;

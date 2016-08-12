@@ -98,7 +98,7 @@
                     android:layout_marginLeft="10dp"
                     android:layout_weight="1"
                     android:drawableRight="@mipmap/arrow_down"
-                    android:text="数学"
+                    android:text="课程答疑"
                     android:textSize="15dp" />
 
                 <TextView
@@ -285,10 +285,13 @@
                     style="@style/TextStyle"
                     android:text="问题公开" />
 
-                <ImageView
+                <CheckBox
+                    android:id="@+id/cb_open"
                     android:layout_width="0dp"
-                    android:layout_height="30dp"
+                    android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
+                    android:button="@null"
+                    android:background="@drawable/selector_btn_icon"
                     android:layout_weight="1"
                     android:src="@mipmap/btn_on" />
 
@@ -297,11 +300,14 @@
                     android:layout_marginLeft="30dp"
                     android:text="匿名提问" />
 
-                <ImageView
+                <CheckBox
+                    android:id="@+id/cb_anonymity"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
+                    android:button="@null"
+                    android:background="@drawable/selector_btn_icon"
                     android:layout_weight="1"
                     android:src="@mipmap/btn_on" />
             </LinearLayout>

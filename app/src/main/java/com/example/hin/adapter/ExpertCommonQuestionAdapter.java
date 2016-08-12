@@ -1,4 +1,4 @@
-package com.example.hin.myadapter;
+package com.example.hin.adapter;
 
 /**
  * Created by Hin on 2016/5/25.
@@ -7,9 +7,6 @@ package com.example.hin.myadapter;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
-import android.support.v4.view.PagerAdapter;
-import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,8 +14,9 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.hin.entity.Post;
+import com.example.hin.entity.Experts;
 import com.example.hin.system.R;
+import com.example.hin.ui.activity.ExpertsActivity;
 import com.example.hin.ui.activity.QuestionDetailActivity;
 
 import java.util.ArrayList;
@@ -28,15 +26,15 @@ import java.util.List;
 /**
  * ViewPager的适配器
  */
-public class ConsultCommonQuestionAdapter extends BaseAdapter {
+public class ExpertCommonQuestionAdapter extends BaseAdapter {
 
-    private Context context;
-    private List<Post> mData;
+    private List<Experts> mData;
     private LayoutInflater mInflater;
+    private Context context;
 
 
-    public ConsultCommonQuestionAdapter(Context context,List<Post> data) {
-        this.context=context;
+    public ExpertCommonQuestionAdapter(Context c, List<Experts> data) {
+        context = c;
         this.mData = data;
         mInflater = LayoutInflater.from(context);
     }
@@ -63,20 +61,20 @@ public class ConsultCommonQuestionAdapter extends BaseAdapter {
         //判断是否缓存
         if (convertView == null) {
             holder = new ViewHolder();
-            convertView = mInflater.inflate(R.layout.consult_common_question_item, null);
-            convertView.findViewById(R.id.item_question).setOnClickListener(new View.OnClickListener() {
+            convertView = mInflater.inflate(R.layout.experts_common_question_item, null);
+            convertView.findViewById(R.id.item_expert).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Bundle bundle=new Bundle();
-                    bundle.putSerializable("postObject", mData.get(position));
-                    Intent intent=new Intent(context, QuestionDetailActivity.class);
+                    Bundle bundle = new Bundle();
+                    bundle.putSerializable("expertsObject", mData.get(position));
+                    Intent intent = new Intent(context, ExpertsActivity.class);
                     intent.putExtras(bundle);
                     context.startActivity(intent);
                 }
             });
             holder.iv_head = (ImageView) convertView.findViewById(R.id.iv_head);
-            holder.tv_title = (TextView) convertView.findViewById(R.id.tv_title);
-            holder.tv_date = (TextView) convertView.findViewById(R.id.tv_date);
+            holder.tv_name = (TextView) convertView.findViewById(R.id.tv_name);
+            holder.tv_field = (TextView) convertView.findViewById(R.id.tv_field);
             convertView.setTag(holder);
         } else {
             //通过Tag找到缓存布局
@@ -84,14 +82,14 @@ public class ConsultCommonQuestionAdapter extends BaseAdapter {
         }
         //设置视图
         holder.iv_head.setImageResource(R.drawable.head);
-        holder.tv_title.setText(mData.get(position).getTitle());
-        holder.tv_date.setText(mData.get(position).getCreatedAt());
+        holder.tv_name.setText(mData.get(position).getName());
+        holder.tv_field.setText(mData.get(position).getStudy());
 
         return convertView;
     }
 
     public final class ViewHolder {
         public ImageView iv_head;
-        public TextView tv_title, tv_date;
+        public TextView tv_name, tv_field;
     }
 }

@@ -1,15 +1,15 @@
 package com.example.hin.ui.activity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.util.Log;
 import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.hin.entity.Post;
-import com.example.hin.myadapter.ConsultCommonQuestionAdapter;
+import com.example.hin.adapter.ConsultCommonQuestionAdapter;
 import com.example.hin.system.R;
 
 import java.util.ArrayList;
@@ -89,26 +89,50 @@ public class ConsultCommonQuestionActivity extends BaseActivity implements Swipe
     public void getNetmessage(int label) {
 
         BmobQuery<Post> query = new BmobQuery<Post>();
-
-        query.addWhereEqualTo("kind", label);
-//返回50条数据，如果不加上这条语句，默认返回10条数据
+        String kind;
+        switch (label) {
+            case 0:
+                kind = "课程答疑";
+                break;
+            case 1:
+                kind = "人际交往";
+                break;
+            case 2:
+                kind = "身心健康";
+                break;
+            case 3:
+                kind = "就业招聘";
+                break;
+            case 4:
+                kind = "发展规划";
+                break;
+            case 5:
+                kind = "其他";
+                break;
+            default:
+                kind = "课程答疑";
+                break;
+        }
+        query.addWhereEqualTo("kind", kind);
+        //返回50条数据，如果不加上这条语句，默认返回10条数据
         query.setLimit(50);
-//执行查询方法
+        //执行查询方法
         query.findObjects(this, new FindListener<Post>() {
             @Override
             public void onSuccess(List<Post> list) {
                 if (list.size() > 0) {
-                    Toast.makeText(ConsultCommonQuestionActivity.this, "查询成功", Toast.LENGTH_SHORT).show();
+                    //     Toast.makeText(ConsultCommonQuestionActivity.this, "查询成功", Toast.LENGTH_SHORT).show();
+                    post=list;
                     consultCommonQuestionAdapter = new ConsultCommonQuestionAdapter(ConsultCommonQuestionActivity.this, list);
                     lv_commomquestion.setAdapter(consultCommonQuestionAdapter);
                 } else {
-                    Toast.makeText(ConsultCommonQuestionActivity.this, "暂无数据", Toast.LENGTH_SHORT).show();
+                    //    Toast.makeText(ConsultCommonQuestionActivity.this, "暂无数据", Toast.LENGTH_SHORT).show();
                 }
             }
 
             @Override
             public void onError(int i, String s) {
-                Toast.makeText(ConsultCommonQuestionActivity.this, "查询失败", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ConsultCommonQuestionActivity.this, s, Toast.LENGTH_SHORT).show();
             }
         });
     }

@@ -1,4 +1,4 @@
-package com.example.hin.Consts;
+package com.example.hin.consts;
 
 /**
  * Created by WWF on 2016/6/11.

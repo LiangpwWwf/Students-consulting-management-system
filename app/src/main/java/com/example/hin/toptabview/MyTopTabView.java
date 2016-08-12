@@ -1,4 +1,4 @@
-package com.example.hin.mytoptabview;
+package com.example.hin.toptabview;
 
 import android.app.Activity;
 import android.app.LocalActivityManager;
@@ -20,7 +20,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
-import com.example.hin.myadapter.MyPagerAdapter;
+import com.example.hin.adapter.MyPagerAdapter;
 import com.example.hin.ui.activity.ExpertsCommonQuestionActivity;
 import com.example.hin.ui.activity.ConsultCommonQuestionActivity;
 import com.example.hin.system.R;
