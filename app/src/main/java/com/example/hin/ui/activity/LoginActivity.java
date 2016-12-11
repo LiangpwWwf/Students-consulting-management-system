@@ -1,7 +1,5 @@
 package com.example.hin.ui.activity;
 
-import android.app.Activity;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -14,7 +12,7 @@ import com.example.hin.system.R;
 import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.listener.SaveListener;
 
-public class RegistActivity extends BaseActivity implements View.OnClickListener {
+public class LoginActivity extends BaseActivity implements View.OnClickListener {
 
     private Button bt_regist;
     private EditText et_account, et_password;
@@ -22,7 +20,7 @@ public class RegistActivity extends BaseActivity implements View.OnClickListener
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_regist);
+        setContentView(R.layout.activity_login);
         //用于退出程序
         CloseActivity.activityList.add(this);
 
@@ -37,7 +35,8 @@ public class RegistActivity extends BaseActivity implements View.OnClickListener
         et_password = (EditText) findViewById(R.id.et_password);
         bt_regist = (Button) findViewById(R.id.bt_regist);
     }
-    public void initOnclick(){
+
+    public void initOnclick() {
         bt_regist.setOnClickListener(this);
     }
 
@@ -47,17 +46,17 @@ public class RegistActivity extends BaseActivity implements View.OnClickListener
         BmobUser bu2 = new BmobUser();
         bu2.setUsername(et_account.getText().toString());
         bu2.setPassword(et_password.getText().toString());
-        bu2.login(RegistActivity.this, new SaveListener() {
+        bu2.login(LoginActivity.this, new SaveListener() {
             @Override
             public void onSuccess() {
-                Toast.makeText(RegistActivity.this, "登陆成功", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(RegistActivity.this, MainActivity.class);
+                Toast.makeText(LoginActivity.this, "登陆成功", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                 startActivity(intent);
             }
 
             @Override
             public void onFailure(int i, String s) {
-                Toast.makeText(RegistActivity.this, "登陆失败"+s, Toast.LENGTH_SHORT).show();
+                Toast.makeText(LoginActivity.this, "登陆失败" + s, Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -67,6 +66,9 @@ public class RegistActivity extends BaseActivity implements View.OnClickListener
         switch (v.getId()) {
             case R.id.bt_regist:
                 login();
+                break;
+            case R.id.tv_register:
+                startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
                 break;
             default:
                 break;

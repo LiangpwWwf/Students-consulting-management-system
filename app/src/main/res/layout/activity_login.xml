@@ -6,7 +6,7 @@
     android:fitsSystemWindows="true"
     tools:context=".RegistActivity">
 
-    <include layout="@layout/content_regist" />
+    <include layout="@layout/content_login" />
 
 
 </android.support.design.widget.CoordinatorLayout>

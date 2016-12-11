@@ -6,14 +6,13 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.hin.consts.LocalStringConst;
+import com.example.hin.Consts.LocalStringConst;
 import com.example.hin.entity.Post;
 import com.example.hin.system.R;
 import com.example.hin.ui.widget.SpinnerWindow.AbstractSpinerAdapter;

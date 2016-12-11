@@ -23,7 +23,7 @@
         android:theme="@style/AppTheme">
 
         <activity
-            android:name="com.example.hin.ui.activity.RegistActivity"
+            android:name="com.example.hin.ui.activity.LoginActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -31,6 +31,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name="com.example.hin.ui.activity.RegisterActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name="com.example.hin.ui.activity.MainActivity"
             android:theme="@style/AppTheme.NoActionBar"></activity>
@@ -67,7 +70,7 @@
 
         <activity
             android:name="com.example.hin.ui.activity.QuestionDetailActivity"
-            android:screenOrientation="portrait" ></activity>
+            android:screenOrientation="portrait"></activity>
 
     </application>
 
