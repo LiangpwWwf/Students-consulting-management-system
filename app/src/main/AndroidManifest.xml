@@ -35,6 +35,9 @@
             android:name="com.example.hin.ui.activity.RegisterActivity"
             android:screenOrientation="portrait" />
         <activity
+            android:name="com.example.hin.ui.activity.InputInfoActivity"
+            android:screenOrientation="portrait" />
+        <activity
             android:name="com.example.hin.ui.activity.MainActivity"
             android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity

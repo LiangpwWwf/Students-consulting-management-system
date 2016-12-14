@@ -1,6 +1,7 @@
 package com.example.hin.ui.activity;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
@@ -59,6 +60,7 @@ public class RegisterActivity extends Activity {
     public void OnClick(View view) {
         switch (view.getId()) {
             case R.id.btn_register:
+                startActivity(new Intent(RegisterActivity.this, InputInfoActivity.class));
                 break;
             case R.id.tv_get_captcha:
                 break;
