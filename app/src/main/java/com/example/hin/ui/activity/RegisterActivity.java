@@ -12,9 +12,20 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.hin.system.R;
+import com.example.hin.utils.CommonUtils;
+import com.jakewharton.rxbinding2.view.RxView;
+
+import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 import butterknife.OnClick;
+import cn.bmob.v3.BmobSMS;
+import cn.bmob.v3.exception.BmobException;
+import cn.bmob.v3.listener.RequestSMSCodeListener;
+import cn.bmob.v3.listener.VerifySMSCodeListener;
+import io.reactivex.functions.Consumer;
+import io.reactivex.subscribers.DisposableSubscriber;
 
 /**
  * Created by WWF on 2016/12/11.
@@ -35,10 +46,13 @@ public class RegisterActivity extends Activity {
 
     private boolean isInit = false;
 
+    private DisposableSubscriber countDownTask;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
+        ButterKnife.bind(this);
     }
 
     @Override
@@ -47,6 +61,7 @@ public class RegisterActivity extends Activity {
         if (!isInit) {
             isInit = true;
             initView();
+            hookClickEvent();
         }
     }
 
@@ -56,15 +71,59 @@ public class RegisterActivity extends Activity {
         etPwd.addTextChangedListener(new RegisterTextWatcher());
     }
 
-    @OnClick({R.id.btn_register, R.id.tv_get_captcha})
-    public void OnClick(View view) {
-        switch (view.getId()) {
-            case R.id.btn_register:
-                startActivity(new Intent(RegisterActivity.this, InputInfoActivity.class));
-                break;
-            case R.id.tv_get_captcha:
-                break;
-        }
+    private void hookClickEvent() {
+        RxView.clicks(btnRegister).throttleFirst(2, TimeUnit.SECONDS).subscribe(new Consumer<Object>() {
+            @Override
+            public void accept(Object o) throws Exception {
+                String phone = etPhone.getText().toString().trim();
+                if (!CommonUtils.isMobileNO(phone)) {
+                    CommonUtils.errorMsg(RegisterActivity.this
+                            , "您输入的手机号码格式错误，请重新输入");
+                    return;
+                }
+                String captcha = etCaptcha.getText().toString().trim();
+                if (TextUtils.isEmpty(captcha)) {
+                    CommonUtils.errorMsg(RegisterActivity.this, "验证码不能为空");
+                    return;
+                }
+                String pwd = etPwd.getText().toString().trim();
+                if (TextUtils.isEmpty(pwd)) {
+                    CommonUtils.errorMsg(RegisterActivity.this, "密码不能为空");
+                    return;
+                }
+                BmobSMS.verifySmsCode(RegisterActivity.this, phone, captcha, new VerifySMSCodeListener() {
+                    @Override
+                    public void done(BmobException e) {
+                        if (e == null) {
+                            startActivity(new Intent(RegisterActivity.this, InputInfoActivity.class));
+                        } else {
+                            CommonUtils.errorMsg(RegisterActivity.this
+                                    , "验证码验证失败，请检查是否输入错误");
+                        }
+                    }
+                });
+            }
+        });
+        RxView.clicks(tvGetCaptcha).throttleFirst(2, TimeUnit.SECONDS).subscribe(new Consumer<Object>() {
+            @Override
+            public void accept(Object o) throws Exception {
+                String phone = etPhone.getText().toString().trim();
+                if (!CommonUtils.isMobileNO(phone)) {
+                    CommonUtils.errorMsg(RegisterActivity.this, "您输入的手机号码格式错误，请重新输入");
+                    return;
+                }
+                BmobSMS.requestSMSCode(RegisterActivity.this, phone, "短信模板", new RequestSMSCodeListener() {
+                    @Override
+                    public void done(Integer integer, BmobException e) {
+                        if (e == null) {
+                            startSmsTimeTick();
+                        } else {
+                            CommonUtils.errorMsg(RegisterActivity.this, "验证码发送失败");
+                        }
+                    }
+                });
+            }
+        });
     }
 
     private class RegisterTextWatcher implements TextWatcher {
@@ -90,5 +149,34 @@ public class RegisterActivity extends Activity {
                 btnRegister.setEnabled(false);
             }
         }
+    }
+
+    private void startSmsTimeTick() {
+        countDownTask = new DisposableSubscriber<Integer>() {
+
+            @Override
+            protected void onStart() {
+                super.onStart();
+                tvGetCaptcha.setEnabled(false);
+            }
+
+            @Override
+            public void onNext(Integer integer) {
+                tvGetCaptcha.setText(integer + "s");
+            }
+
+            @Override
+            public void onError(Throwable t) {
+                tvGetCaptcha.setText("重新发送");
+                tvGetCaptcha.setEnabled(true);
+            }
+
+            @Override
+            public void onComplete() {
+                tvGetCaptcha.setText("重新发送");
+                tvGetCaptcha.setEnabled(true);
+            }
+        };
+        CommonUtils.countDownTask(60, countDownTask);
     }
 }

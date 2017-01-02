@@ -7,6 +7,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.widget.ListView;
 
 import com.example.hin.system.R;
+import com.facebook.drawee.backends.pipeline.Fresco;
 
 import cn.bmob.v3.Bmob;
 
@@ -29,6 +30,7 @@ public class BaseActivity extends Activity {
 
         //第一：默认初始化
         Bmob.initialize(this, "24d8176deed0a4472a3c5d2fc123f6ec");
+        Fresco.initialize(this);
     }
 
 

@@ -25,6 +25,7 @@
         android:layout_marginTop="10dp"
         android:background="@drawable/editext_bg"
         android:gravity="center"
+        android:textColorHint="#FF999999"
         android:hint="校园网账号"
         android:textSize="15sp" />
 
@@ -35,6 +36,7 @@
         android:background="@drawable/editext_bg"
         android:gravity="center"
         android:hint="密码"
+        android:textColorHint="#FF999999"
         android:password="true"
         android:textSize="15sp" />
 

@@ -11,7 +11,7 @@ import android.widget.RatingBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.example.hin.consts.LocalStringConst;
+import com.example.hin.Consts.LocalStringConst;
 import com.example.hin.entity.Experts;
 import com.example.hin.entity.Post;
 import com.example.hin.system.R;

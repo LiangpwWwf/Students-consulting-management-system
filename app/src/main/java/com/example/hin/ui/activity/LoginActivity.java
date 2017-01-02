@@ -38,6 +38,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
 
     public void initOnclick() {
         bt_regist.setOnClickListener(this);
+        findViewById(R.id.tv_register).setOnClickListener(this);
     }
 
     /*

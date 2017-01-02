@@ -19,6 +19,7 @@
         android:inputType="phone"
         android:paddingLeft="15dp"
         android:textColor="#FF000000"
+        android:textColorHint="#FF999999"
         android:textSize="15dp" />
 
     <LinearLayout
@@ -42,6 +43,7 @@
             android:inputType="number"
             android:paddingLeft="15dp"
             android:textColor="#FF000000"
+            android:textColorHint="#FF999999"
             android:textSize="15dp" />
 
         <TextView
@@ -70,6 +72,7 @@
         android:inputType="textWebPassword"
         android:paddingLeft="15dp"
         android:textColor="#FF000000"
+        android:textColorHint="#FF999999"
         android:textSize="15dp" />
 
     <Button
