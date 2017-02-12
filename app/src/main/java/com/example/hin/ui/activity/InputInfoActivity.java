@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.hin.system.R;
 import com.example.hin.ui.dialog.SelectSexDialog;
@@ -18,6 +19,8 @@ import java.util.concurrent.TimeUnit;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import cn.bmob.v3.BmobUser;
+import cn.bmob.v3.listener.SaveListener;
 import io.reactivex.functions.Consumer;
 
 /**
@@ -43,11 +46,17 @@ public class InputInfoActivity extends BaseActivity implements SelectSexDialog.O
 
     private SelectSexDialog dialog;
 
+    private String phone;
+    private String pwd;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_input_info);
         ButterKnife.bind(this);
+
+        phone = getIntent().getStringExtra("phone");
+        pwd = getIntent().getStringExtra("pwd");
     }
 
     @Override
@@ -74,7 +83,23 @@ public class InputInfoActivity extends BaseActivity implements SelectSexDialog.O
         RxView.clicks(btnSubmit).throttleFirst(2, TimeUnit.SECONDS).subscribe(new Consumer<Object>() {
             @Override
             public void accept(Object o) throws Exception {
+                BmobUser user = new BmobUser();
+                user.setEmail(etMail.getText().toString().trim());
+                user.setUsername(etRealName.getText().toString().trim());
+                user.setMobilePhoneNumber(phone);
+                user.setPassword(pwd);
+                user.signUp(InputInfoActivity.this, new SaveListener() {
+                    @Override
+                    public void onSuccess() {
+                        Toast.makeText(InputInfoActivity.this, "注册成功", Toast.LENGTH_SHORT).show();
+                        finish();
+                    }
 
+                    @Override
+                    public void onFailure(int i, String s) {
+                        Toast.makeText(InputInfoActivity.this, "注册失败", Toast.LENGTH_SHORT).show();
+                    }
+                });
             }
         });
     }

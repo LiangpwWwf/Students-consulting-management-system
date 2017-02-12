@@ -95,7 +95,10 @@ public class RegisterActivity extends Activity {
                     @Override
                     public void done(BmobException e) {
                         if (e == null) {
-                            startActivity(new Intent(RegisterActivity.this, InputInfoActivity.class));
+                            startActivity(new Intent(RegisterActivity.this, InputInfoActivity.class)
+                                    .putExtra("phone", etPhone.getText().toString().trim())
+                                    .putExtra("pwd", etPwd.getText().toString().trim()));
+                            finish();
                         } else {
                             CommonUtils.errorMsg(RegisterActivity.this
                                     , "验证码验证失败，请检查是否输入错误");
