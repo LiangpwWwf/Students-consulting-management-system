@@ -2,14 +2,14 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FFF0F0F0"
+    android:background="@color/COLOR_FFF0F0F0"
     android:orientation="vertical">
 
     <RelativeLayout
         android:id="@+id/bar_layout"
         android:layout_width="match_parent"
         android:layout_height="45dp"
-        android:background="#FFFFFFFF">
+        android:background="@color/COLOR_FFFFFFFF">
 
         <TextView
             android:id="@+id/btn_back"
@@ -20,8 +20,8 @@
             android:paddingLeft="15dp"
             android:paddingRight="15dp"
             android:paddingTop="5dp"
-            android:text="返回"
-            android:textColor="#FF000000"
+            android:text="@string/tv_back"
+            android:textColor="@color/COLOR_FF000000"
             android:textSize="16dp" />
 
         <TextView
@@ -29,8 +29,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:text="所有图片"
-            android:textColor="#FF000000"
+            android:text="@string/tv_all_image"
+            android:textColor="@color/COLOR_FF000000"
             android:textSize="18dp" />
 
         <TextView
@@ -46,7 +46,7 @@
             android:paddingLeft="10dp"
             android:paddingRight="5dp"
             android:paddingTop="5dp"
-            android:textColor="#FF000000"
+            android:textColor="@color/COLOR_FF000000"
             android:textSize="17dp" />
     </RelativeLayout>
 
@@ -54,7 +54,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:background="#FFF0F0F0">
+        android:background="@color/COLOR_FFF0F0F0">
 
         <GridView
             android:id="@+id/grid"
@@ -72,12 +72,12 @@
             android:id="@+id/timeline_area"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#FFDEDEDE"
+            android:background="@color/COLOR_FFDEDEDE"
             android:paddingBottom="5dp"
             android:paddingLeft="10dp"
             android:paddingTop="5dp"
             android:text=""
-            android:textColor="#FF999999"
+            android:textColor="@color/COLOR_FF999999"
             android:textSize="14dp"
             android:visibility="gone" />
 
@@ -86,7 +86,7 @@
             android:layout_width="match_parent"
             android:layout_height="45dp"
             android:layout_alignParentBottom="true"
-            android:background="#66FFFFFF"
+            android:background="@color/COLOR_66FFFFFF"
             android:clickable="true">
 
             <Button
@@ -102,7 +102,7 @@
                 android:paddingLeft="16dp"
                 android:paddingRight="16dp"
                 android:singleLine="true"
-                android:text="所有图片"
+                android:text="@string/tv_all_image"
                 android:textColor="@color/imageselect_folder_text_color"
                 android:textSize="16dp" />
 
@@ -110,7 +110,7 @@
                 android:layout_width="1dp"
                 android:layout_height="match_parent"
                 android:layout_toLeftOf="@+id/preview"
-                android:background="#FFCCCCCC" />
+                android:background="@color/COLOR_FFCCCCCC" />
 
             <Button
                 android:id="@+id/preview"
@@ -123,7 +123,7 @@
                 android:minWidth="1dp"
                 android:paddingLeft="16dp"
                 android:paddingRight="16dp"
-                android:text="预览"
+                android:text="@string/tv_preview"
                 android:textColor="@color/imageselect_text_color"
                 android:textSize="14dp" />
         </RelativeLayout>

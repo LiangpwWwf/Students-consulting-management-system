@@ -5,5 +5,14 @@
     <color name="colorAccent">#FF4081</color>
     <color name="radiobg_press">#43859d</color>
     <color name="radiobg_normal">#555555</color>
-
+    <color name="COLOR_FFF0F0F0">#FFF0F0F0</color>
+    <color name="COLOR_FFFFFFFF">#FFFFFFFF</color>
+    <color name="COLOR_00000000">#00000000</color>
+    <color name="COLOR_FF000000">#FF000000</color>
+    <color name="COLOR_FFDEDEDE">#FFDEDEDE</color>
+    <color name="COLOR_FF999999">#FF999999</color>
+    <color name="COLOR_FFCCCCCC">#FFCCCCCC</color>
+    <color name="COLOR_66FFFFFF">#66FFFFFF</color>
+    <color name="COLOR_FF39556E">#FF39556E</color>
+    <color name="COLOR_FF0FA8AE">#FF0FA8AE</color>
 </resources>

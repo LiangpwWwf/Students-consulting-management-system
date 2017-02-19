@@ -1,5 +1,8 @@
 package com.example.hin.ui.activity;
 
+import android.Manifest;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -9,11 +12,20 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.hin.common.LHImageSelectHandler;
+import com.example.hin.common.select.ImageCrop;
+import com.example.hin.common.select.interfaces.ImageSelectHook;
+import com.example.hin.entity.User;
 import com.example.hin.system.R;
 import com.example.hin.ui.dialog.SelectSexDialog;
+import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.drawee.view.SimpleDraweeView;
+import com.facebook.imagepipeline.common.ResizeOptions;
+import com.facebook.imagepipeline.request.ImageRequestBuilder;
 import com.jakewharton.rxbinding2.view.RxView;
 
+import java.io.File;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import butterknife.BindView;
@@ -22,12 +34,15 @@ import butterknife.OnClick;
 import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.listener.SaveListener;
 import io.reactivex.functions.Consumer;
+import permissions.dispatcher.NeedsPermission;
+import permissions.dispatcher.RuntimePermissions;
 
 /**
  * Created by WWF on 2016/12/14.
  */
-
-public class InputInfoActivity extends BaseActivity implements SelectSexDialog.OnSexSelectListener {
+@RuntimePermissions
+public class InputInfoActivity extends BaseActivity
+        implements SelectSexDialog.OnSexSelectListener, ImageSelectHook {
 
     @BindView(R.id.iv_head)
     SimpleDraweeView ivHead;
@@ -57,6 +72,7 @@ public class InputInfoActivity extends BaseActivity implements SelectSexDialog.O
 
         phone = getIntent().getStringExtra("phone");
         pwd = getIntent().getStringExtra("pwd");
+        LHImageSelectHandler.get().setImageSelectHook(this);
     }
 
     @Override
@@ -83,11 +99,13 @@ public class InputInfoActivity extends BaseActivity implements SelectSexDialog.O
         RxView.clicks(btnSubmit).throttleFirst(2, TimeUnit.SECONDS).subscribe(new Consumer<Object>() {
             @Override
             public void accept(Object o) throws Exception {
-                BmobUser user = new BmobUser();
+                User user = new User();
                 user.setEmail(etMail.getText().toString().trim());
                 user.setUsername(etRealName.getText().toString().trim());
                 user.setMobilePhoneNumber(phone);
                 user.setPassword(pwd);
+                user.setStudentId(etNo.getText().toString().trim());
+                user.setSex(tvSex.getText().toString().trim());
                 user.signUp(InputInfoActivity.this, new SaveListener() {
                     @Override
                     public void onSuccess() {
@@ -108,6 +126,8 @@ public class InputInfoActivity extends BaseActivity implements SelectSexDialog.O
     public void OnClick(View view) {
         switch (view.getId()) {
             case R.id.iv_head:
+                System.out.println("error=haha");
+                InputInfoActivityPermissionsDispatcher.showSelectImgActivityWithCheck(this);
                 break;
             case R.id.tv_sex:
                 if (dialog != null && !dialog.isShowing()) {
@@ -124,6 +144,39 @@ public class InputInfoActivity extends BaseActivity implements SelectSexDialog.O
         } else {
             tvSex.setText("女");
         }
+    }
+
+    @NeedsPermission({
+            Manifest.permission.CAMERA, Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE})
+    protected void showSelectImgActivity() {
+        startActivity(new Intent(InputInfoActivity.this, SelectImageActivity.class));
+    }
+
+    @Override
+    public void onSelectImage(File image) {
+        ivHead.setController(Fresco.newDraweeControllerBuilder()
+                .setImageRequest(ImageRequestBuilder.newBuilderWithSource(Uri.fromFile(image))
+                        .setResizeOptions(new ResizeOptions(160, 160)).build()).build());
+    }
+
+    @Override
+    public void onSelectImages(List<File> images) {
+
+    }
+
+    @Override
+    public boolean isMultiSelect() {
+        return false;
+    }
+
+    @Override
+    public ImageCrop customizeImageCrop(ImageCrop rawCrop) {
+        return null;
+    }
+
+    @Override
+    public int getImageSelectLimit() {
+        return 1;
     }
 
     private class textWatcher implements TextWatcher {

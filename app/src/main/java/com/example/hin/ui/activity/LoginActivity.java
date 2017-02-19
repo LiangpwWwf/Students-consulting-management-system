@@ -7,6 +7,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.hin.entity.User;
 import com.example.hin.system.R;
 
 import cn.bmob.v3.BmobUser;
@@ -44,7 +45,7 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
     /*
     * 假登陆，测试时直接使用后台提供的登陆账号*/
     public void login() {
-        BmobUser bu2 = new BmobUser();
+        User bu2 = new User();
         bu2.setUsername(et_account.getText().toString());
         bu2.setPassword(et_password.getText().toString());
         bu2.login(LoginActivity.this, new SaveListener() {

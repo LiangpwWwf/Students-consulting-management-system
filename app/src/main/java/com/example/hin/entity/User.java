@@ -7,11 +7,15 @@ import cn.bmob.v3.datatype.BmobRelation;
 public class User extends BmobUser {
 
 	public static final String TAG = "User";
+	private static final long serialVersionUID = 1L;
 
 	private String signature;
 	private BmobFile avatar;
 	private BmobRelation favorite;
 	private String sex;
+	private String studentId;
+	private String department;
+	private String grade;
 
 	public String getSex() {
 		return sex;
@@ -46,5 +50,27 @@ public class User extends BmobUser {
 		this.signature = signature;
 	}
 
+	public String getStudentId() {
+		return studentId;
+	}
 
+	public void setStudentId(String studentId) {
+		this.studentId = studentId;
+	}
+
+	public String getDepartment() {
+		return department;
+	}
+
+	public void setDepartment(String department) {
+		this.department = department;
+	}
+
+	public String getGrade() {
+		return grade;
+	}
+
+	public void setGrade(String grade) {
+		this.grade = grade;
+	}
 }

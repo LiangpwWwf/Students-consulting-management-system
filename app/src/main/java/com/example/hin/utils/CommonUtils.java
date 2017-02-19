@@ -3,11 +3,13 @@ package com.example.hin.utils;
 import android.app.Activity;
 import android.content.Context;
 import android.content.ContextWrapper;
+import android.os.Environment;
 import android.text.TextUtils;
 import android.widget.Toast;
 
 import org.reactivestreams.Subscriber;
 
+import java.io.File;
 import java.util.concurrent.TimeUnit;
 
 import io.reactivex.Flowable;
@@ -69,5 +71,17 @@ public class CommonUtils {
         } else {
             return null;
         }
+    }
+
+    public static File getDiskCacheDir(Context context) {
+        File dir = null;
+        if (Environment.MEDIA_MOUNTED.equals(Environment.getExternalStorageState())
+                || !Environment.isExternalStorageRemovable()) {
+            dir = context.getExternalCacheDir();
+        }
+        if (dir == null) {
+            dir = context.getCacheDir();
+        }
+        return dir;
     }
 }

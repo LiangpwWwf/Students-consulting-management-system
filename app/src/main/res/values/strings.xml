@@ -1,4 +1,12 @@
 <resources>
     <string name="app_name">System</string>
     <string name="action_settings">Settings</string>
+
+    <string name="tv_back">返回</string>
+    <string name="tv_all_image">所有图片</string>
+    <string name="tv_take_photo">拍照</string>
+    <string name="tv_preview">预览</string>
+    <string name="tv_from_phone">从手机相册选择</string>
+    <string name="tv_require_camera_permission">应用需要开启摄像头权限</string>
+    <string name="tv_camera_permission_invalid">无法获取摄像头权限</string>
 </resources>
