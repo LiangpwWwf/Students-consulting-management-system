@@ -66,16 +66,6 @@
             android:textSize="15sp" />
 
         <TextView
-            android:id="@+id/tv_textsize"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:background="@drawable/item_selector_bg"
-            android:gravity="center_vertical"
-            android:padding="10dp"
-            android:text="字体大小"
-            android:textSize="15sp" />
-
-        <TextView
             android:id="@+id/tv_help"
             android:layout_width="match_parent"
             android:layout_height="50dp"

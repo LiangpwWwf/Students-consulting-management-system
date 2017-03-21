@@ -27,6 +27,7 @@
         android:gravity="center"
         android:textColorHint="#FF999999"
         android:hint="校园网账号"
+        android:inputType="number"
         android:textSize="15sp" />
 
     <EditText

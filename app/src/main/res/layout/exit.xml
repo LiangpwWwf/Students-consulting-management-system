@@ -10,6 +10,17 @@
         android:orientation="vertical">
 
         <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="50dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="80dp"
+            android:text="确认退出应用？"
+            android:textColor="@color/COLOR_FF000000"
+            android:textSize="20dp"
+            android:layout_marginRight="50dp" />
+
+        <TextView
             android:id="@+id/tv_exit_confirm"
             android:layout_width="match_parent"
             android:layout_height="50dp"

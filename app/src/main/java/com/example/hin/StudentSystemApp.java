@@ -3,6 +3,7 @@ package com.example.hin;
 import android.support.multidex.MultiDexApplication;
 
 import com.example.hin.common.LHImageSelectHandler;
+import com.example.hin.common.UserPref;
 import com.facebook.drawee.backends.pipeline.Fresco;
 
 import java.io.File;
@@ -14,9 +15,13 @@ import java.io.FileFilter;
 
 public class StudentSystemApp extends MultiDexApplication {
 
+    private static StudentSystemApp app;
+
     @Override
     public void onCreate() {
         super.onCreate();
+        app = this;
+        UserPref.get().init(StudentSystemApp.getApp());
         Fresco.initialize(this);
         LHImageSelectHandler.get().initAlbum(this, new FileFilter() {
             @Override
@@ -25,5 +30,9 @@ public class StudentSystemApp extends MultiDexApplication {
                         || pathname.getName().endsWith(".png");
             }
         });
+    }
+
+    public static StudentSystemApp getApp() {
+        return app;
     }
 }

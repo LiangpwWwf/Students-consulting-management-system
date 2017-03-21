@@ -32,7 +32,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import cn.bmob.v3.BmobUser;
+import cn.bmob.v3.datatype.BmobFile;
 import cn.bmob.v3.listener.SaveListener;
+import cn.bmob.v3.listener.UploadFileListener;
 import io.reactivex.functions.Consumer;
 import permissions.dispatcher.NeedsPermission;
 import permissions.dispatcher.RuntimePermissions;
@@ -63,6 +65,7 @@ public class InputInfoActivity extends BaseActivity
 
     private String phone;
     private String pwd;
+    private File avatar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,23 +102,35 @@ public class InputInfoActivity extends BaseActivity
         RxView.clicks(btnSubmit).throttleFirst(2, TimeUnit.SECONDS).subscribe(new Consumer<Object>() {
             @Override
             public void accept(Object o) throws Exception {
-                User user = new User();
-                user.setEmail(etMail.getText().toString().trim());
-                user.setUsername(etRealName.getText().toString().trim());
-                user.setMobilePhoneNumber(phone);
-                user.setPassword(pwd);
-                user.setStudentId(etNo.getText().toString().trim());
-                user.setSex(tvSex.getText().toString().trim());
-                user.signUp(InputInfoActivity.this, new SaveListener() {
+                final BmobFile file = new BmobFile(avatar);
+                file.upload(InputInfoActivity.this, new UploadFileListener() {
                     @Override
                     public void onSuccess() {
-                        Toast.makeText(InputInfoActivity.this, "注册成功", Toast.LENGTH_SHORT).show();
-                        finish();
+                        User user = new User();
+                        user.setEmail(etMail.getText().toString().trim());
+                        user.setNickname(etRealName.getText().toString().trim());
+                        user.setMobilePhoneNumber(phone);
+                        user.setPassword(pwd);
+                        user.setAvatar(file.getFileUrl(InputInfoActivity.this));
+                        user.setUsername(etNo.getText().toString().trim());
+                        user.setSex(tvSex.getText().toString().trim());
+                        user.signUp(InputInfoActivity.this, new SaveListener() {
+                            @Override
+                            public void onSuccess() {
+                                Toast.makeText(InputInfoActivity.this, "注册成功", Toast.LENGTH_SHORT).show();
+                                finish();
+                            }
+
+                            @Override
+                            public void onFailure(int i, String s) {
+                                Toast.makeText(InputInfoActivity.this, "注册失败", Toast.LENGTH_SHORT).show();
+                            }
+                        });
                     }
 
                     @Override
                     public void onFailure(int i, String s) {
-                        Toast.makeText(InputInfoActivity.this, "注册失败", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(InputInfoActivity.this, "头像上传失败", Toast.LENGTH_SHORT).show();
                     }
                 });
             }
@@ -126,7 +141,6 @@ public class InputInfoActivity extends BaseActivity
     public void OnClick(View view) {
         switch (view.getId()) {
             case R.id.iv_head:
-                System.out.println("error=haha");
                 InputInfoActivityPermissionsDispatcher.showSelectImgActivityWithCheck(this);
                 break;
             case R.id.tv_sex:
@@ -154,6 +168,7 @@ public class InputInfoActivity extends BaseActivity
 
     @Override
     public void onSelectImage(File image) {
+        avatar = image;
         ivHead.setController(Fresco.newDraweeControllerBuilder()
                 .setImageRequest(ImageRequestBuilder.newBuilderWithSource(Uri.fromFile(image))
                         .setResizeOptions(new ResizeOptions(160, 160)).build()).build());

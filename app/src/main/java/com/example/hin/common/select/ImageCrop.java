@@ -33,7 +33,7 @@ public abstract class ImageCrop {
      */
     public ImageCrop(Context context, File data, File out) {
         String type = "image/*";
-        Uri dataUri = FileProvider.getUriForFile(context, "com.example.hint.fileprovider", data);
+        Uri dataUri = FileProvider.getUriForFile(context, "com.example.hin.system.fileprovider", data);
         this.intent = data == null
                 ? new Intent(Intent.ACTION_GET_CONTENT).setDataAndType(Images.Media.EXTERNAL_CONTENT_URI, type)
                 : new Intent("com.android.camera.action.CROP").setDataAndType(dataUri, type);

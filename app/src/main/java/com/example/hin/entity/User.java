@@ -10,10 +10,10 @@ public class User extends BmobUser {
 	private static final long serialVersionUID = 1L;
 
 	private String signature;
-	private BmobFile avatar;
+	private String avatar;
 	private BmobRelation favorite;
 	private String sex;
-	private String studentId;
+	private String nickname;
 	private String department;
 	private String grade;
 
@@ -33,14 +33,13 @@ public class User extends BmobUser {
 		this.favorite = favorite;
 	}
 
-	public BmobFile getAvatar() {
+	public String getAvatar() {
 		return avatar;
 	}
 
-	public void setAvatar(BmobFile avatar) {
+	public void setAvatar(String avatar) {
 		this.avatar = avatar;
 	}
-
 
 	public String getSignature() {
 		return signature;
@@ -50,12 +49,12 @@ public class User extends BmobUser {
 		this.signature = signature;
 	}
 
-	public String getStudentId() {
-		return studentId;
+	public String getNickname() {
+		return nickname;
 	}
 
-	public void setStudentId(String studentId) {
-		this.studentId = studentId;
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
 	}
 
 	public String getDepartment() {

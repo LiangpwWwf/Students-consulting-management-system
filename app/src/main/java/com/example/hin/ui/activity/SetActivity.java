@@ -7,7 +7,9 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
+import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RadioGroup;
@@ -15,17 +17,31 @@ import android.widget.RelativeLayout;
 import android.widget.SlidingDrawer;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
+import com.example.hin.common.UserPref;
+import com.example.hin.entity.Feedback;
+import com.example.hin.entity.User;
 import com.example.hin.system.R;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import cn.bmob.v3.listener.SaveListener;
 
 /**
  * Created by Hin on 2016/6/1.
  */
 public class SetActivity extends Activity implements View.OnClickListener {
+
+    @BindView(R.id.et_feedback_content)
+    EditText etContent;
+    @BindView(R.id.btn_submit)
+    Button btnSubmit;
+
     private ImageView iv_back, iv_close;
     private SlidingDrawer sd_content;
     private TextView tv_new, tv_model, tv_textsize, tv_help, tv_exit, tv_introduce, tv_exit_confirm, tv_exit_cancel, tv_starttime, tv_endtime;
-    private LinearLayout ll_item, ll_new_warn, ll_model, ll_help, ll_feedback, ll_exit,ll_settitle;
+    private LinearLayout ll_item, ll_new_warn, ll_model, ll_help, ll_feedback, ll_exit, ll_settitle;
     private RadioGroup rg_class;
     private RelativeLayout rl_start_time, rl_end_time;
     private View ll_selecttime;
@@ -37,6 +53,7 @@ public class SetActivity extends Activity implements View.OnClickListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_set);
+        ButterKnife.bind(this);
         //用于退出程序
         CloseActivity.activityList.add(this);
         iniView();
@@ -49,10 +66,9 @@ public class SetActivity extends Activity implements View.OnClickListener {
         sd_content = (SlidingDrawer) findViewById(R.id.sd_content);
         tv_new = (TextView) findViewById(R.id.tv_new);
         tv_model = (TextView) findViewById(R.id.tv_model);
-        tv_textsize = (TextView) findViewById(R.id.tv_textsize);
         tv_help = (TextView) findViewById(R.id.tv_help);
         tv_exit = (TextView) findViewById(R.id.tv_exit);
-        ll_settitle=(LinearLayout)findViewById(R.id.ll_settitle);
+        ll_settitle = (LinearLayout) findViewById(R.id.ll_settitle);
         ll_item = (LinearLayout) findViewById(R.id.ll_item);
         iv_close = (ImageView) findViewById(R.id.iv_close);
         ll_new_warn = (LinearLayout) findViewById(R.id.ll_new_warn);
@@ -124,7 +140,7 @@ public class SetActivity extends Activity implements View.OnClickListener {
                 }
             }
         });
-
+        btnSubmit.setOnClickListener(this);
     }
 
     @Override
@@ -167,6 +183,7 @@ public class SetActivity extends Activity implements View.OnClickListener {
                 sd_content.close();
                 break;
             case R.id.tv_exit_confirm:
+                UserPref.get().clearInfo();
                 CloseActivity.exitClient(SetActivity.this);
                 break;
             case R.id.rl_start_time:
@@ -174,14 +191,14 @@ public class SetActivity extends Activity implements View.OnClickListener {
                 dp_date = (DatePicker) ll_selecttime.findViewById(R.id.dp_date);
                 tp_time = (TimePicker) ll_selecttime.findViewById(R.id.tp_time);
 
-                Dialog dialogstarttime=  new AlertDialog.Builder(SetActivity.this).setTitle("选择开始时间").setView(ll_selecttime)
+                Dialog dialogstarttime = new AlertDialog.Builder(SetActivity.this).setTitle("选择开始时间").setView(ll_selecttime)
                         .setPositiveButton("确定", new DialogInterface.OnClickListener() {
 
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
 
-                                tv_starttime.setText(dp_date.getYear()+"-"+" "+(dp_date.getMonth()+1)+"-"+dp_date.getDayOfMonth()+" "+
-                                tp_time.getCurrentHour()+ ":"+tp_time.getCurrentMinute());
+                                tv_starttime.setText(dp_date.getYear() + "-" + " " + (dp_date.getMonth() + 1) + "-" + dp_date.getDayOfMonth() + " " +
+                                        tp_time.getCurrentHour() + ":" + tp_time.getCurrentMinute());
 
                                 dialog.dismiss();
                             }
@@ -205,6 +222,28 @@ public class SetActivity extends Activity implements View.OnClickListener {
                         })
                         .setNegativeButton("取消", null).show();
                 break;
+            case R.id.btn_submit:
+                if (etContent.getText().toString().trim().isEmpty()) {
+                    Toast.makeText(SetActivity.this, "反馈内容不能为空", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                Feedback feedback = new Feedback();
+                feedback.setContent(etContent.getText().toString().trim());
+                feedback.setuId(UserPref.get().get(UserPref.KEY_UID));
+                feedback.save(SetActivity.this, new SaveListener() {
+                    @Override
+                    public void onSuccess() {
+                        Toast.makeText(SetActivity.this, "反馈成功", Toast.LENGTH_SHORT).show();
+                        finish();
+                        return;
+                    }
+
+                    @Override
+                    public void onFailure(int i, String s) {
+                        Toast.makeText(SetActivity.this, "反馈失败", Toast.LENGTH_SHORT).show();
+                    }
+                });
+                break;
             default:
                 break;
         }
@@ -212,13 +251,11 @@ public class SetActivity extends Activity implements View.OnClickListener {
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if(sd_content.isOpened())
-        {
+        if (sd_content.isOpened()) {
             ll_settitle.setVisibility(View.VISIBLE);
             sd_content.close();
             return true;
-        }
-        else {
+        } else {
             return super.onKeyDown(keyCode, event);
         }
     }

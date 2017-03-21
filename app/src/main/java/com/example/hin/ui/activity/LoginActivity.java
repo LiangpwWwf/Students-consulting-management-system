@@ -7,6 +7,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.hin.common.UserPref;
 import com.example.hin.entity.User;
 import com.example.hin.system.R;
 
@@ -51,9 +52,12 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
         bu2.login(LoginActivity.this, new SaveListener() {
             @Override
             public void onSuccess() {
+                UserPref.get().syncProfile(User.getCurrentUser(LoginActivity.this, User.class));
+                UserPref.get().set(UserPref.KEY_PWD, et_password.getText().toString().trim());
                 Toast.makeText(LoginActivity.this, "登陆成功", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                 startActivity(intent);
+                finish();
             }
 
             @Override
