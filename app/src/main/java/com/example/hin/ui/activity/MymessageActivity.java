@@ -27,7 +27,9 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import cn.bmob.v3.datatype.BmobFile;
 import cn.bmob.v3.listener.UpdateListener;
+import cn.bmob.v3.listener.UploadFileListener;
 import permissions.dispatcher.NeedsPermission;
 import permissions.dispatcher.RuntimePermissions;
 
@@ -55,7 +57,6 @@ public class MymessageActivity extends Activity implements
 
     private ImageView iv_back;
     private ImageView ivEdit;
-    private File avatar;
     private boolean canInput = false;
 
     @Override
@@ -141,6 +142,7 @@ public class MymessageActivity extends Activity implements
     }
 
     public void changeInputType(boolean canInput) {
+        ivHead.setClickable(canInput);
         etName.setEnabled(canInput);
         etDepartment.setEnabled(canInput);
         etGrade.setEnabled(canInput);
@@ -148,11 +150,24 @@ public class MymessageActivity extends Activity implements
     }
 
     @Override
-    public void onSelectImage(File image) {
-        avatar = image;
-        ivHead.setController(Fresco.newDraweeControllerBuilder()
-                .setImageRequest(ImageRequestBuilder.newBuilderWithSource(Uri.fromFile(image))
-                        .setResizeOptions(new ResizeOptions(160, 160)).build()).build());
+    public void onSelectImage(final File image) {
+        final BmobFile file = new BmobFile(image);
+        file.upload(MymessageActivity.this, new UploadFileListener() {
+            @Override
+            public void onSuccess() {
+                UserPref.get().set(UserPref.KEY_AVATAR, file.getFileUrl(MymessageActivity.this));
+                ivHead.setController(Fresco.newDraweeControllerBuilder()
+                        .setImageRequest(ImageRequestBuilder.newBuilderWithSource(Uri.fromFile(image))
+                                .setResizeOptions(new ResizeOptions(160, 160)).build()).build());
+                setResult(RESULT_OK);
+            }
+
+            @Override
+            public void onFailure(int i, String s) {
+                Toast.makeText(MymessageActivity.this, "头像修改失败", Toast.LENGTH_SHORT).show();
+            }
+        });
+
     }
 
     @Override

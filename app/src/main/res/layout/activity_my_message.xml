@@ -78,6 +78,7 @@
                     fresco:placeholderImage="@drawable/teacher"
                     fresco:placeholderImageScaleType="centerCrop"
                     fresco:roundAsCircle="true"
+                    android:clickable="false"
                     fresco:roundingBorderColor="@color/COLOR_FFFFFFFF"
                     fresco:roundingBorderWidth="2dp" />
 
