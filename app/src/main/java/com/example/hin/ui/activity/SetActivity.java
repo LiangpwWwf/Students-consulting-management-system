@@ -93,7 +93,7 @@ public class SetActivity extends Activity implements View.OnClickListener {
         iv_back.setOnClickListener(this);
         tv_new.setOnClickListener(this);
         tv_model.setOnClickListener(this);
-        tv_textsize.setOnClickListener(this);
+//        tv_textsize.setOnClickListener(this);
         tv_help.setOnClickListener(this);
         tv_exit.setOnClickListener(this);
         iv_close.setOnClickListener(this);

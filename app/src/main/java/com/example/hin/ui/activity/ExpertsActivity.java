@@ -99,7 +99,7 @@ public class ExpertsActivity extends Activity implements View.OnClickListener {
                         "确定", null).show();
                 break;
             case R.id.tv_consult:
-                setResult(RESULT_OK, new Intent().putExtra(LocalStringConst.INTENT_EXPERT_ID, 1));
+                setResult(RESULT_OK, new Intent().putExtra(LocalStringConst.INTENT_EXPERT_ID, experts.getName()));
                 finish();
             default:
                 break;

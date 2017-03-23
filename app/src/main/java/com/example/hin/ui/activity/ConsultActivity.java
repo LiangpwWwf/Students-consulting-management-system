@@ -13,6 +13,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.hin.Consts.LocalStringConst;
+import com.example.hin.adapter.ExpertCommonQuestionAdapter;
+import com.example.hin.entity.Experts;
 import com.example.hin.entity.Post;
 import com.example.hin.system.R;
 import com.example.hin.ui.widget.SpinnerWindow.AbstractSpinerAdapter;
@@ -36,7 +38,8 @@ public class ConsultActivity extends Activity implements View.OnClickListener {
 
     private TextView tvExpert;
     private AbstractSpinerAdapter adapter, kindAdapter, topicAdapter;
-    private List<String> name = new ArrayList<String>();
+    private List<Experts> Expert = new ArrayList<Experts>();
+    private List<String> name = new ArrayList<>();
     private List<String> kind = new ArrayList<String>();
     private List<String> topic = new ArrayList<String>();
     private SpinerPopWindow mSpinerPopWindow, kindSpinerPopWindow, topicSpinerPopWindow;
@@ -68,14 +71,33 @@ public class ConsultActivity extends Activity implements View.OnClickListener {
         for (int i : star) {
             findViewById(i).setOnClickListener(this);
         }
-        name.add("小华");
-        name.add("小周");
-        name.add("小黄");
-        name.add("小刘");
-        mSpinerPopWindow = new SpinerPopWindow(this);
+        adapter = new SpinnerAdapter(ConsultActivity.this);
+        BmobQuery<Experts> query = new BmobQuery<Experts>();
+        //返回50条数据，如果不加上这条语句，默认返回10条数据
+        query.setLimit(50);
+        //执行查询方法
+        query.findObjects(this, new FindListener<Experts>() {
 
-        adapter = new SpinnerAdapter(this);
-        adapter.refreshData(name, 0);
+            @Override
+            public void onSuccess(List<Experts> list) {
+                if (list.size() > 0) {
+                    Expert = list;
+                    if (Expert != null) {
+                        for (Experts e : Expert) {
+                            name.add(e.getName());
+                        }
+                    }
+                    adapter.refreshData(name, 0);
+                }
+            }
+
+            @Override
+            public void onError(int i, String s) {
+
+            }
+        });
+
+        mSpinerPopWindow = new SpinerPopWindow(this);
         mSpinerPopWindow.setAdatper(adapter);
 
 
@@ -199,7 +221,9 @@ public class ConsultActivity extends Activity implements View.OnClickListener {
                 mSpinerPopWindow.setItemListener(new AbstractSpinerAdapter.IOnItemSelectListener() {
                     @Override
                     public void onItemClick(int pos) {
-                        startActivityForResult(new Intent(ConsultActivity.this, ExpertsActivity.class)
+                        Bundle bundle = new Bundle();
+                        bundle.putSerializable("expertsObject", Expert.get(pos));
+                        startActivityForResult(new Intent(ConsultActivity.this, ExpertsActivity.class).putExtras(bundle)
                                 , LocalStringConst.REQUEST_CODE_EXPERT_VIEW);
                     }
                 });
@@ -224,9 +248,16 @@ public class ConsultActivity extends Activity implements View.OnClickListener {
         }
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(requestCode==LocalStringConst.REQUEST_CODE_EXPERT_VIEW&&resultCode==RESULT_OK){
+            tvExpert.setText(getIntent().getStringExtra(LocalStringConst.INTENT_EXPERT_ID));
+        }
+    }
+
     /*
-    紧急程度星级设置
-    */
+        紧急程度星级设置
+        */
     private void setEmergent() {
         int i;
         for (i = 0; i < flag; i++) {
