@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="5dp"
@@ -9,18 +10,23 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <com.example.hin.ui.widget.CircleImageView
-            android:id="@+id/civ_head"
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/sdv_head"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            android:src="@mipmap/face_default" />
+            fresco:placeholderImage="@drawable/head"
+            fresco:placeholderImageScaleType="centerCrop"
+            fresco:roundAsCircle="true"
+            fresco:roundingBorderColor="#FF000000"
+            fresco:roundingBorderWidth="1dp"></com.facebook.drawee.view.SimpleDraweeView>
+
 
         <LinearLayout
             android:id="@+id/layout_top"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
-            android:layout_toRightOf="@+id/civ_head"
+            android:layout_toRightOf="@id/sdv_head"
             android:gravity="center_vertical"
             android:orientation="horizontal">
 
@@ -76,7 +82,7 @@
             android:layout_marginLeft="10dp"
             android:layout_marginRight="40dp"
             android:layout_marginTop="3dp"
-            android:layout_toRightOf="@+id/civ_head"
+            android:layout_toRightOf="@id/sdv_head"
             android:text="这道题好简单啊!"
             android:textSize="13dp" />
 

@@ -10,18 +10,29 @@
         android:background="#33b5e5"
         android:gravity="center_vertical">
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="问问题"
+            android:textColor="#fff"
+            android:textSize="20dp" />
+
         <ImageView
             android:id="@+id/iv_back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:padding="10dp"
             android:paddingLeft="15dp"
-            android:src="@mipmap/btn_back" />
+            android:src="@drawable/back" />
 
         <ImageView
             android:id="@+id/iv_mail"
             android:layout_width="30dp"
             android:layout_height="30dp"
             android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
             android:layout_marginRight="15dp"
             android:src="@mipmap/mail" />
 
@@ -29,7 +40,8 @@
             android:id="@+id/iv_send"
             android:layout_width="30dp"
             android:layout_height="30dp"
-            android:layout_marginRight="40dp"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="30dp"
             android:layout_toLeftOf="@id/iv_mail"
             android:src="@drawable/send" />
     </RelativeLayout>
@@ -42,10 +54,11 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#fff"
+        android:background="#edecec"
         android:scrollbars="none">
 
         <LinearLayout
+            android:layout_marginTop="15dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="#fff"
@@ -54,8 +67,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
@@ -70,6 +83,7 @@
                     android:layout_marginLeft="10dp"
                     android:layout_weight="1"
                     android:background="#fff"
+                    android:textColorHint="#807e7e"
                     android:hint="请输入标题"
                     android:singleLine="true"
                     android:textSize="15dp" />
@@ -77,13 +91,15 @@
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="#cfcfcf" />
+                android:layout_height="15dp"
+                android:background="#edecec" />
 
             <LinearLayout
+                android:layout_marginTop="20dp"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:layout_marginLeft="10dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
@@ -121,12 +137,15 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
                 android:background="#cfcfcf" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:layout_marginLeft="10dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
@@ -146,15 +165,15 @@
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="#cfcfcf" />
+                android:layout_height="15dp"
+                android:background="#edecec" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
                 android:gravity="center_vertical"
                 android:orientation="vertical">
 
@@ -172,20 +191,22 @@
                     android:gravity="start"
                     android:hint="请输入你的问题(字数不超过500字)"
                     android:lines="5"
-                    android:padding="4dp"
+                    android:padding="10dp"
                     android:textSize="15dp" />
             </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
                 android:background="#cfcfcf" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
@@ -194,30 +215,30 @@
                     android:text="附件" />
 
                 <HorizontalScrollView
+                    android:id="@+id/hsv_filename"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:layout_weight="1"
                     android:background="#fff" />
 
-                <Button
-                    android:id="@+id/btn_upload"
+                <ImageView
+                    android:id="@+id/iv_upload"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="点击上传"
-                    android:textColor="#000" />
+                    android:src="@drawable/upload" />
             </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="#cfcfcf" />
+                android:layout_height="15dp"
+                android:background="#edecec" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
@@ -247,11 +268,18 @@
                     android:src="@mipmap/star" />
             </LinearLayout>
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:background="#edecec" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
@@ -271,13 +299,14 @@
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="#cfcfcf" />
+                android:layout_height="15dp"
+                android:background="#edecec" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:layout_marginLeft="10dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginRight="15dp"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
@@ -290,9 +319,9 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
-                    android:button="@null"
-                    android:background="@drawable/selector_btn_icon"
                     android:layout_weight="1"
+                    android:background="@drawable/selector_btn_icon"
+                    android:button="@null"
                     android:src="@mipmap/btn_on" />
 
                 <TextView
@@ -306,11 +335,16 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
                     android:layout_marginRight="10dp"
-                    android:button="@null"
-                    android:background="@drawable/selector_btn_icon"
                     android:layout_weight="1"
+                    android:background="@drawable/selector_btn_icon"
+                    android:button="@null"
                     android:src="@mipmap/btn_on" />
             </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="#edecec" />
+
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

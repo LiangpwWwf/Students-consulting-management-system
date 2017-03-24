@@ -1,15 +1,13 @@
 package com.example.hin.ui.activity;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.example.hin.entity.Post;
 import com.example.hin.adapter.ConsultCommonQuestionAdapter;
+import com.example.hin.entity.Post;
 import com.example.hin.system.R;
 
 import java.util.ArrayList;
@@ -33,7 +31,18 @@ public class ConsultCommonQuestionActivity extends BaseActivity implements Swipe
     private ConsultCommonQuestionAdapter consultCommonQuestionAdapter;
     private SwipeRefreshLayout swipeLayout;
     private ListView listView;
-    private boolean isRefresh = false;//是否刷新中
+
+
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+        swipeLayout.setRefreshing(true);
+
+        Intent intent = getIntent();
+        Bundle bundle = intent.getExtras();
+        int id = bundle.getInt("id");
+        selectPart(id);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +61,17 @@ public class ConsultCommonQuestionActivity extends BaseActivity implements Swipe
 
     }
 
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+    }
+
     public void iniView() {
         lv_commomquestion = (ListView) findViewById(R.id.lv_commomquestion);
         swipeLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_container);
@@ -60,6 +80,7 @@ public class ConsultCommonQuestionActivity extends BaseActivity implements Swipe
         swipeLayout.setColorSchemeResources(android.R.color.holo_blue_bright,
                 android.R.color.holo_green_light,
                 android.R.color.holo_orange_light, android.R.color.holo_red_light);
+        swipeLayout.setRefreshing(true);
 
     }
 
@@ -122,11 +143,15 @@ public class ConsultCommonQuestionActivity extends BaseActivity implements Swipe
             public void onSuccess(List<Post> list) {
                 if (list.size() > 0) {
                     //     Toast.makeText(ConsultCommonQuestionActivity.this, "查询成功", Toast.LENGTH_SHORT).show();
-                    post=list;
+                    post = list;
                     consultCommonQuestionAdapter = new ConsultCommonQuestionAdapter(ConsultCommonQuestionActivity.this, list);
                     lv_commomquestion.setAdapter(consultCommonQuestionAdapter);
                 } else {
-                    //    Toast.makeText(ConsultCommonQuestionActivity.this, "暂无数据", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ConsultCommonQuestionActivity.this, "暂无数据", Toast.LENGTH_SHORT).show();
+                }
+
+                if (swipeLayout.isRefreshing()) {
+                    swipeLayout.setRefreshing(false);
                 }
             }
 
@@ -139,18 +164,15 @@ public class ConsultCommonQuestionActivity extends BaseActivity implements Swipe
 
     @Override
     public void onRefresh() {
-        if (!isRefresh) {
-            isRefresh = true;
-            new Handler().postDelayed(new Runnable() {
-                public void run() {
-                    swipeLayout.setRefreshing(false);
-                    Intent intent = getIntent();
-                    Bundle bundle = intent.getExtras();
-                    int id = bundle.getInt("id");
-                    selectPart(id);
-                }
-            }, 3000);
-        }
+
+        Intent intent = getIntent();
+        Bundle bundle = intent.getExtras();
+        int id = bundle.getInt("id");
+        selectPart(id);
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+    }
 }

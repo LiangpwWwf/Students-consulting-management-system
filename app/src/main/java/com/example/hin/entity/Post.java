@@ -18,7 +18,6 @@ public class Post extends BmobObject implements Serializable {
     private BmobFile Contentfigureurl;
     private String title;
     private String topic;
-    private String reply;
     private String expert;
     private int exigency;//紧急程度
     private boolean interview;//面谈
@@ -26,14 +25,30 @@ public class Post extends BmobObject implements Serializable {
     private boolean anonymity;//匿名
     private String kind;
     private int love;
-    private int hate;
-    private int share;
     private int comment;
     private boolean isPass;
     private boolean myFav;//收藏
     private boolean myLove;//赞
     private int commentCount = 0;//评论数
     private BmobRelation like;
+    private String sendPeople;
+    private ExpertReply expertReply;
+
+    public void setExpertReply(ExpertReply expertReply) {
+        this.expertReply = expertReply;
+    }
+
+    public ExpertReply getExpertReply() {
+        return expertReply;
+    }
+
+    public void setSendPeople(String sendPeople) {
+        this.sendPeople = sendPeople;
+    }
+
+    public String getSendPeople() {
+        return sendPeople;
+    }
 
 
     public int getExigency() {
@@ -83,14 +98,6 @@ public class Post extends BmobObject implements Serializable {
 
     public void setTopic(String topic) {
         this.topic = topic;
-    }
-
-    public String getReply() {
-        return reply;
-    }
-
-    public void setReply(String reply) {
-        this.reply = reply;
     }
 
     public String getExpert() {
@@ -149,22 +156,6 @@ public class Post extends BmobObject implements Serializable {
         this.love = love;
     }
 
-    public int getHate() {
-        return hate;
-    }
-
-    public void setHate(int hate) {
-        this.hate = hate;
-    }
-
-    public int getShare() {
-        return share;
-    }
-
-    public void setShare(int share) {
-        this.share = share;
-    }
-
     public int getComment() {
         return comment;
     }
@@ -205,13 +196,13 @@ public class Post extends BmobObject implements Serializable {
         return commentCount;
     }
 
-    @Override
-    public String toString() {
-        return "Post [author=" + author + ", content=" + content
-                + ", Contentfigureurl=" + Contentfigureurl + ", love=" + love
-                + ", hate=" + hate + ", share=" + share + ", comment="
-                + comment + ", isPass=" + isPass + ", myFav=" + myFav
-                + ", myLove=" + myLove + ",like=" + like + "]";
-    }
+//    @Override
+//    public String toString() {
+//        return "Post [author=" + author + ", content=" + content
+//                + ", Contentfigureurl=" + Contentfigureurl + ", love=" + love
+//                + ", hate=" + hate + ", share=" + share + ", comment="
+//                + comment + ", isPass=" + isPass + ", myFav=" + myFav
+//                + ", myLove=" + myLove + ",like=" + like + "]";
+//    }
 
 }

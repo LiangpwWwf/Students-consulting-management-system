@@ -13,9 +13,14 @@ public class User extends BmobUser {
 	private String avatar;
 	private BmobRelation favorite;
 	private String sex;
-	private String nickname;
+	private String nickName;
 	private String department;
 	private String grade;
+	private Boolean isExpert;
+
+	public Boolean getIsExpert(){
+		return isExpert;
+	}
 
 	public String getSex() {
 		return sex;
@@ -50,11 +55,11 @@ public class User extends BmobUser {
 	}
 
 	public String getNickname() {
-		return nickname;
+		return nickName;
 	}
 
 	public void setNickname(String nickname) {
-		this.nickname = nickname;
+		this.nickName = nickname;
 	}
 
 	public String getDepartment() {

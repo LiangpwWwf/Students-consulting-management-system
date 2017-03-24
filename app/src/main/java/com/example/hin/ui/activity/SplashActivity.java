@@ -7,6 +7,7 @@ import com.example.hin.common.UserPref;
 import com.example.hin.entity.User;
 
 import butterknife.ButterKnife;
+import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.listener.SaveListener;
 
 /**
@@ -42,7 +43,11 @@ public class SplashActivity extends BaseActivity {
                 @Override
                 public void onSuccess() {
                     UserPref.get().syncProfile(User.getCurrentUser(SplashActivity.this, User.class));
-                    startActivity(new Intent(SplashActivity.this, MainActivity.class));
+                    User user = BmobUser.getCurrentUser(SplashActivity.this, User.class);
+                    Boolean is = user.getIsExpert();
+                    Intent intent = new Intent(SplashActivity.this, MainActivity.class);
+                    intent.putExtra("is", is);
+                    startActivity(intent);
                     finish();
                 }
 

@@ -21,6 +21,7 @@ public class UserPref {
     public static String KEY_GRADE = "grade";
     public static String KEY_SEX = "sex";
     public static String KEY_EMAIL = "email";
+    public static String KEY_ISEXPERT = "isExpert";
     public SharedPreferences prefer;
 
     private UserPref() {
@@ -55,6 +56,7 @@ public class UserPref {
                         .putString(KEY_GRADE, user.getGrade())
                         .putString(KEY_SEX, user.getSex())
                         .putString(KEY_EMAIL, user.getEmail())
+                        .putBoolean(KEY_ISEXPERT, user.getIsExpert())
                         .commit();
             }
         }

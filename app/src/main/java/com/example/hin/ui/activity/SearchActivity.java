@@ -13,12 +13,17 @@ import android.widget.RadioGroup;
 
 import com.example.hin.adapter.ConsultCommonQuestionAdapter;
 import com.example.hin.adapter.ExpertCommonQuestionAdapter;
+import com.example.hin.entity.Experts;
+import com.example.hin.entity.Post;
 import com.example.hin.system.R;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import cn.bmob.v3.BmobQuery;
+import cn.bmob.v3.listener.FindListener;
 
 /**
  * Created by Hin on 2016/5/24.
@@ -31,8 +36,8 @@ public class SearchActivity extends Activity implements View.OnClickListener {
     private ListView lv_content;
     private EditText et_search;
 
-    private ArrayList<HashMap<String, Object>> topicList, expertList;
-    private HashMap<String, Object> topicQuestion, expertQuestion;
+    private List<Post> topicList;
+    private List<Experts> expertList;
     private ConsultCommonQuestionAdapter consultCommonQuestionAdapter;
     private ExpertCommonQuestionAdapter expertCommonQuestionAdapter;
 
@@ -50,31 +55,61 @@ public class SearchActivity extends Activity implements View.OnClickListener {
 
     }
 
+    //从服务器获取数据
+
+    public void getPostMessage() {
+        BmobQuery<Post> query = new BmobQuery<Post>();
+        //返回50条数据，如果不加上这条语句，默认返回10条数据
+        query.setLimit(50);
+        //执行查询方法
+        query.findObjects(SearchActivity.this, new FindListener<Post>() {
+            @Override
+            public void onSuccess(List<Post> list) {
+
+                topicList = new ArrayList<Post>();
+                for (Post post : list) {
+                    topicList.add(post);
+                }
+                consultCommonQuestionAdapter = new ConsultCommonQuestionAdapter(SearchActivity.this, topicList);
+                lv_content.setAdapter(consultCommonQuestionAdapter);
+            }
+
+            @Override
+            public void onError(int i, String s) {
+
+            }
+        });
+    }
+
+    public void getExpertsMessage() {
+        BmobQuery<Experts> query = new BmobQuery<Experts>();
+        //返回50条数据，如果不加上这条语句，默认返回10条数据
+        query.setLimit(50);
+        //执行查询方法
+        query.findObjects(SearchActivity.this, new FindListener<Experts>() {
+            @Override
+            public void onSuccess(List<Experts> list) {
+
+                expertList = new ArrayList<Experts>();
+                for (Experts experts : list) {
+                    expertList.add(experts);
+                }
+                expertCommonQuestionAdapter = new ExpertCommonQuestionAdapter(SearchActivity.this, expertList);
+                lv_content.setAdapter(consultCommonQuestionAdapter);
+
+            }
+
+            @Override
+            public void onError(int i, String s) {
+
+            }
+        });
+    }
+
     //初始化数据，主要是adapter数据的初始化
     public void init() {
-
-        topicList = new ArrayList<HashMap<String, Object>>();
-        topicQuestion = new HashMap<String, Object>();
-        expertList = new ArrayList<HashMap<String, Object>>();
-        expertQuestion = new HashMap<String, Object>();
-
-
-        for (int i = 0; i < 10; i++) {
-            topicQuestion.put("tv_title", "数学分析Cauchy准则怎么证明？");
-            topicQuestion.put("tv_date", "2015年12月10日");
-            topicList.add(topicQuestion);
-        }
-        for (int i = 0; i < 10; i++) {
-            expertQuestion.put("tv_name", "小纯");
-            expertQuestion.put("tv_field", "数学");
-            expertList.add(expertQuestion);
-        }
-
-/*
-        consultCommonQuestionAdapter = new ConsultCommonQuestionAdapter(SearchActivity.this, topicList);
-        expertCommonQuestionAdapter = new ExpertCommonQuestionAdapter(SearchActivity.this, expertList);*/
-
-        lv_content.setAdapter(consultCommonQuestionAdapter);
+        getPostMessage();
+        getExpertsMessage();
     }
 
     //获取控件ID
@@ -128,30 +163,31 @@ public class SearchActivity extends Activity implements View.OnClickListener {
                     case R.id.rtbn_topic:
                         String content = s.toString();
                         Pattern p = Pattern.compile(content);
-                        ArrayList<HashMap<String, Object>> List = new ArrayList<HashMap<String, Object>>();
+                        List<Post> List = new ArrayList<Post>();
                         for (int i = 0; i < topicList.size(); i++) {
-                            HashMap<String, Object> item = topicList.get(i);
-                            Matcher matcher = p.matcher(item.get("tv_title").toString());
+                            String title = topicList.get(i).getTitle();
+                            Matcher matcher = p.matcher(title);
                             if (matcher.find()) {
-                                List.add(item);
+                                List.add(topicList.get(i));
                             }
                         }
-                     /*   ConsultCommonQuestionAdapter adapter = new ConsultCommonQuestionAdapter(SearchActivity.this, List);*/
-                   /*     lv_content.setAdapter(adapter);*/
+                        ConsultCommonQuestionAdapter adapter = new ConsultCommonQuestionAdapter(SearchActivity.this, List);
+                        lv_content.setAdapter(adapter);
                         break;
                     case R.id.rtbn_expert:
                         String expert_content = s.toString();
                         Pattern p_expert = Pattern.compile(expert_content);
-                        ArrayList<HashMap<String, Object>> List_expert = new ArrayList<HashMap<String, Object>>();
+                        java.util.List<Experts> List_expert = new ArrayList<Experts>();
                         for (int i = 0; i < topicList.size(); i++) {
-                            HashMap<String, Object> item = expertList.get(i);
-                            Matcher matcher = p_expert.matcher(item.get("tv_name").toString()+item.get("tv_field").toString());
+                            String name = expertList.get(i).getName();
+                            String file = expertList.get(i).getStudy();
+                            Matcher matcher = p_expert.matcher(name + file);
                             if (matcher.find()) {
-                                List_expert.add(item);
+                                List_expert.add(expertList.get(i));
                             }
                         }
-                  /*      ExpertCommonQuestionAdapter adapter_expert = new ExpertCommonQuestionAdapter(SearchActivity.this, List_expert);
-                        lv_content.setAdapter(adapter_expert);*/
+                        ExpertCommonQuestionAdapter adapter_expert = new ExpertCommonQuestionAdapter(SearchActivity.this, List_expert);
+                        lv_content.setAdapter(adapter_expert);
                         break;
                 }
             }

@@ -1,13 +1,6 @@
 package com.example.hin.entity;
 
-import com.example.hin.ui.widget.CircleImageView;
-
-import java.util.Objects;
-
 import cn.bmob.v3.BmobObject;
-import cn.bmob.v3.BmobUser;
-import cn.bmob.v3.datatype.BmobFile;
-import cn.bmob.v3.datatype.BmobRelation;
 
 public class Experts extends BmobObject {
 
@@ -24,7 +17,11 @@ public class Experts extends BmobObject {
     private Integer consultCount;//咨询次数
     private Integer rank;       //学生评价
     private String kind;
+    private String username;
 
+    public String getUsername(){
+        return username;
+    }
 
     public String getAvatar() {
         return avatar;

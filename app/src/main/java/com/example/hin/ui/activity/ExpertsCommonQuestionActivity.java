@@ -3,13 +3,12 @@ package com.example.hin.ui.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.example.hin.adapter.ConsultCommonQuestionAdapter;
 import com.example.hin.adapter.ExpertCommonQuestionAdapter;
 import com.example.hin.entity.Experts;
-import com.example.hin.entity.Post;
 import com.example.hin.system.R;
 
 import java.util.ArrayList;
@@ -18,18 +17,18 @@ import java.util.List;
 
 import cn.bmob.v3.BmobQuery;
 import cn.bmob.v3.listener.FindListener;
-import cn.bmob.v3.listener.SaveListener;
 
 /**
  * Created by Hin on 2016/5/16.
  */
-public class ExpertsCommonQuestionActivity extends Activity {
+public class ExpertsCommonQuestionActivity extends Activity implements SwipeRefreshLayout.OnRefreshListener{
 
 
     private ListView lv_commomquestion;
     List<Experts> expertses;
     ArrayList<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>();
     HashMap<String, Object> expert = new HashMap<String, Object>();
+    private SwipeRefreshLayout swipeLayout;
     private ExpertCommonQuestionAdapter expertCommonQuestionAdapter;
 
     @Override
@@ -44,41 +43,25 @@ public class ExpertsCommonQuestionActivity extends Activity {
         Intent intent = getIntent();
         Bundle bundle = intent.getExtras();
         int id = bundle.getInt("id");
-/*
-        Experts e=new Experts();
-        e.setAchievement("");
-        e.setKind("");
-        e.setAvatar("");
-        e.setSex("男");
-        e.setDegree("");
-        e.setAchievement("5555");
-        e.setConsultCount(1);
-        e.setOrganization("1111");
-        e.setTitle("");
-        e.setStudy("");
-        e.setName("");
-        e.setRank(1);
-        e.save(ExpertsCommonQuestionActivity.this, new SaveListener() {
-            @Override
-            public void onSuccess() {
-
-                Toast.makeText(ExpertsCommonQuestionActivity.this, "success", Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onFailure(int i, String s) {
-                Toast.makeText(ExpertsCommonQuestionActivity.this,s, Toast.LENGTH_SHORT).show();
-            }
-        });
-*/
-
         selectPart(id);
 
+    }
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+       // swipeLayout.setRefreshing(true);
     }
 
     public void iniView() {
         lv_commomquestion = (ListView) findViewById(R.id.lv_commomquestion);
 
+        swipeLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_container);
+        swipeLayout.setOnRefreshListener(this);
+        //加载颜色是循环播放的，只要没有完成刷新就会一直循环，color1>color2>color3>color4
+        swipeLayout.setColorSchemeResources(android.R.color.holo_blue_bright,
+                android.R.color.holo_green_light,
+                android.R.color.holo_orange_light, android.R.color.holo_red_light);
+        swipeLayout.setRefreshing(true);
     }
 
     public void iniListener() {
@@ -151,6 +134,9 @@ public class ExpertsCommonQuestionActivity extends Activity {
                 } else {
                     Toast.makeText(ExpertsCommonQuestionActivity.this, "暂无数据", Toast.LENGTH_SHORT).show();
                 }
+                if (swipeLayout.isRefreshing()) {
+                    swipeLayout.setRefreshing(false);
+                }
             }
 
             @Override
@@ -160,4 +146,11 @@ public class ExpertsCommonQuestionActivity extends Activity {
         });
     }
 
+    @Override
+    public void onRefresh() {
+        Intent intent = getIntent();
+        Bundle bundle = intent.getExtras();
+        int id = bundle.getInt("id");
+        selectPart(id);
+    }
 }

@@ -55,7 +55,10 @@ public class LoginActivity extends BaseActivity implements View.OnClickListener 
                 UserPref.get().syncProfile(User.getCurrentUser(LoginActivity.this, User.class));
                 UserPref.get().set(UserPref.KEY_PWD, et_password.getText().toString().trim());
                 Toast.makeText(LoginActivity.this, "登陆成功", Toast.LENGTH_SHORT).show();
+                User user = BmobUser.getCurrentUser(LoginActivity.this, User.class);
+                Boolean is = user.getIsExpert();
                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                intent.putExtra("is", is);
                 startActivity(intent);
                 finish();
             }

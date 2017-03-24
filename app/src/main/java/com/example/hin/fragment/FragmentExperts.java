@@ -1,14 +1,14 @@
 package com.example.hin.fragment;
 
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.support.v4.app.Fragment;
 import android.widget.TextView;
 
-import com.example.hin.toptabview.MyTopTabView;
 import com.example.hin.system.R;
+import com.example.hin.toptabview.MyTopTabView;
 
 /**
  * Created by Hin on 2016/5/25.
@@ -30,10 +30,10 @@ public class FragmentExperts extends Fragment {
         view = LayoutInflater.from(getActivity()).inflate(R.layout.myfragment_topcontent, null);
         /*
         * 初始化标题栏下的分类*/
-        tv_calss=(TextView) view.findViewById(R.id.tv_class);
+        tv_calss = (TextView) view.findViewById(R.id.tv_class);
         tv_calss.setText("专家库");
 
-        myTopTabView=new MyTopTabView(getContext());
+        myTopTabView = new MyTopTabView(getContext());
         myTopTabView.init(savedInstanceState, view, 0);
         return view;
     }
@@ -41,7 +41,6 @@ public class FragmentExperts extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-      //  myTopTabView.initImage(LayoutInflater.from(getActivity()).inflate(R.layout.myfragment_topcontent, null));
     }
 
     @Override
@@ -49,4 +48,5 @@ public class FragmentExperts extends Fragment {
         super.onPause();
 
     }
+
 }

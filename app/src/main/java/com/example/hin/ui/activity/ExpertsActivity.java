@@ -11,10 +11,16 @@ import android.widget.RatingBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.example.hin.Consts.LocalStringConst;
 import com.example.hin.entity.Experts;
 import com.example.hin.entity.Post;
+import com.example.hin.entity.User;
 import com.example.hin.system.R;
+import com.facebook.drawee.view.SimpleDraweeView;
+
+import java.util.List;
+
+import cn.bmob.v3.BmobQuery;
+import cn.bmob.v3.listener.FindListener;
 
 public class ExpertsActivity extends Activity implements View.OnClickListener {
 
@@ -24,6 +30,7 @@ public class ExpertsActivity extends Activity implements View.OnClickListener {
     private RatingBar rb_rank;
     private Button Regist;
     private Experts experts;
+    private SimpleDraweeView sdv_head;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +56,7 @@ public class ExpertsActivity extends Activity implements View.OnClickListener {
 
     //获取控件ID
     public void findView() {
+        sdv_head = (SimpleDraweeView) findViewById(R.id.sdv_head);
         iv_back = (ImageView) findViewById(R.id.iv_back);
         rl_achievement = (RelativeLayout) findViewById(R.id.rl_achievement);
         tv_achievement = (TextView) findViewById(R.id.tv_achievement);
@@ -76,6 +84,23 @@ public class ExpertsActivity extends Activity implements View.OnClickListener {
         tv_achievement.setText(experts.getAchievement());
         tv_consultCount.setText(experts.getConsultCount().toString());
         rb_rank.setRating(experts.getRank());
+        //获取头像
+        BmobQuery<Post> query = new BmobQuery<>();
+        query.include("user");
+        query.findObjects(ExpertsActivity.this, new FindListener<Post>() {
+            @Override
+            public void onSuccess(List<Post> list) {
+                User user = list.get(list.size() - 1).getAuthor();
+                if (user.getAvatar() != null) {
+                    sdv_head.setImageURI(user.getAvatar());
+                }
+            }
+
+            @Override
+            public void onError(int i, String s) {
+
+            }
+        });
     }
 
 
@@ -95,11 +120,15 @@ public class ExpertsActivity extends Activity implements View.OnClickListener {
                 break;
             case R.id.rl_achievement:
                 new AlertDialog.Builder(this).setTitle("研究成果").setItems(
-                        new String[]{experts.getAchievement(), "Item2", "Item1", "Item2"}, null).setNegativeButton(
+                        new String[]{experts.getAchievement()}, null).setNegativeButton(
                         "确定", null).show();
                 break;
             case R.id.tv_consult:
-                setResult(RESULT_OK, new Intent().putExtra(LocalStringConst.INTENT_EXPERT_ID, experts.getName()));
+                Bundle bundle = new Bundle();
+                bundle.putSerializable("experts", experts);
+                Intent intent = new Intent(ExpertsActivity.this, ConsultActivity.class);
+                intent.putExtras(bundle);
+                ExpertsActivity.this.startActivity(intent);
                 finish();
             default:
                 break;

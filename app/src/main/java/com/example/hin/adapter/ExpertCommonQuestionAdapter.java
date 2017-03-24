@@ -11,17 +11,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.hin.entity.Experts;
+import com.example.hin.entity.Post;
+import com.example.hin.entity.User;
 import com.example.hin.system.R;
 import com.example.hin.ui.activity.ExpertsActivity;
-import com.example.hin.ui.activity.QuestionDetailActivity;
+import com.facebook.drawee.view.SimpleDraweeView;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
+
+import cn.bmob.v3.BmobQuery;
+import cn.bmob.v3.listener.FindListener;
 
 /**
  * ViewPager的适配器
@@ -57,7 +59,7 @@ public class ExpertCommonQuestionAdapter extends BaseAdapter {
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
 
-        ViewHolder holder = null;
+        final ViewHolder holder;
         //判断是否缓存
         if (convertView == null) {
             holder = new ViewHolder();
@@ -72,7 +74,7 @@ public class ExpertCommonQuestionAdapter extends BaseAdapter {
                     context.startActivity(intent);
                 }
             });
-            holder.iv_head = (ImageView) convertView.findViewById(R.id.iv_head);
+            holder.iv_head = (SimpleDraweeView) convertView.findViewById(R.id.iv_head);
             holder.tv_name = (TextView) convertView.findViewById(R.id.tv_name);
             holder.tv_field = (TextView) convertView.findViewById(R.id.tv_field);
             convertView.setTag(holder);
@@ -81,7 +83,24 @@ public class ExpertCommonQuestionAdapter extends BaseAdapter {
             holder = (ViewHolder) convertView.getTag();
         }
         //设置视图
-        holder.iv_head.setImageResource(R.drawable.head);
+        BmobQuery<Post> query = new BmobQuery<>();
+        query.include("user");
+        query.findObjects(context, new FindListener<Post>() {
+            @Override
+            public void onSuccess(List<Post> list) {
+                User user = list.get(list.size() - 1).getAuthor();
+                if (user.getAvatar() != null) {
+                    holder.iv_head.setImageURI(user.getAvatar());
+                }
+            }
+
+            @Override
+            public void onError(int i, String s) {
+
+            }
+        });
+
+
         holder.tv_name.setText(mData.get(position).getName());
         holder.tv_field.setText(mData.get(position).getStudy());
 
@@ -89,7 +108,7 @@ public class ExpertCommonQuestionAdapter extends BaseAdapter {
     }
 
     public final class ViewHolder {
-        public ImageView iv_head;
+        public SimpleDraweeView iv_head;
         public TextView tv_name, tv_field;
     }
 }

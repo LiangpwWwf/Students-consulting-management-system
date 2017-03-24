@@ -25,9 +25,8 @@
         android:layout_marginTop="10dp"
         android:background="@drawable/editext_bg"
         android:gravity="center"
-        android:textColorHint="#FF999999"
         android:hint="校园网账号"
-        android:inputType="number"
+        android:textColorHint="#FF999999"
         android:textSize="15sp" />
 
     <EditText
@@ -37,8 +36,8 @@
         android:background="@drawable/editext_bg"
         android:gravity="center"
         android:hint="密码"
-        android:textColorHint="#FF999999"
         android:password="true"
+        android:textColorHint="#FF999999"
         android:textSize="15sp" />
 
 
@@ -92,38 +91,6 @@
 
         </LinearLayout>
 
-        <RadioGroup
-            android:layout_width="wrap_content"
-            android:layout_height="70dp"
-            android:layout_marginTop="5dp"
-            android:orientation="horizontal">
-
-            <RadioButton
-                android:id="@+id/rbtn_student"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="80dp"
-                android:button="@null"
-                android:checked="true"
-                android:drawablePadding="5dp"
-                android:drawableTop="@drawable/radio_selector_student"
-                android:gravity="center_horizontal"
-                android:text="学生"
-                android:textColor="#a7a7a7" />
-
-            <RadioButton
-                android:id="@+id/rbtn_teacher"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:button="@null"
-                android:drawablePadding="5dp"
-                android:drawableTop="@drawable/radio_selector_teacher"
-                android:gravity="center_horizontal"
-                android:text="教师"
-                android:textColor="#a7a7a7" />
-        </RadioGroup>
-
-
     </LinearLayout>
 
 
@@ -155,9 +122,9 @@
             android:layout_width="wrap_content"
             android:layout_height="20dp"
             android:layout_marginLeft="10dp"
-            android:text="注册账号"
             android:gravity="center"
-            android:textColor="#00A6CB"/>
+            android:text="注册账号"
+            android:textColor="#00A6CB" />
     </LinearLayout>
 
 </LinearLayout>

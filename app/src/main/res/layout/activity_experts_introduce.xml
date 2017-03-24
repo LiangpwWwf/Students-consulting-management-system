@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -68,16 +68,19 @@
                     android:text="头像"
                     android:textSize="15sp" />
 
-                <com.example.hin.ui.widget.CircleImageView
+                <com.facebook.drawee.view.SimpleDraweeView
+                    android:id="@+id/sdv_head"
                     android:layout_width="60dp"
                     android:layout_height="60dp"
                     android:layout_alignParentRight="true"
-                    android:layout_marginTop="5dp"
                     android:layout_marginBottom="5dp"
                     android:layout_marginRight="10dp"
-                    android:src="@drawable/head"
-                    app:civ_border_color="#ffffff"
-                    app:civ_border_width="2dp"></com.example.hin.ui.widget.CircleImageView>
+                    android:layout_marginTop="5dp"
+                    fresco:placeholderImage="@drawable/head"
+                    fresco:placeholderImageScaleType="centerCrop"
+                    fresco:roundAsCircle="true"
+                    fresco:roundingBorderColor="#FF000000"
+                    fresco:roundingBorderWidth="1dp" />
 
             </RelativeLayout>
 
@@ -274,13 +277,15 @@
 
                 <TextView
                     android:id="@+id/tv_achievement"
-                    android:layout_width="wrap_content"
+                    android:layout_width="200dp"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="10dp"
                     android:layout_toLeftOf="@id/iv_arrow_right"
-                    android:padding="10dp"
                     android:ellipsize="end"
+                    android:lines="2"
+                    android:padding="10dp"
+                    android:singleLine="true"
                     android:textColor="#b6b8b9"
                     android:textSize="14sp" />
 

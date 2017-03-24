@@ -1,22 +1,24 @@
 package com.example.hin.fragment;
 
+
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.hin.toptabview.MyTopTabView;
 import com.example.hin.system.R;
+import com.example.hin.toptabview.MyTopTabView;
 
 /**
  * Created by Hin on 2016/5/25.
  */
-public class FragmentConsult extends Fragment implements View.OnClickListener{
+public class FragmentConsult extends Fragment implements View.OnClickListener {
 
 
     private View view;
     private MyTopTabView myTopTabView;
+    private Boolean is;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -34,7 +36,6 @@ public class FragmentConsult extends Fragment implements View.OnClickListener{
     @Override
     public void onResume() {
         super.onResume();
-      //  myTopTabView.initImage(LayoutInflater.from(getActivity()).inflate(R.layout.myfragment_topcontent, null));
     }
 
     @Override
@@ -45,7 +46,7 @@ public class FragmentConsult extends Fragment implements View.OnClickListener{
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
         }
     }
 }

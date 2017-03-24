@@ -1,10 +1,6 @@
 package com.example.hin.ui.activity;
 
-import com.example.hin.fragment.FragmentConsult;
-import com.example.hin.fragment.FragmentExperts;
-import com.example.hin.fragment.FragmentMy;
-import com.example.hin.system.R;
-
+import android.app.LocalActivityManager;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -14,6 +10,12 @@ import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
+import com.example.hin.fragment.FragmentConsult;
+import com.example.hin.fragment.FragmentExperts;
+import com.example.hin.fragment.FragmentMy;
+import com.example.hin.fragment.FragmentReply;
+import com.example.hin.system.R;
+
 /**
  * Created by Hin on 2016/5/16.
  */
@@ -21,11 +23,14 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 
 
     private RadioGroup myTabRg;
+    private FragmentReply fragmentReply;
     private FragmentConsult fragmentConsult;
     private FragmentExperts fragmentExperts;
     private FragmentMy fragmentMy;
     private RadioButton expertDatabase, consult, my;
     private ImageView search, jiahao;
+    private Boolean is;//判断学生登录或者教师登录
+    private LocalActivityManager mLocalActivityManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,12 +39,23 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
         //用于退出程序
         CloseActivity.activityList.add(this);
 
+        mLocalActivityManager=new LocalActivityManager(this,true);//此处为true
+
+        parseIntent();
         iniView();
         iniListener();
 
 
-        fragmentConsult = new FragmentConsult();
-        getSupportFragmentManager().beginTransaction().replace(R.id.main_content, fragmentConsult).commit();
+        if (is) {
+            fragmentReply = new FragmentReply();
+            getSupportFragmentManager().beginTransaction().replace(R.id.main_content, fragmentReply).commit();
+
+        } else {
+            fragmentConsult = new FragmentConsult();
+            getSupportFragmentManager().beginTransaction().replace(R.id.main_content, fragmentConsult).commit();
+
+        }
+
         myTabRg = (RadioGroup) findViewById(R.id.tab_menu);
         myTabRg.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
@@ -51,8 +67,16 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
                                 .commit();
                         break;
                     case R.id.consult:
-                        fragmentConsult = new FragmentConsult();
-                        getSupportFragmentManager().beginTransaction().replace(R.id.main_content, fragmentConsult).commit();
+
+                        if (is) {
+                            fragmentReply = new FragmentReply();
+                            getSupportFragmentManager().beginTransaction().replace(R.id.main_content, fragmentReply).commit();
+
+                        } else {
+                            fragmentConsult = new FragmentConsult();
+                            getSupportFragmentManager().beginTransaction().replace(R.id.main_content, fragmentConsult).commit();
+
+                        }
                         break;
                     case R.id.my:
                         fragmentMy = new FragmentMy();
@@ -74,9 +98,40 @@ public class MainActivity extends FragmentActivity implements View.OnClickListen
 
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+//        if (consult.isChecked()) {
+//            if (is) {
+//                fragmentReply = new FragmentReply();
+//                getSupportFragmentManager().beginTransaction().replace(R.id.main_content, fragmentReply).commit();
+//
+//            } else {
+//                fragmentConsult = new FragmentConsult();
+//                getSupportFragmentManager().beginTransaction().replace(R.id.main_content, fragmentConsult).commit();
+//
+//            }
+//        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    public void parseIntent() {
+        Intent intent = getIntent();
+        is = intent.getBooleanExtra("is", false);
+
+    }
+
     public void iniView() {
         search = (ImageView) findViewById(R.id.iv_search);
         jiahao = (ImageView) findViewById(R.id.jiahao);
+        consult = (RadioButton) findViewById(R.id.consult);
+        if (is) {
+            consult.setText("答问题");
+        }
 
     }
 

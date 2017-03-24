@@ -64,7 +64,7 @@ public class SetActivity extends Activity implements View.OnClickListener {
     public void iniView() {
         iv_back = (ImageView) findViewById(R.id.iv_back);
         sd_content = (SlidingDrawer) findViewById(R.id.sd_content);
-        tv_new = (TextView) findViewById(R.id.tv_new);
+//        tv_new = (TextView) findViewById(R.id.tv_new);
         tv_model = (TextView) findViewById(R.id.tv_model);
         tv_help = (TextView) findViewById(R.id.tv_help);
         tv_exit = (TextView) findViewById(R.id.tv_exit);
@@ -91,7 +91,7 @@ public class SetActivity extends Activity implements View.OnClickListener {
     //监听事件
     public void iniListener() {
         iv_back.setOnClickListener(this);
-        tv_new.setOnClickListener(this);
+//        tv_new.setOnClickListener(this);
         tv_model.setOnClickListener(this);
 //        tv_textsize.setOnClickListener(this);
         tv_help.setOnClickListener(this);
@@ -149,13 +149,13 @@ public class SetActivity extends Activity implements View.OnClickListener {
             case R.id.iv_back:
                 finish();
                 break;
-            case R.id.tv_new:
-                ll_settitle.setVisibility(View.GONE);
-                ll_item.setVisibility(View.GONE);
-                sd_content.setVisibility(View.VISIBLE);
-                sd_content.open();
-                ll_new_warn.setVisibility(View.VISIBLE);
-                break;
+//            case R.id.tv_new:
+//                ll_settitle.setVisibility(View.GONE);
+//                ll_item.setVisibility(View.GONE);
+//                sd_content.setVisibility(View.VISIBLE);
+//                sd_content.open();
+//                ll_new_warn.setVisibility(View.VISIBLE);
+//                break;
             case R.id.tv_model:
                 ll_settitle.setVisibility(View.GONE);
                 ll_item.setVisibility(View.GONE);
