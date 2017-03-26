@@ -8,6 +8,7 @@ import android.widget.Toast;
 
 import com.example.hin.adapter.ConsultCommonQuestionAdapter;
 import com.example.hin.entity.Post;
+import com.example.hin.entity.User;
 import com.example.hin.system.R;
 
 import java.util.ArrayList;
@@ -26,6 +27,7 @@ public class ConsultCommonQuestionActivity extends BaseActivity implements Swipe
     private ListView lv_commomquestion;
 
     List<Post> post;
+    List<String>avatarList=new ArrayList<>();
     ArrayList<HashMap<String, Object>> list;
     HashMap<String, Object> question;
     private ConsultCommonQuestionAdapter consultCommonQuestionAdapter;
@@ -137,6 +139,7 @@ public class ConsultCommonQuestionActivity extends BaseActivity implements Swipe
         query.addWhereEqualTo("kind", kind);
         //返回50条数据，如果不加上这条语句，默认返回10条数据
         query.setLimit(50);
+        query.include("author");
         //执行查询方法
         query.findObjects(this, new FindListener<Post>() {
             @Override
@@ -144,7 +147,11 @@ public class ConsultCommonQuestionActivity extends BaseActivity implements Swipe
                 if (list.size() > 0) {
                     //     Toast.makeText(ConsultCommonQuestionActivity.this, "查询成功", Toast.LENGTH_SHORT).show();
                     post = list;
-                    consultCommonQuestionAdapter = new ConsultCommonQuestionAdapter(ConsultCommonQuestionActivity.this, list);
+                    for(Post p:list){
+                        User author = p.getAuthor();
+                        avatarList.add(author.getAvatar());
+                    }
+                    consultCommonQuestionAdapter = new ConsultCommonQuestionAdapter(ConsultCommonQuestionActivity.this, list,avatarList);
                     lv_commomquestion.setAdapter(consultCommonQuestionAdapter);
                 } else {
                     Toast.makeText(ConsultCommonQuestionActivity.this, "暂无数据", Toast.LENGTH_SHORT).show();

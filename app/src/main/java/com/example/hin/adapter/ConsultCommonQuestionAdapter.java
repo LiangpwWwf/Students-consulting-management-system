@@ -33,11 +33,13 @@ public class ConsultCommonQuestionAdapter extends BaseAdapter {
     private Context context;
     private List<Post> mData;
     private LayoutInflater mInflater;
+    private List<String> avatarList;
 
 
-    public ConsultCommonQuestionAdapter(Context context, List<Post> data) {
+    public ConsultCommonQuestionAdapter(Context context, List<Post> data,List<String> avatarList) {
         this.context = context;
         this.mData = data;
+        this.avatarList=avatarList;
         mInflater = LayoutInflater.from(context);
     }
 
@@ -89,25 +91,7 @@ public class ConsultCommonQuestionAdapter extends BaseAdapter {
             //通过Tag找到缓存布局
             holder = (ViewHolder) convertView.getTag();
         }
-        //设置视图
-        BmobQuery<Post> query = new BmobQuery<>();
-        query.include("author");
-        query.findObjects(context, new FindListener<Post>() {
-            @Override
-            public void onSuccess(List<Post> list) {
-                User author = list.get(list.size() - 1).getAuthor();
-                if (author.getAvatar() != null) {
-                    Uri uri = Uri.parse(author.getAvatar());
-                    holder.iv_head.setImageURI(author.getAvatar());
-
-                }
-            }
-
-            @Override
-            public void onError(int i, String s) {
-
-            }
-        });
+        holder.iv_head.setImageURI(avatarList.get(position));
         holder.tv_title.setText(mData.get(position).getTitle());
         holder.tv_date.setText(mData.get(position).getCreatedAt());
 

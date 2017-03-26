@@ -9,6 +9,8 @@ import android.widget.Toast;
 
 import com.example.hin.adapter.ExpertCommonQuestionAdapter;
 import com.example.hin.entity.Experts;
+import com.example.hin.entity.Post;
+import com.example.hin.entity.User;
 import com.example.hin.system.R;
 
 import java.util.ArrayList;
@@ -21,11 +23,12 @@ import cn.bmob.v3.listener.FindListener;
 /**
  * Created by Hin on 2016/5/16.
  */
-public class ExpertsCommonQuestionActivity extends Activity implements SwipeRefreshLayout.OnRefreshListener{
+public class ExpertsCommonQuestionActivity extends Activity implements SwipeRefreshLayout.OnRefreshListener {
 
 
     private ListView lv_commomquestion;
     List<Experts> expertses;
+    List<String> avatarList = new ArrayList<>();
     ArrayList<HashMap<String, Object>> list = new ArrayList<HashMap<String, Object>>();
     HashMap<String, Object> expert = new HashMap<String, Object>();
     private SwipeRefreshLayout swipeLayout;
@@ -46,10 +49,11 @@ public class ExpertsCommonQuestionActivity extends Activity implements SwipeRefr
         selectPart(id);
 
     }
+
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
-       // swipeLayout.setRefreshing(true);
+        // swipeLayout.setRefreshing(true);
     }
 
     public void iniView() {
@@ -121,6 +125,7 @@ public class ExpertsCommonQuestionActivity extends Activity implements SwipeRefr
         query.addWhereEqualTo("kind", kind);
         //返回50条数据，如果不加上这条语句，默认返回10条数据
         query.setLimit(50);
+        query.include("user");
         //执行查询方法
         query.findObjects(this, new FindListener<Experts>() {
 
@@ -129,7 +134,11 @@ public class ExpertsCommonQuestionActivity extends Activity implements SwipeRefr
                 if (list.size() > 0) {
                     Toast.makeText(ExpertsCommonQuestionActivity.this, "查询成功", Toast.LENGTH_SHORT).show();
                     expertses = list;
-                    expertCommonQuestionAdapter = new ExpertCommonQuestionAdapter(ExpertsCommonQuestionActivity.this, list);
+                    for (Experts e : list) {
+                        User user=e.getUser();
+                        avatarList.add(user.getAvatar());
+                    }
+                    expertCommonQuestionAdapter = new ExpertCommonQuestionAdapter(ExpertsCommonQuestionActivity.this, list, avatarList);
                     lv_commomquestion.setAdapter(expertCommonQuestionAdapter);
                 } else {
                     Toast.makeText(ExpertsCommonQuestionActivity.this, "暂无数据", Toast.LENGTH_SHORT).show();

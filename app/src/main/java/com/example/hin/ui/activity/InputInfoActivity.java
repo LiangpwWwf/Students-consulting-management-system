@@ -102,6 +102,9 @@ public class InputInfoActivity extends BaseActivity
         RxView.clicks(btnSubmit).throttleFirst(2, TimeUnit.SECONDS).subscribe(new Consumer<Object>() {
             @Override
             public void accept(Object o) throws Exception {
+                if (avatar == null) {
+                    Toast.makeText(InputInfoActivity.this, "请上传头像", Toast.LENGTH_SHORT).show();
+                }
                 final BmobFile file = new BmobFile(avatar);
                 file.upload(InputInfoActivity.this, new UploadFileListener() {
                     @Override
@@ -114,6 +117,7 @@ public class InputInfoActivity extends BaseActivity
                         user.setAvatar(file.getFileUrl(InputInfoActivity.this));
                         user.setUsername(etNo.getText().toString().trim());
                         user.setSex(tvSex.getText().toString().trim());
+                        user.setExpert(false);
                         user.signUp(InputInfoActivity.this, new SaveListener() {
                             @Override
                             public void onSuccess() {
@@ -123,7 +127,7 @@ public class InputInfoActivity extends BaseActivity
 
                             @Override
                             public void onFailure(int i, String s) {
-                                Toast.makeText(InputInfoActivity.this, "注册失败", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(InputInfoActivity.this, s + ",注册失败", Toast.LENGTH_SHORT).show();
                             }
                         });
                     }

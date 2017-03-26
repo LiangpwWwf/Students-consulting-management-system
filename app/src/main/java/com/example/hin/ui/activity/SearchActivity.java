@@ -15,6 +15,7 @@ import com.example.hin.adapter.ConsultCommonQuestionAdapter;
 import com.example.hin.adapter.ExpertCommonQuestionAdapter;
 import com.example.hin.entity.Experts;
 import com.example.hin.entity.Post;
+import com.example.hin.entity.User;
 import com.example.hin.system.R;
 
 import java.util.ArrayList;
@@ -35,7 +36,8 @@ public class SearchActivity extends Activity implements View.OnClickListener {
     private RadioButton rbtn_topic, rbtn_expert;
     private ListView lv_content;
     private EditText et_search;
-
+    private List<String> postAvatarList=new ArrayList<>();
+    private List<String> expertAvatarList=new ArrayList<>();
     private List<Post> topicList;
     private List<Experts> expertList;
     private ConsultCommonQuestionAdapter consultCommonQuestionAdapter;
@@ -62,16 +64,24 @@ public class SearchActivity extends Activity implements View.OnClickListener {
         //返回50条数据，如果不加上这条语句，默认返回10条数据
         query.setLimit(50);
         //执行查询方法
+        query.include("author");
         query.findObjects(SearchActivity.this, new FindListener<Post>() {
             @Override
             public void onSuccess(List<Post> list) {
 
-                topicList = new ArrayList<Post>();
-                for (Post post : list) {
-                    topicList.add(post);
+                if (list.size() > 0) {
+                    topicList = new ArrayList<Post>();
+                    for (Post post : list) {
+                        topicList.add(post);
+                    }
+                    for (Post p : list) {
+                        User author = p.getAuthor();
+                        postAvatarList.add(author.getAvatar());
+                    }
+                    consultCommonQuestionAdapter = new ConsultCommonQuestionAdapter(SearchActivity.this, topicList, postAvatarList);
+                    lv_content.setAdapter(consultCommonQuestionAdapter);
                 }
-                consultCommonQuestionAdapter = new ConsultCommonQuestionAdapter(SearchActivity.this, topicList);
-                lv_content.setAdapter(consultCommonQuestionAdapter);
+
             }
 
             @Override
@@ -85,6 +95,7 @@ public class SearchActivity extends Activity implements View.OnClickListener {
         BmobQuery<Experts> query = new BmobQuery<Experts>();
         //返回50条数据，如果不加上这条语句，默认返回10条数据
         query.setLimit(50);
+        query.include("user");
         //执行查询方法
         query.findObjects(SearchActivity.this, new FindListener<Experts>() {
             @Override
@@ -94,7 +105,11 @@ public class SearchActivity extends Activity implements View.OnClickListener {
                 for (Experts experts : list) {
                     expertList.add(experts);
                 }
-                expertCommonQuestionAdapter = new ExpertCommonQuestionAdapter(SearchActivity.this, expertList);
+                for (Experts e : list) {
+                    User user=e.getUser();
+                    expertAvatarList.add(user.getAvatar());
+                }
+                expertCommonQuestionAdapter = new ExpertCommonQuestionAdapter(SearchActivity.this, expertList,expertAvatarList);
                 lv_content.setAdapter(consultCommonQuestionAdapter);
 
             }
@@ -171,7 +186,7 @@ public class SearchActivity extends Activity implements View.OnClickListener {
                                 List.add(topicList.get(i));
                             }
                         }
-                        ConsultCommonQuestionAdapter adapter = new ConsultCommonQuestionAdapter(SearchActivity.this, List);
+                        ConsultCommonQuestionAdapter adapter = new ConsultCommonQuestionAdapter(SearchActivity.this, List, postAvatarList);
                         lv_content.setAdapter(adapter);
                         break;
                     case R.id.rtbn_expert:
@@ -186,7 +201,7 @@ public class SearchActivity extends Activity implements View.OnClickListener {
                                 List_expert.add(expertList.get(i));
                             }
                         }
-                        ExpertCommonQuestionAdapter adapter_expert = new ExpertCommonQuestionAdapter(SearchActivity.this, List_expert);
+                        ExpertCommonQuestionAdapter adapter_expert = new ExpertCommonQuestionAdapter(SearchActivity.this, List_expert,expertAvatarList);
                         lv_content.setAdapter(adapter_expert);
                         break;
                 }

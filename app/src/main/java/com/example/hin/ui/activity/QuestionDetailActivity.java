@@ -10,6 +10,9 @@ import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AlertDialog;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
@@ -25,8 +28,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.hin.adapter.CommentListAdapter;
+import com.example.hin.common.UserPref;
 import com.example.hin.entity.Comment;
 import com.example.hin.entity.ExpertReply;
+import com.example.hin.entity.Favourite;
 import com.example.hin.entity.Post;
 import com.example.hin.entity.Reply;
 import com.example.hin.entity.User;
@@ -43,6 +48,7 @@ import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.datatype.BmobFile;
 import cn.bmob.v3.datatype.BmobPointer;
 import cn.bmob.v3.datatype.BmobRelation;
+import cn.bmob.v3.listener.DeleteListener;
 import cn.bmob.v3.listener.DownloadFileListener;
 import cn.bmob.v3.listener.FindListener;
 import cn.bmob.v3.listener.SaveListener;
@@ -80,7 +86,8 @@ public class QuestionDetailActivity extends Activity implements View.OnClickList
     private boolean label = true;
     private Post post;
     private ExpertReply expertReply;
-    private String RESULT_CODE="ISREFRESH";
+    private String RESULT_CODE = "ISREFRESH";
+    List<User> userList = new ArrayList<>();
 
 
     @Override
@@ -161,6 +168,22 @@ public class QuestionDetailActivity extends Activity implements View.OnClickList
         iv_replydownload_up.setOnClickListener(this);
         rl_zan.setOnClickListener(this);
         rl_fav.setOnClickListener(this);
+        commentEdit.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if(!commentEdit.getText().toString().isEmpty()){
+                    commentButton.setText("留言");
+                }
+            }
+        });
 
     }
 
@@ -219,16 +242,18 @@ public class QuestionDetailActivity extends Activity implements View.OnClickList
         tv_zan.setCompoundDrawables(drawable, null, null, null);
 
         //判断接受方账号，专家可以回复，更新post内容
-        if (BmobUser.getCurrentUser(QuestionDetailActivity.this).getUsername().equals(post.getSendPeople())) {
+        if (BmobUser.getCurrentUser(QuestionDetailActivity.this).getObjectId().equals(post.getSendPeople().getObjectId())) {
 
             ll_expertreply.setVisibility(View.GONE);
             ll_myreply.setVisibility(View.VISIBLE);
             ll_time.setVisibility(View.VISIBLE);
+            iv_reply.setVisibility(View.VISIBLE);
 
             if (null != expertReply)
                 if (expertReply.getReplyContent() != null)
                     tv_myreply.setText(expertReply.getReplyContent());
         } else {
+            iv_reply.setVisibility(View.GONE);
             ll_expertreply.setVisibility(View.VISIBLE);
             ll_myreply.setVisibility(View.GONE);
             ll_time.setVisibility(View.GONE);
@@ -258,8 +283,8 @@ public class QuestionDetailActivity extends Activity implements View.OnClickList
                         BmobACL acl = new BmobACL();  //创建ACL对象
                         acl.setReadAccess(post.getAuthor(), true); // 设置当前用户可写的权限
                         acl.setWriteAccess(post.getAuthor(), true);
-                        acl.setReadAccess(BmobUser.getCurrentUser(QuestionDetailActivity.this), true);
-                        acl.setWriteAccess(BmobUser.getCurrentUser(QuestionDetailActivity.this), true);
+                        acl.setReadAccess(post.getSendPeople(), true);
+                        acl.setWriteAccess(post.getSendPeople(), true);
                         post.setACL(acl);
                     }
                     if (path != null) {
@@ -295,8 +320,8 @@ public class QuestionDetailActivity extends Activity implements View.OnClickList
                 BmobACL acl = new BmobACL();  //创建ACL对象
                 acl.setReadAccess(post.getAuthor(), true); // 设置当前用户可写的权限
                 acl.setWriteAccess(post.getAuthor(), true);
-                acl.setReadAccess(BmobUser.getCurrentUser(QuestionDetailActivity.this), true);
-                acl.setWriteAccess(BmobUser.getCurrentUser(QuestionDetailActivity.this), true);
+                acl.setReadAccess(post.getSendPeople(), true);
+                acl.setWriteAccess(post.getSendPeople(), true);
                 post.setACL(acl);
             }
             expertReply = post.getExpertReply();
@@ -311,6 +336,14 @@ public class QuestionDetailActivity extends Activity implements View.OnClickList
                     post.getExpertReply().setReplyContent(tv_myreply.getText().toString() + "\n" + et_reply.getText().toString());
                     post.getExpertReply().setInterviewTime(et_time.getText().toString());
 
+                    if (!post.getOpen()) {
+                        BmobACL acl = new BmobACL();  //创建ACL对象
+                        acl.setReadAccess(post.getAuthor(), true); // 设置当前用户可写的权限
+                        acl.setWriteAccess(post.getAuthor(), true);
+                        acl.setReadAccess(post.getSendPeople(), true);
+                        acl.setWriteAccess(post.getSendPeople(), true);
+                        post.setACL(acl);
+                    }
 
                     if (path != null) {
                         BmobFile bmobFile = new BmobFile(new File(path));
@@ -361,8 +394,12 @@ public class QuestionDetailActivity extends Activity implements View.OnClickList
                 获得评论人数
                 */
                 tv_comment_count.setText(String.valueOf(commentlist.size()));
+                for (Comment c : list) {
+                    User user = c.getUser();
+                    userList.add(user);
+                }
 
-                adapter = new CommentListAdapter(QuestionDetailActivity.this, commentlist, handler);
+                adapter = new CommentListAdapter(QuestionDetailActivity.this, commentlist, handler, userList);
                 lvComment.setAdapter(adapter);
             }
 
@@ -390,6 +427,7 @@ public class QuestionDetailActivity extends Activity implements View.OnClickList
 
         }
     };
+
 
     /**
      * 显示或隐藏输入法
@@ -469,6 +507,45 @@ public class QuestionDetailActivity extends Activity implements View.OnClickList
                 setZan();
                 break;
             case R.id.rl_fav:
+                BmobQuery<Favourite> query = new BmobQuery<>();
+                final Favourite favourite = new Favourite();
+                favourite.setUserId(UserPref.get().get(UserPref.KEY_UID));
+                favourite.setPost(post);
+                query.addWhereEqualTo("userId", UserPref.get().get(UserPref.KEY_UID)).addWhereEqualTo("post", post);
+                query.findObjects(QuestionDetailActivity.this, new FindListener<Favourite>() {
+                    @Override
+                    public void onSuccess(List<Favourite> list) {
+                        if (list.contains(favourite)) {
+                            favourite.delete(QuestionDetailActivity.this, new DeleteListener() {
+                                @Override
+                                public void onSuccess() {
+                                    Toast.makeText(QuestionDetailActivity.this, "取消收藏成功", Toast.LENGTH_SHORT).show();
+                                }
+
+                                @Override
+                                public void onFailure(int i, String s) {
+                                    Toast.makeText(QuestionDetailActivity.this, "取消收藏失败", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                            return;
+                        }
+                        favourite.save(QuestionDetailActivity.this, new SaveListener() {
+                            @Override
+                            public void onSuccess() {
+                                Toast.makeText(QuestionDetailActivity.this, "收藏成功", Toast.LENGTH_SHORT).show();
+                            }
+
+                            @Override
+                            public void onFailure(int i, String s) {
+                                Toast.makeText(QuestionDetailActivity.this, "收藏失败", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    }
+
+                    @Override
+                    public void onError(int i, String s) {
+                    }
+                });
                 break;
             default:
                 break;
@@ -481,7 +558,7 @@ public class QuestionDetailActivity extends Activity implements View.OnClickList
     private boolean isEditEmply() {
         reply = commentEdit.getText().toString().trim();
         if (reply.equals("")) {
-            Toast.makeText(getApplicationContext(), "评论不能为空", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "评论已经取消", Toast.LENGTH_SHORT).show();
             return false;
         }
         commentEdit.setText("");
@@ -533,6 +610,14 @@ public class QuestionDetailActivity extends Activity implements View.OnClickList
                             */
                             tv_comment_count.setText(String.valueOf(commentlist.size()));
                             post.setCommentCount(commentlist.size());
+                            if (!post.getOpen()) {
+                                BmobACL acl = new BmobACL();  //创建ACL对象
+                                acl.setReadAccess(post.getAuthor(), true); // 设置当前用户可写的权限
+                                acl.setWriteAccess(post.getAuthor(), true);
+                                acl.setReadAccess(post.getSendPeople(), true);
+                                acl.setWriteAccess(post.getSendPeople(), true);
+                                post.setACL(acl);
+                            }
                             post.update(QuestionDetailActivity.this, post.getObjectId(), new UpdateListener() {
                                 @Override
                                 public void onSuccess() {
@@ -545,10 +630,11 @@ public class QuestionDetailActivity extends Activity implements View.OnClickList
                                 }
                             });
 
+                            userList.add(BmobUser.getCurrentUser(QuestionDetailActivity.this,User.class));
                             if (adapter != null) {
                                 adapter.notifyDataSetChanged();
                             } else {
-                                adapter = new CommentListAdapter(QuestionDetailActivity.this, commentlist, handler);
+                                adapter = new CommentListAdapter(QuestionDetailActivity.this, commentlist, handler, userList);
                                 lvComment.setAdapter(adapter);
                             }
                         }
@@ -597,7 +683,7 @@ public class QuestionDetailActivity extends Activity implements View.OnClickList
                     public void onSuccess() {
                         Toast.makeText(QuestionDetailActivity.this, "回复发表成功！", Toast.LENGTH_SHORT).show();
                         if (adapter == null) {
-                            adapter = new CommentListAdapter(QuestionDetailActivity.this, commentlist, handler);
+                            adapter = new CommentListAdapter(QuestionDetailActivity.this, commentlist, handler, userList);
                         }
                         adapter.notifyDataSetChanged();
 
@@ -663,6 +749,14 @@ public class QuestionDetailActivity extends Activity implements View.OnClickList
             @Override
             public void onSuccess() {
                 post.getExpertReply().setReplyFile(bmobFile);
+                if (!post.getOpen()) {
+                    BmobACL acl = new BmobACL();  //创建ACL对象
+                    acl.setReadAccess(post.getAuthor(), true); // 设置当前用户可写的权限
+                    acl.setWriteAccess(post.getAuthor(), true);
+                    acl.setReadAccess(post.getSendPeople(), true);
+                    acl.setWriteAccess(post.getSendPeople(), true);
+                    post.setACL(acl);
+                }
                 Toast.makeText(QuestionDetailActivity.this, "上传文件成功:" + bmobFile.getFileUrl(QuestionDetailActivity.this), Toast.LENGTH_SHORT).show();
                 post.update(QuestionDetailActivity.this, new UpdateListener() {
                     @Override
@@ -850,6 +944,14 @@ public class QuestionDetailActivity extends Activity implements View.OnClickList
                                 BmobUser user = BmobUser.getCurrentUser(QuestionDetailActivity.this);
                                 BmobRelation relation = new BmobRelation();
                                 relation.remove(user);
+                                if (!post.getOpen()) {
+                                    BmobACL acl = new BmobACL();  //创建ACL对象
+                                    acl.setReadAccess(post.getAuthor(), true); // 设置当前用户可写的权限
+                                    acl.setWriteAccess(post.getAuthor(), true);
+                                    acl.setReadAccess(post.getSendPeople(), true);
+                                    acl.setWriteAccess(post.getSendPeople(), true);
+                                    post.setACL(acl);
+                                }
                                 post.setLike(relation);
                                 post.setMyLove(false);
                                 post.setLove((Integer.parseInt(tv_zan_postcount.getText().toString())) - 1);
@@ -885,12 +987,21 @@ public class QuestionDetailActivity extends Activity implements View.OnClickList
                             BmobRelation like = new BmobRelation();
                             //将当前用户添加到多对多关联中
                             like.add(user);
+                            if (!post.getOpen()) {
+                                BmobACL acl = new BmobACL();  //创建ACL对象
+                                acl.setReadAccess(post.getAuthor(), true); // 设置当前用户可写的权限
+                                acl.setWriteAccess(post.getAuthor(), true);
+                                acl.setReadAccess(post.getSendPeople(), true);
+                                acl.setWriteAccess(post.getSendPeople(), true);
+                                post.setACL(acl);
+                            }
                             post.setLike(like);
                             post.setMyLove(true);
                             post.setLove((Integer.parseInt(tv_zan_postcount.getText().toString())) + 1);
                             post.update(QuestionDetailActivity.this, new UpdateListener() {
                                 @Override
                                 public void onSuccess() {
+
                                     Toast.makeText(QuestionDetailActivity.this, "点赞成功！", Toast.LENGTH_SHORT).show();
                                     Drawable drawable;
                                     drawable = getResources().getDrawable(R.mipmap.zan);

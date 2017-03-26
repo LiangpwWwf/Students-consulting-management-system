@@ -12,8 +12,10 @@ import android.widget.Toast;
 
 import com.example.hin.adapter.ConsultCommonQuestionAdapter;
 import com.example.hin.entity.Post;
+import com.example.hin.entity.User;
 import com.example.hin.system.R;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import cn.bmob.v3.BmobQuery;
@@ -25,6 +27,7 @@ import cn.bmob.v3.listener.FindListener;
 public class FragmentReply extends Fragment implements View.OnClickListener {
 
     private View view;
+    List<String>avatarList=new ArrayList<>();
     private Boolean is;
     private ListView lv_commomquestion;
     private SwipeRefreshLayout swipeLayout;
@@ -68,6 +71,7 @@ public class FragmentReply extends Fragment implements View.OnClickListener {
         //返回50条数据，如果不加上这条语句，默认返回10条数据
         query.setLimit(50);
         query.order("exigency");
+        query.include("author");
         //执行查询方法
         query.findObjects(getContext(), new FindListener<Post>() {
             @Override
@@ -75,7 +79,11 @@ public class FragmentReply extends Fragment implements View.OnClickListener {
                 if (list.size() > 0) {
                     //     Toast.makeText(ConsultCommonQuestionActivity.this, "查询成功", Toast.LENGTH_SHORT).show();
                     post = list;
-                    consultCommonQuestionAdapter = new ConsultCommonQuestionAdapter(getContext(), list);
+                    for(Post p:list){
+                        User author = p.getAuthor();
+                        avatarList.add(author.getAvatar());
+                    }
+                    consultCommonQuestionAdapter = new ConsultCommonQuestionAdapter(getContext(), list,avatarList);
                     lv_commomquestion.setAdapter(consultCommonQuestionAdapter);
                 } else {
                     //    Toast.makeText(ConsultCommonQuestionActivity.this, "暂无数据", Toast.LENGTH_SHORT).show();

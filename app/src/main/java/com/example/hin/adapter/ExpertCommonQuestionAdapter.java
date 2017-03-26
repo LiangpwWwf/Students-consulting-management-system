@@ -33,11 +33,13 @@ public class ExpertCommonQuestionAdapter extends BaseAdapter {
     private List<Experts> mData;
     private LayoutInflater mInflater;
     private Context context;
+    private List<String> avatarList;
 
 
-    public ExpertCommonQuestionAdapter(Context c, List<Experts> data) {
+    public ExpertCommonQuestionAdapter(Context c, List<Experts> data,List<String> avatarList) {
         context = c;
         this.mData = data;
+        this.avatarList=avatarList;
         mInflater = LayoutInflater.from(context);
     }
 
@@ -82,25 +84,7 @@ public class ExpertCommonQuestionAdapter extends BaseAdapter {
             //通过Tag找到缓存布局
             holder = (ViewHolder) convertView.getTag();
         }
-        //设置视图
-        BmobQuery<Post> query = new BmobQuery<>();
-        query.include("user");
-        query.findObjects(context, new FindListener<Post>() {
-            @Override
-            public void onSuccess(List<Post> list) {
-                User user = list.get(list.size() - 1).getAuthor();
-                if (user.getAvatar() != null) {
-                    holder.iv_head.setImageURI(user.getAvatar());
-                }
-            }
-
-            @Override
-            public void onError(int i, String s) {
-
-            }
-        });
-
-
+        holder.iv_head.setImageURI(avatarList.get(position));
         holder.tv_name.setText(mData.get(position).getName());
         holder.tv_field.setText(mData.get(position).getStudy());
 

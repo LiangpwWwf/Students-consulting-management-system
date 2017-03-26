@@ -31,7 +31,7 @@ public class Post extends BmobObject implements Serializable {
     private boolean myLove;//赞
     private int commentCount = 0;//评论数
     private BmobRelation like;
-    private String sendPeople;
+    private User sendPeople;
     private ExpertReply expertReply;
 
     public void setExpertReply(ExpertReply expertReply) {
@@ -42,11 +42,11 @@ public class Post extends BmobObject implements Serializable {
         return expertReply;
     }
 
-    public void setSendPeople(String sendPeople) {
+    public void setSendPeople(User sendPeople) {
         this.sendPeople = sendPeople;
     }
 
-    public String getSendPeople() {
+    public User getSendPeople() {
         return sendPeople;
     }
 

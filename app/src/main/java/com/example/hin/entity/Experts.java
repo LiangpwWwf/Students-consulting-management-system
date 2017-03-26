@@ -18,8 +18,13 @@ public class Experts extends BmobObject {
     private Integer rank;       //学生评价
     private String kind;
     private String username;
+    private User user;
 
-    public String getUsername(){
+    public User getUser() {
+        return user;
+    }
+
+    public String getUsername() {
         return username;
     }
 
@@ -102,6 +107,7 @@ public class Experts extends BmobObject {
     public void setRank(Integer rank) {
         this.rank = rank;
     }
+
     public String getKind() {
         return kind;
     }

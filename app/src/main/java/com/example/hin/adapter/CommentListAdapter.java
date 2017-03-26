@@ -36,16 +36,22 @@ public class CommentListAdapter extends BaseAdapter {
     private Context context;
     private List<Comment> commentList;
     private boolean label = true;
+    private List<User> userList;
 
     private Handler handler, zan_handler;
 
 
     public CommentListAdapter(Context context, List<Comment> commentList, Handler
-            handler) {
+            handler,List<User>userList) {
         this.context = context;
         this.commentList = commentList;
         this.handler = handler;
+        this.userList=userList;
+    }
 
+    @Override
+    public boolean isEnabled(int position) {
+        return false;
     }
 
     @Override
@@ -72,7 +78,6 @@ public class CommentListAdapter extends BaseAdapter {
         }
 
         holder.tvName = (TextView) convertView.findViewById(R.id.tv_name);
-        //     holder.tvName.setText(commentList.get(position).getUser().getSignature());
         holder.tvZan = (TextView) convertView.findViewById(R.id.tv_zan_count);
         holder.tvComment = (TextView) convertView.findViewById(R.id.tv_comment_text);
         holder.tv_zan_count = (TextView) convertView.findViewById(R.id.tv_zan_count);
@@ -97,25 +102,8 @@ public class CommentListAdapter extends BaseAdapter {
         holder.tv_zan_count.setText(String.valueOf(commentList.get(position).getMyLoveNumber()));
         holder.tvComment.setText(commentList.get(position).getCommentContent());
         holder.tv_reply_count.setText(String.valueOf(commentList.get(position).getReplyCount()));
-
-        //设置视图
-        BmobQuery<Comment> query = new BmobQuery<>();
-        query.include("user");
-        query.findObjects(context, new FindListener<Comment>() {
-            @Override
-            public void onSuccess(List<Comment> list) {
-                User user = list.get(list.size() - 1).getUser();
-                if (user.getAvatar() != null) {
-                    holder.sdv_head.setImageURI(user.getAvatar());
-                    holder.tvName.setText(user.getNickname());
-                }
-            }
-
-            @Override
-            public void onError(int i, String s) {
-
-            }
-        });
+        holder.sdv_head.setImageURI(userList.get(position).getAvatar());
+        holder.tvName.setText(userList.get(position).getNickname());
         return convertView;
     }
 
