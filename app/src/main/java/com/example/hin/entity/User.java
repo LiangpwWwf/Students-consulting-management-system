@@ -22,6 +22,10 @@ public class User extends BmobUser {
 		return isExpert;
 	}
 
+	public void setExpert(Boolean expert) {
+		isExpert = expert;
+	}
+
 	public String getSex() {
 		return sex;
 	}

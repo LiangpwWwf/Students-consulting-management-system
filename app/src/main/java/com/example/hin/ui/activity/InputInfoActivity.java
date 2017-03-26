@@ -117,6 +117,7 @@ public class InputInfoActivity extends BaseActivity
                         user.setAvatar(file.getFileUrl(InputInfoActivity.this));
                         user.setUsername(etNo.getText().toString().trim());
                         user.setSex(tvSex.getText().toString().trim());
+                        user.setExpert(false);
                         user.signUp(InputInfoActivity.this, new SaveListener() {
                             @Override
                             public void onSuccess() {
