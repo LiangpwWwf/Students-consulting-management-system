@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.hin.common.DraftPref;
 import com.example.hin.entity.Experts;
 import com.example.hin.entity.Post;
 import com.example.hin.entity.User;
@@ -67,6 +68,26 @@ public class ConsultActivity extends Activity implements View.OnClickListener {
         parseIntent();
         initView();
         getEepert(kind.get(0));
+        loadData();
+    }
+
+    private void loadData() {
+        if (DraftPref.get().getBoolean(DraftPref.KEY_HAS_DRAFT)) {
+            et_title.setText(DraftPref.get().get(DraftPref.KEY_TITLE));
+            tv_kind.setText(DraftPref.get().get(DraftPref.KEY_KIND));
+            tv_topic.setText(DraftPref.get().get(DraftPref.KEY_TOPIC));
+            tv_expert.setText(DraftPref.get().get(DraftPref.KEY_EXPERT));
+            et_content.setText(DraftPref.get().get(DraftPref.KEY_CONTENT));
+            path = DraftPref.get().get(DraftPref.KEY_FILE);
+            TextView picPath = new TextView(ConsultActivity.this);
+            picPath.setText(path);
+            hsv_filename.addView(picPath);
+            flag = DraftPref.get().getInt(DraftPref.KEY_IMPORT);
+            setEmergent();
+            cb_chat.setChecked(DraftPref.get().getBoolean(DraftPref.KEY_FACE));
+            cb_open.setChecked(DraftPref.get().getBoolean(DraftPref.KEY_OPEN));
+            cb_anonymity.setChecked(DraftPref.get().getBoolean(DraftPref.KEY_NONAME));
+        }
     }
 
 
@@ -97,7 +118,6 @@ public class ConsultActivity extends Activity implements View.OnClickListener {
                 public void onSuccess(List<Experts> list) {
                     if (list.size() > 0) {
                         name.clear();
-                        Toast.makeText(ConsultActivity.this, "查询成功", Toast.LENGTH_SHORT).show();
                         expertsList = list;
                         int length = list.size();
                         int i = 0;
@@ -112,7 +132,6 @@ public class ConsultActivity extends Activity implements View.OnClickListener {
                             tv_expert.setText(name.get(0));
 
                     } else {
-                        Toast.makeText(ConsultActivity.this, "暂无数据", Toast.LENGTH_SHORT).show();
                     }
                 }
 
@@ -127,6 +146,7 @@ public class ConsultActivity extends Activity implements View.OnClickListener {
 
     public void initView() {
         findViewById(R.id.iv_upload).setOnClickListener(this);
+        findViewById(R.id.iv_mail).setOnClickListener(this);
         cb_chat = (CheckBox) findViewById(R.id.cb_chat);
         cb_open = (CheckBox) findViewById(R.id.cb_open);
         cb_anonymity = (CheckBox) findViewById(R.id.cb_anonymity);
@@ -299,9 +319,30 @@ public class ConsultActivity extends Activity implements View.OnClickListener {
             case R.id.iv_send:
                 sendPost();
                 break;
+            case R.id.iv_mail:
+                Post post = new Post();
+                post.setTitle(getText(et_title));
+                post.setKind(getText(tv_kind));
+                post.setTopic(getText(tv_topic));
+                post.setExpert(getText(tv_expert));
+                post.setContent(getText(et_content));
+                post.setExigency(flag);
+                post.setInterview(cb_chat.isChecked());
+                post.setOpen(cb_open.isChecked());
+                post.setAnonymity(cb_anonymity.isChecked());
+                DraftPref.get().syncDraft(post, path);
+                finish();
+                break;
             default:
                 break;
         }
+    }
+
+    private String getText(TextView tv) {
+        if (tv != null) {
+            return tv.getText().toString().trim();
+        }
+        return "";
     }
 
     /*
@@ -363,6 +404,8 @@ public class ConsultActivity extends Activity implements View.OnClickListener {
                                 public void onSuccess() {
 
                                     Toast.makeText(ConsultActivity.this, "success", Toast.LENGTH_SHORT).show();
+                                    DraftPref.get().clearInfo();
+                                    DraftPref.get().set(DraftPref.KEY_HAS_DRAFT, false);
                                     finish();
                                 }
 

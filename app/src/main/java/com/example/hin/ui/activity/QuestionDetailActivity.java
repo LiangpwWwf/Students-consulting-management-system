@@ -25,8 +25,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.hin.adapter.CommentListAdapter;
+import com.example.hin.common.UserPref;
 import com.example.hin.entity.Comment;
 import com.example.hin.entity.ExpertReply;
+import com.example.hin.entity.Favourite;
 import com.example.hin.entity.Post;
 import com.example.hin.entity.Reply;
 import com.example.hin.entity.User;
@@ -43,6 +45,7 @@ import cn.bmob.v3.BmobUser;
 import cn.bmob.v3.datatype.BmobFile;
 import cn.bmob.v3.datatype.BmobPointer;
 import cn.bmob.v3.datatype.BmobRelation;
+import cn.bmob.v3.listener.DeleteListener;
 import cn.bmob.v3.listener.DownloadFileListener;
 import cn.bmob.v3.listener.FindListener;
 import cn.bmob.v3.listener.SaveListener;
@@ -80,7 +83,7 @@ public class QuestionDetailActivity extends Activity implements View.OnClickList
     private boolean label = true;
     private Post post;
     private ExpertReply expertReply;
-    private String RESULT_CODE="ISREFRESH";
+    private String RESULT_CODE = "ISREFRESH";
 
 
     @Override
@@ -469,6 +472,45 @@ public class QuestionDetailActivity extends Activity implements View.OnClickList
                 setZan();
                 break;
             case R.id.rl_fav:
+                BmobQuery<Favourite> query = new BmobQuery<>();
+                final Favourite favourite = new Favourite();
+                favourite.setUserId(UserPref.get().get(UserPref.KEY_UID));
+                favourite.setPost(post);
+                query.addWhereEqualTo("userId", UserPref.get().get(UserPref.KEY_UID)).addWhereEqualTo("post", post);
+                query.findObjects(QuestionDetailActivity.this, new FindListener<Favourite>() {
+                    @Override
+                    public void onSuccess(List<Favourite> list) {
+                        if (list.contains(favourite)) {
+                            favourite.delete(QuestionDetailActivity.this, new DeleteListener() {
+                                @Override
+                                public void onSuccess() {
+                                    Toast.makeText(QuestionDetailActivity.this, "取消收藏成功", Toast.LENGTH_SHORT).show();
+                                }
+
+                                @Override
+                                public void onFailure(int i, String s) {
+                                    Toast.makeText(QuestionDetailActivity.this, "取消收藏失败", Toast.LENGTH_SHORT).show();
+                                }
+                            });
+                            return;
+                        }
+                        favourite.save(QuestionDetailActivity.this, new SaveListener() {
+                            @Override
+                            public void onSuccess() {
+                                Toast.makeText(QuestionDetailActivity.this, "收藏成功", Toast.LENGTH_SHORT).show();
+                            }
+
+                            @Override
+                            public void onFailure(int i, String s) {
+                                Toast.makeText(QuestionDetailActivity.this, "收藏失败", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    }
+
+                    @Override
+                    public void onError(int i, String s) {
+                    }
+                });
                 break;
             default:
                 break;

@@ -106,6 +106,10 @@
             android:screenOrientation="portrait"></activity>
 
         <activity
+            android:name="com.example.hin.ui.activity.MyCollectionActivity"
+            android:screenOrientation="portrait" />
+
+        <activity
             android:name="com.example.hin.ui.activity.SelectImageActivity"
             android:screenOrientation="portrait" />
 

@@ -15,6 +15,7 @@ import com.example.hin.Consts.Config;
 import com.example.hin.common.UserPref;
 import com.example.hin.entity.User;
 import com.example.hin.ui.activity.DraftsCollectActivity;
+import com.example.hin.ui.activity.MyCollectionActivity;
 import com.example.hin.ui.activity.MyconsultActivity;
 import com.example.hin.ui.activity.MymessageActivity;
 import com.example.hin.system.R;
@@ -100,8 +101,7 @@ public class FragmentMy extends Fragment implements View.OnClickListener {
                 startActivityForResult(Draftsintent, 0);
                 break;
             case R.id.ll_collect:
-                Intent Collectintent = new Intent(getActivity(), DraftsCollectActivity.class);
-                Collectintent.putExtra("label", "Collect");
+                Intent Collectintent = new Intent(getActivity(), MyCollectionActivity.class);
                 startActivityForResult(Collectintent, 0);
                 break;
             case R.id.ll_set:
