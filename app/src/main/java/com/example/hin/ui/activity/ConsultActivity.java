@@ -375,6 +375,7 @@ public class ConsultActivity extends Activity implements View.OnClickListener {
                     BmobACL acl = new BmobACL();  //创建ACL对象
                     if (cb_open.isChecked()) {
                         acl.setPublicReadAccess(true);    // 设置所有人可读的权限
+                        acl.setPublicWriteAccess(true);    // 设置所有人可读的权限
                     } else {
                         acl.setReadAccess(list.get(list.size() - 1), true); // 设置当前用户可写的权限
                         acl.setWriteAccess(list.get(list.size() - 1), true);
