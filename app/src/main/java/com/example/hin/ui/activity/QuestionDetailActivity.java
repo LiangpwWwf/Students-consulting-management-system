@@ -203,7 +203,6 @@ public class QuestionDetailActivity extends Activity implements View.OnClickList
 
             @Override
             public void onError(int i, String s) {
-                System.out.println("error" + s);
                 ivCollection.setImageResource(R.mipmap.uncollection);
             }
         });

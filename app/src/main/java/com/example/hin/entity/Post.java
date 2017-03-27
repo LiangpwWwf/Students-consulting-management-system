@@ -14,6 +14,7 @@ public class Post extends BmobObject implements Serializable {
     private static final long serialVersionUID = -6280656428527540320L;
 
     private User author;
+    private String userId;
     private String content;
     private BmobFile Contentfigureurl;
     private String title;
@@ -196,7 +197,15 @@ public class Post extends BmobObject implements Serializable {
         return commentCount;
     }
 
-//    @Override
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    //    @Override
 //    public String toString() {
 //        return "Post [author=" + author + ", content=" + content
 //                + ", Contentfigureurl=" + Contentfigureurl + ", love=" + love
