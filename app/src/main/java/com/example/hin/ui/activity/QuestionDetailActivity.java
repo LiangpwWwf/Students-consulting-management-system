@@ -81,7 +81,10 @@ public class QuestionDetailActivity extends Activity implements View.OnClickList
     private final int FILE_SELECT_CODE = 1;
     private String path = null;
     private HorizontalScrollView hsv_uploadfilename, hsv_downloadfilename, hsv_download_replyfilename, hsv_download_replyfilename_up;
-    private RelativeLayout rl_zan, rl_fav;
+    private RelativeLayout rl_zan;
+    private LinearLayout rl_fav;
+    private ImageView ivCollection;
+    private boolean ivIsLike;
     private int zan_label = -1;
     private boolean label = true;
     private Post post;
@@ -144,7 +147,8 @@ public class QuestionDetailActivity extends Activity implements View.OnClickList
         iv_replydownload = (ImageView) findViewById(R.id.iv_replydownload);
         iv_replydownload_up = (ImageView) findViewById(R.id.iv_replydownload_up);
         rl_zan = (RelativeLayout) findViewById(R.id.rl_zan);
-        rl_fav = (RelativeLayout) findViewById(R.id.rl_fav);
+        rl_fav = (LinearLayout) findViewById(R.id.rl_fav);
+        ivCollection = (ImageView) findViewById(R.id.iv_collection);
         tv_zan = (TextView) findViewById(R.id.tv_zan);
         tv_zan_postcount = (TextView) findViewById(R.id.tv_zan_postcount);
 
@@ -179,12 +183,30 @@ public class QuestionDetailActivity extends Activity implements View.OnClickList
 
             @Override
             public void afterTextChanged(Editable s) {
-                if(!commentEdit.getText().toString().isEmpty()){
+                if (!commentEdit.getText().toString().isEmpty()) {
                     commentButton.setText("留言");
                 }
             }
         });
 
+        BmobQuery<Favourite> query = new BmobQuery<>();
+        query.addWhereEqualTo("userId", UserPref.get().get(UserPref.KEY_UID)).addWhereEqualTo("postId", post.getObjectId());
+        query.findObjects(QuestionDetailActivity.this, new FindListener<Favourite>() {
+            @Override
+            public void onSuccess(List<Favourite> list) {
+                if (list.size() > 0) {
+                    ivCollection.setImageResource(R.mipmap.collection);
+                } else {
+                    ivCollection.setImageResource(R.mipmap.uncollection);
+                }
+            }
+
+            @Override
+            public void onError(int i, String s) {
+                System.out.println("error" + s);
+                ivCollection.setImageResource(R.mipmap.uncollection);
+            }
+        });
     }
 
     /*
@@ -510,28 +532,34 @@ public class QuestionDetailActivity extends Activity implements View.OnClickList
                 BmobQuery<Favourite> query = new BmobQuery<>();
                 final Favourite favourite = new Favourite();
                 favourite.setUserId(UserPref.get().get(UserPref.KEY_UID));
+                favourite.setPostId(post.getObjectId());
                 favourite.setPost(post);
-                query.addWhereEqualTo("userId", UserPref.get().get(UserPref.KEY_UID)).addWhereEqualTo("post", post);
+                query.addWhereEqualTo("userId", UserPref.get().get(UserPref.KEY_UID)).addWhereEqualTo("postId", post.getObjectId());
                 query.findObjects(QuestionDetailActivity.this, new FindListener<Favourite>() {
                     @Override
                     public void onSuccess(List<Favourite> list) {
-                        if (list.contains(favourite)) {
-                            favourite.delete(QuestionDetailActivity.this, new DeleteListener() {
-                                @Override
-                                public void onSuccess() {
-                                    Toast.makeText(QuestionDetailActivity.this, "取消收藏成功", Toast.LENGTH_SHORT).show();
-                                }
+                        if (list.size() > 0) {
+                            for (Favourite f : list) {
+                                f.delete(QuestionDetailActivity.this, new DeleteListener() {
+                                    @Override
+                                    public void onSuccess() {
+                                        ivCollection.setImageResource(R.mipmap.uncollection);
+                                        Toast.makeText(QuestionDetailActivity.this, "取消收藏成功", Toast.LENGTH_SHORT).show();
+                                    }
 
-                                @Override
-                                public void onFailure(int i, String s) {
-                                    Toast.makeText(QuestionDetailActivity.this, "取消收藏失败", Toast.LENGTH_SHORT).show();
-                                }
-                            });
-                            return;
+                                    @Override
+                                    public void onFailure(int i, String s) {
+                                        System.out.println("error=" + s);
+                                        Toast.makeText(QuestionDetailActivity.this, "取消收藏失败", Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+                                return;
+                            }
                         }
                         favourite.save(QuestionDetailActivity.this, new SaveListener() {
                             @Override
                             public void onSuccess() {
+                                ivCollection.setImageResource(R.mipmap.collection);
                                 Toast.makeText(QuestionDetailActivity.this, "收藏成功", Toast.LENGTH_SHORT).show();
                             }
 
@@ -630,7 +658,7 @@ public class QuestionDetailActivity extends Activity implements View.OnClickList
                                 }
                             });
 
-                            userList.add(BmobUser.getCurrentUser(QuestionDetailActivity.this,User.class));
+                            userList.add(BmobUser.getCurrentUser(QuestionDetailActivity.this, User.class));
                             if (adapter != null) {
                                 adapter.notifyDataSetChanged();
                             } else {
