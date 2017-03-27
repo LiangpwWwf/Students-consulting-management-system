@@ -9,6 +9,7 @@ import cn.bmob.v3.BmobObject;
 public class Favourite extends BmobObject {
 
     private String userId;
+    private String postId;
     private Post post;
 
     public String getUserId() {
@@ -17,6 +18,14 @@ public class Favourite extends BmobObject {
 
     public void setUserId(String userId) {
         this.userId = userId;
+    }
+
+    public String getPostId() {
+        return postId;
+    }
+
+    public void setPostId(String postId) {
+        this.postId = postId;
     }
 
     public Post getPost() {
