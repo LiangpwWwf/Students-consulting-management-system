@@ -193,7 +193,7 @@ public class SearchActivity extends Activity implements View.OnClickListener {
                         String expert_content = s.toString();
                         Pattern p_expert = Pattern.compile(expert_content);
                         java.util.List<Experts> List_expert = new ArrayList<Experts>();
-                        for (int i = 0; i < topicList.size(); i++) {
+                        for (int i = 0; i < expertList.size(); i++) {
                             String name = expertList.get(i).getName();
                             String file = expertList.get(i).getStudy();
                             Matcher matcher = p_expert.matcher(name + file);

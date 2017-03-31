@@ -301,7 +301,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="15dp"
                     android:layout_marginRight="15dp"
-                    android:background="@drawable/bg_grey_no_s"
                     android:padding="5dp" />
 
 
