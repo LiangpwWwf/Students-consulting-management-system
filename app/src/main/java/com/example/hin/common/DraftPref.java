@@ -42,7 +42,7 @@ public class DraftPref {
     }
 
     public void init(Context context) {
-        prefer = context.getApplicationContext().getSharedPreferences("user", Context.MODE_PRIVATE);
+        prefer = context.getApplicationContext().getSharedPreferences("draft", Context.MODE_PRIVATE);
     }
 
     public boolean syncDraft(Post post, String path) {
