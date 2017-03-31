@@ -15,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.hin.common.DraftPref;
+import com.example.hin.common.UserPref;
 import com.example.hin.entity.Experts;
 import com.example.hin.entity.Post;
 import com.example.hin.entity.User;
@@ -384,6 +385,7 @@ public class ConsultActivity extends Activity implements View.OnClickListener {
 
                     }
                     post.setAuthor(BmobUser.getCurrentUser(ConsultActivity.this, User.class));
+                    post.setUserId(UserPref.get().get(UserPref.KEY_UID));
                     post.setSendPeople(list.get(list.size() - 1));
                     post.setACL(acl);    //设置这条数据的ACL信息
                     post.setTitle(et_title.getText().toString());
