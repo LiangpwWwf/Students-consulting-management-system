@@ -1,10 +1,12 @@
 package com.example.hin.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -12,6 +14,7 @@ import com.example.hin.adapter.ConsultAdapter;
 import com.example.hin.common.UserPref;
 import com.example.hin.entity.Post;
 import com.example.hin.system.R;
+import com.example.hin.ui.activity.QuestionDetailActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,7 +28,7 @@ import cn.bmob.v3.listener.FindListener;
  * Created by WWF on 2017/3/27.
  */
 
-public class ConsultFragment extends BaseFragment {
+public class ConsultFragment extends BaseFragment implements AdapterView.OnItemClickListener {
 
     @BindView(R.id.lv_content)
     ListView lvContent;
@@ -64,6 +67,7 @@ public class ConsultFragment extends BaseFragment {
     private void initView() {
         mAdapter = new ConsultAdapter(getActivity(), data);
         lvContent.setAdapter(mAdapter);
+        lvContent.setOnItemClickListener(this);
         BmobQuery<Post> query = new BmobQuery<>();
         query.addWhereEqualTo("userId", UserPref.get().get(UserPref.KEY_UID));
         query.setLimit(50);
@@ -87,5 +91,13 @@ public class ConsultFragment extends BaseFragment {
                 Toast.makeText(getActivity(), s, Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+        Post post = data.get(i);
+        if (post != null) {
+            startActivity(new Intent(getActivity(), QuestionDetailActivity.class).putExtra("postObject", post));
+        }
     }
 }
