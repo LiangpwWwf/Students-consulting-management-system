@@ -59,9 +59,10 @@ public class ConsultCommonQuestionAdapter extends BaseAdapter {
     }
 
     @Override
-    public View getView(final int position, View convertView, ViewGroup parent) {
+    public View getView( int position, View convertView, ViewGroup parent) {
 
         final ViewHolder holder;
+        final int pos=position;
         //判断是否缓存
         if (convertView == null) {
             holder = new ViewHolder();
@@ -71,7 +72,7 @@ public class ConsultCommonQuestionAdapter extends BaseAdapter {
                 @Override
                 public void onClick(View v) {
                     Bundle bundle = new Bundle();
-                    bundle.putSerializable("postObject", mData.get(position));
+                    bundle.putSerializable("postObject", mData.get((Integer) holder.tv_title.getTag()));
                     Intent intent = new Intent(context, QuestionDetailActivity.class);
                     intent.putExtras(bundle);
                     context.startActivity(intent);
@@ -94,6 +95,7 @@ public class ConsultCommonQuestionAdapter extends BaseAdapter {
         holder.iv_head.setImageURI(avatarList.get(position));
         holder.tv_title.setText(mData.get(position).getTitle());
         holder.tv_date.setText(mData.get(position).getCreatedAt());
+        holder.tv_title.setTag(position);
 
         return convertView;
     }
