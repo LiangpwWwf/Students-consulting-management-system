@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -79,7 +80,9 @@ public class ConsultActivity extends Activity implements View.OnClickListener {
             tv_topic.setText(DraftPref.get().get(DraftPref.KEY_TOPIC));
             tv_expert.setText(DraftPref.get().get(DraftPref.KEY_EXPERT));
             et_content.setText(DraftPref.get().get(DraftPref.KEY_CONTENT));
-            path = DraftPref.get().get(DraftPref.KEY_FILE);
+            if (!TextUtils.isEmpty(DraftPref.get().get(DraftPref.KEY_FILE))) {
+                path = DraftPref.get().get(DraftPref.KEY_FILE);
+            }
             TextView picPath = new TextView(ConsultActivity.this);
             picPath.setText(path);
             hsv_filename.addView(picPath);
@@ -426,7 +429,7 @@ public class ConsultActivity extends Activity implements View.OnClickListener {
 
                 @Override
                 public void onError(int i, String s) {
-
+                    System.out.println("error=" + s);
                 }
             });
         } else {
