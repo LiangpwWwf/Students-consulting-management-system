@@ -59,7 +59,7 @@ public class DraftsCollectActivity extends Activity implements View.OnClickListe
     public void init() {
         if (DraftPref.get().getBoolean(DraftPref.KEY_HAS_DRAFT)) {
             tvTitle.setText(TimeUtils.milliseconds2String(DraftPref.get().getLong(DraftPref.KEY_TIME), new SimpleDateFormat("yyyy/MM/dd HH:mm")));
-            tvContent.setText(DraftPref.get().get(DraftPref.get().get(DraftPref.KEY_TITLE)));
+            tvContent.setText(DraftPref.get().get(DraftPref.KEY_TITLE));
         } else {
             findViewById(R.id.view_draft).setVisibility(View.GONE);
         }
